@@ -1,12 +1,12 @@
-# Fast HTML Parser
+# Fast HTML Parser [![NPM version](https://badge.fury.io/js/fast-html-parser.png)](http://badge.fury.io/js/fast-html-parser) [![Build Status](https://travis-ci.org/ashi009/node-fast-html-parser.svg?branch=master)](https://travis-ci.org/ashi009/node-fast-html-parser)
 
 Fast HTML Parser is a _very fast_ HTML parser. Which will generate a simplified
 DOM tree, with basic element query support.
 
 Per the design, it intends to parse massive HTML files in lowest price, thus the
 performance is the top priority.  For this reason, some malformatted HTML may not
-be able to parse, but most usual errors are covered (eg. HTML4 style no closing
-`<li>`, `<td>` etc).
+be able to parse correctly, but most usual errors are covered (eg. HTML4 style
+no closing `<li>`, `<td>` etc).
 
 ## Install
 
