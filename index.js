@@ -396,7 +396,7 @@ $define(HTMLElement, {
  * Cache to store generated match functions
  * @type {Object}
  */
-var gMatchFunctionCache = {};
+var pMatchFunctionCache = {};
 
 /**
  * Matcher class to make CSS match
@@ -404,8 +404,8 @@ var gMatchFunctionCache = {};
  */
 function Matcher(selector) {
   this.matchers = selector.split(' ').map(function(matcher) {
-    if (gMatchFunctionCache[matcher])
-      return gMatchFunctionCache[matcher];
+    if (pMatchFunctionCache[matcher])
+      return pMatchFunctionCache[matcher];
     var parts = matcher.split('.');
     var tagName = parts[0];
     var classes = parts.slice(1).sort();
@@ -419,7 +419,7 @@ function Matcher(selector) {
     if (classes.length > 0)
       source += 'for (var cls = ' + JSON.stringify(classes) + ', i = 0; i < cls.length; i++) if (el.classNames.indexOf(cls[i]) === -1) return false;';
     source += 'return true;';
-    return gMatchFunctionCache[matcher] = new Function('el', source);
+    return pMatchFunctionCache[matcher] = new Function('el', source);
   });
   this.nextMatch = 0;
 }
@@ -463,7 +463,7 @@ $define(Matcher, {
    * flush cache to free memory
    */
   flushCache: function() {
-    gMatchFunctionCache = {};
+    pMatchFunctionCache = {};
   }
 });
 

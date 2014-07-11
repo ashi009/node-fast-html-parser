@@ -62,7 +62,7 @@ describe('HTML Parser', function() {
 
   var parseHTML = HTMLParser.parse;
 
-  describe('parse', function() {
+  describe('parse()', function() {
 
     it('should parse "<p id=\\"id\\"><a class=\'cls\'>Hello</a><ul><li><li></ul><span></span></p>" and return root element', function() {
 
@@ -119,16 +119,18 @@ describe('HTML Parser', function() {
 
     it('should extract text in script and style when ask so', function() {
 
-      var root = parseHTML('<script>1</script><style>2</style>', {
+      var root = parseHTML('<script>1</script><style>2&amp;</style>', {
         script: true,
         style: true
       });
 
       root.firstChild.childNodes.should.not.be.empty;
       root.firstChild.childNodes.should.eql([new TextNode('1')]);
+      root.firstChild.text.should.eql('1');
       root.lastChild.childNodes.should.not.be.empty;
-      root.lastChild.childNodes.should.eql([new TextNode('2')]);
-
+      root.lastChild.childNodes.should.eql([new TextNode('2&amp;')]);
+      root.lastChild.text.should.eql('2&');
+      root.lastChild.rawText.should.eql('2&amp;');
     });
 
     it('should be able to parse "html/incomplete-script" file', function() {
@@ -159,7 +161,7 @@ describe('HTML Parser', function() {
 
   describe('TextNode', function() {
 
-    describe('isWhitespace', function() {
+    describe('#isWhitespace', function() {
       var node = new TextNode('');
       node.isWhitespace.should.be.ok;
       node = new TextNode(' \t');
@@ -172,7 +174,7 @@ describe('HTML Parser', function() {
 
   describe('HTMLElement', function() {
 
-    describe('removeWhitespace', function() {
+    describe('#removeWhitespace()', function() {
 
       it('should remove whitespaces while preserving nodes with content', function() {
 
@@ -188,7 +190,7 @@ describe('HTML Parser', function() {
 
     });
 
-    describe('rawAttributes', function() {
+    describe('#rawAttributes', function() {
 
       it('should return escaped attributes of the element', function() {
 
@@ -204,7 +206,7 @@ describe('HTML Parser', function() {
 
     });
 
-    describe('attributes', function() {
+    describe('#attributes', function() {
 
       it('should return attributes of the element', function() {
 
@@ -220,7 +222,7 @@ describe('HTML Parser', function() {
 
     });
 
-    describe('querySelectorAll', function() {
+    describe('#querySelectorAll()', function() {
 
       it('should return correct elements in DOM tree', function() {
 
@@ -237,7 +239,7 @@ describe('HTML Parser', function() {
 
     });
 
-    describe('structuredText', function() {
+    describe('#structuredText', function() {
 
       it('should return correct structured text', function() {
 

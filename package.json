@@ -4,7 +4,9 @@
   "description": "A very fast HTML parser, generating a simplified DOM, with basic element query support.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "posttest": "mocha -R travis-cov",
+    "coverage": "mocha -R html-cov > coverage.html"
   },
   "author": "Xiaoyi Shi <ashi009@gmail.com>",
   "license": "MIT",
@@ -14,6 +16,16 @@
   },
   "devDependencies": {
     "mocha": "*",
-    "should": "*"
+    "should": "*",
+    "blanket": "*",
+    "travis-cov": "*"
+  },
+  "config": {
+    "blanket": {
+      "pattern": "index.js"
+    },
+    "travis-cov": {
+      "threshold": 70
+    }
   }
 }
