@@ -1,0 +1,598 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<script type="text/javascript">var NREUMQ=NREUMQ||[];NREUMQ.push(["mark","firstbyte",new Date().getTime()]);</script>
+<link rel="canonical" type="" href="http://www.ssense.com/women/designers/all/backpacks" />
+<link rel="alternate" hreflang="fr" href="http://www.ssense.com/fr/women/designers/all/backpacks" />
+
+
+<link rel="icon" type="image/png" href="/frontend/images/gui/ssense_icon.png">
+<link rel="stylesheet" type="text/css" href="http://www.ssense.com/frontend/css/frontend_v2.1.1.css"><link rel="stylesheet" type="text/css" href="http://www.ssense.com/frontend/css/sale.animation.css"><link rel="stylesheet" type="text/css" href="http://www.ssense.com/frontend/css/browsing.css">
+<title>Designer Backpacks for women | Leather & Textile Backpacks | SSENSE</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame -->
+<!--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />-->
+<meta name="description" content="Shop designer backpacks for women online at SSENSE. Discover our selection of luxury backpacks from Alexander Wang, Versus and other leading fashion brands." />
+<meta name="author" content="SSENSE" />
+<meta name="copyright" content="SSENSE" />
+<link rel="apple-touch-icon" href="http://www.ssense.com/nl/icons/apple-touch-icon.png" />
+
+
+
+<script type="text/javascript" src="http://www.ssense.com/frontend/js/jquery-1.8.1.min.js"></script>
+
+
+<script type="text/javascript" src="http://www.ssense.com/frontend/js/jquery.scrollTo-1.4.2-min.js"></script>
+
+
+<script type="text/javascript" src="http://www.ssense.com/frontend/js/jquery.localscroll-1.2.7-min.js"></script>
+
+
+<script type="text/javascript" src="http://www.ssense.com/frontend/js/jq_indexFilter.js"></script>
+
+
+<script type="text/javascript" src="http://www.ssense.com/frontend/js/jq_showBack.js"></script>
+
+
+<script type="text/javascript" src="http://www.ssense.com/frontend/js/jq_designerProfile.js"></script>
+
+
+<script type="text/javascript" src="http://www.ssense.com/frontend/js/jq_cp_menu.js"></script>
+
+
+<script type="text/javascript" src="http://www.ssense.com/frontend/js/jq_detectWin.js"></script>
+
+
+<script type="text/javascript" src="http://www.ssense.com/frontend/js/messages.js"></script>
+
+
+<script type="text/javascript" src="http://www.ssense.com/frontend/js/adjust.js"></script>
+
+
+<script type="text/javascript" src="http://www.ssense.com/frontend/js/jq_clearSearch.js"></script>
+
+
+<script type="text/javascript" src="http://www.ssense.com/frontend/js/jquery.common.js"></script>
+
+
+<script type="text/javascript" src="http://www.ssense.com/frontend/js/jquery.utilities.js"></script>
+
+
+<script type="text/javascript" src="http://www.ssense.com/js/common.js"></script>
+
+
+<script type="text/javascript" src="http://www.ssense.com/frontend/js/jq_browsing.js"></script>
+
+
+<script type="text/javascript" src="http://www.ssense.com/frontend/js/sale.animation.v2.js?v1.3"></script>
+
+
+
+<!--[if IE]>
+<script src="http://www.ssense.com/frontend/js/html5.js"></script>
+<![endif]-->
+<script type="text/javascript">
+  /*$(function() {
+    $( "#tabs" ).tabs();
+  });
+
+  $(function() {
+    $( "#radio" ).buttonset();
+  });
+  */
+</script>
+<script type='text/javascript'>
+  var pixelRatio = (window.devicePixelRatio >= 1.5) ? 'high' : 'normal';
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-519637-1']);
+  _gaq.push(['_setCustomVar', 1, 'Pixel Ratio', pixelRatio, 2 ]);
+  _gaq.push(['_setCustomVar', 2, 'Language','Anglophone' , 2 ]);
+  _gaq.push(['_setCustomVar', 3, 'Image Served Density', 'low', 2 ]);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+<!--<meta http-equiv="X-UA-Compatible" content="IE=8" />-->
+</head>
+<body id="cp" >
+
+<div class="page">
+<div class="header">
+            <a id="logo" href="http://www.ssense.com"><img style="height: 20px; width:126px" class="main_logo"  src="http://www.ssense.com/frontend/images/gui/ssense_header_logo.png"  alt="Designer clothing, luxury shoes & fashion accessories online | SSENSE"></a>
+        <nav class="gender">
+            <a id="nav_men" href="http://www.ssense.com/men" class="">Men</a>
+            <a id="nav_women" href="http://www.ssense.com/women" class="selected">Women</a>
+        </nav>
+        <nav class="centre">
+
+            <input value="Search" id="searchbox" class="search mp_hide" name="Search">
+            <input type="hidden" value="http://www.ssense.com/women/search" id="searchURL" name="searchURL">
+          <!--<a href="http://www.ssense.com/#mp_d_index_w">Designer Index</a> -->
+            <!--<a href="#" onclick="sortProducts('NEWEST')" class="">New Arrivals</a>-->
+
+            <a href="http://www.ssense.com/women/sale" onclick="if(typeof window.sortProducts == 'function'){sortProducts('SALE', 'http://www.ssense.com/women/sale'); return false;}" class=""><span class="shop-sale">Sale</span></a>
+
+
+        </nav>
+        <nav class="right_top">
+          <a href="http://www.ssense.com/fr/women/designers/all/backpacks">fran&ccedil;ais</a>
+            <a href="http://www.ssense.com/newsletter_signup">Newsletter Signup</a>
+            <a href="http://www.ssense.com/customer_service">Help</a>
+
+            <a href="http://www.ssense.com/login">Login</a>
+
+
+            <a href="http://www.ssense.com/shopping_bag">Shopping Bag</a> <span id="shoppingBagCount"></span>
+        </nav>
+      <nav class="right_bottom"></nav>
+    </div>
+<div>
+    <div id="menu"></div>
+    <div><div class="content">
+  <nav id="cp_menu">
+    <header><h1>
+    <a href="http://www.ssense.com/women/designers/all/backpacks">BACKPACKS //</a>
+    </h1></header>
+
+<section style="margin-top:0px"><section>
+  <ul id="cp_menu_categories">
+        <li><a href="http://www.ssense.com/women" class="noselected">All Categories</a></li>
+
+            <li class="cp_menu_cat_button"><a href="http://www.ssense.com/women/designers/all/bags" class="noselected">BAGS</a></li>
+            <ul class="cp_menu_cat_panel" style="display:block;">
+
+                <li><a href="http://www.ssense.com/women/designers/all/backpacks" class="selected">BACKPACKS</a></li>
+
+                <li><a href="http://www.ssense.com/women/designers/all/clutch" class="noselected">CLUTCH</a></li>
+
+                <li><a href="http://www.ssense.com/women/designers/all/duffle_bags" class="noselected">DUFFLE BAGS</a></li>
+
+                <li><a href="http://www.ssense.com/women/designers/all/hobo" class="noselected">HOBO</a></li>
+
+                <li><a href="http://www.ssense.com/women/designers/all/laptop_bags" class="noselected">LAPTOP BAGS</a></li>
+
+                <li><a href="http://www.ssense.com/women/designers/all/messenger_bags" class="noselected">MESSENGER BAGS</a></li>
+
+                <li><a href="http://www.ssense.com/women/designers/all/shoulder_bag" class="noselected">SHOULDER BAG</a></li>
+
+                <li><a href="http://www.ssense.com/women/designers/all/tote" class="noselected">TOTE</a></li>
+
+                <li><a href="http://www.ssense.com/women/designers/all/travel_bags" class="noselected">TRAVEL BAGS</a></li>
+
+                <li><a href="http://www.ssense.com/women/designers/all/wallets" class="noselected">WALLETS</a></li>
+
+            </ul>
+
+            <li class="cp_menu_cat_button"><a href="http://www.ssense.com/women/designers/all/belts_and_suspenders" class="noselected">BELTS AND SUSPENDERS</a></li>
+            <ul class="cp_menu_cat_panel" style="display:none;">
+
+            </ul>
+
+            <li class="cp_menu_cat_button"><a href="http://www.ssense.com/women/designers/all/boots" class="noselected">BOOTS</a></li>
+            <ul class="cp_menu_cat_panel" style="display:none;">
+
+            </ul>
+
+            <li class="cp_menu_cat_button"><a href="http://www.ssense.com/women/designers/all/dresses" class="noselected">DRESSES</a></li>
+            <ul class="cp_menu_cat_panel" style="display:none;">
+
+                <li><a href="http://www.ssense.com/women/designers/all/long_dresses" class="noselected">LONG DRESSES</a></li>
+
+                <li><a href="http://www.ssense.com/women/designers/all/short_dresses" class="noselected">SHORT DRESSES</a></li>
+
+            </ul>
+
+            <li class="cp_menu_cat_button"><a href="http://www.ssense.com/women/designers/all/flats" class="noselected">FLATS</a></li>
+            <ul class="cp_menu_cat_panel" style="display:none;">
+
+            </ul>
+
+            <li class="cp_menu_cat_button"><a href="http://www.ssense.com/women/designers/all/gloves" class="noselected">GLOVES</a></li>
+            <ul class="cp_menu_cat_panel" style="display:none;">
+
+            </ul>
+
+            <li class="cp_menu_cat_button"><a href="http://www.ssense.com/women/designers/all/hats" class="noselected">HATS</a></li>
+            <ul class="cp_menu_cat_panel" style="display:none;">
+
+            </ul>
+
+            <li class="cp_menu_cat_button"><a href="http://www.ssense.com/women/designers/all/heels" class="noselected">HEELS</a></li>
+            <ul class="cp_menu_cat_panel" style="display:none;">
+
+            </ul>
+
+            <li class="cp_menu_cat_button"><a href="http://www.ssense.com/women/designers/all/jeans" class="noselected">JEANS</a></li>
+            <ul class="cp_menu_cat_panel" style="display:none;">
+
+            </ul>
+
+            <li class="cp_menu_cat_button"><a href="http://www.ssense.com/women/designers/all/jewelry" class="noselected">JEWELRY</a></li>
+            <ul class="cp_menu_cat_panel" style="display:none;">
+
+                <li><a href="http://www.ssense.com/women/designers/all/bracelets" class="noselected">BRACELETS</a></li>
+
+                <li><a href="http://www.ssense.com/women/designers/all/earrings" class="noselected">EARRINGS</a></li>
+
+                <li><a href="http://www.ssense.com/women/designers/all/keychains" class="noselected">KEYCHAINS</a></li>
+
+                <li><a href="http://www.ssense.com/women/designers/all/necklaces" class="noselected">NECKLACES</a></li>
+
+                <li><a href="http://www.ssense.com/women/designers/all/pins" class="noselected">PINS</a></li>
+
+                <li><a href="http://www.ssense.com/women/designers/all/rings" class="noselected">RINGS</a></li>
+
+            </ul>
+
+            <li class="cp_menu_cat_button"><a href="http://www.ssense.com/women/designers/all/jumpsuits" class="noselected">JUMPSUITS</a></li>
+            <ul class="cp_menu_cat_panel" style="display:none;">
+
+            </ul>
+
+            <li class="cp_menu_cat_button"><a href="http://www.ssense.com/women/designers/all/outerwear" class="noselected">OUTERWEAR</a></li>
+            <ul class="cp_menu_cat_panel" style="display:none;">
+
+                <li><a href="http://www.ssense.com/women/designers/all/blazers" class="noselected">BLAZERS</a></li>
+
+                <li><a href="http://www.ssense.com/women/designers/all/coats" class="noselected">COATS</a></li>
+
+                <li><a href="http://www.ssense.com/women/designers/all/jackets" class="noselected">JACKETS</a></li>
+
+                <li><a href="http://www.ssense.com/women/designers/all/leathers" class="noselected">LEATHERS</a></li>
+
+                <li><a href="http://www.ssense.com/women/designers/all/vests" class="noselected">VESTS</a></li>
+
+            </ul>
+
+            <li class="cp_menu_cat_button"><a href="http://www.ssense.com/women/designers/all/pants" class="noselected">PANTS</a></li>
+            <ul class="cp_menu_cat_panel" style="display:none;">
+
+                <li><a href="http://www.ssense.com/women/designers/all/cargos" class="noselected">CARGOS</a></li>
+
+                <li><a href="http://www.ssense.com/women/designers/all/chinos" class="noselected">CHINOS</a></li>
+
+                <li><a href="http://www.ssense.com/women/designers/all/corduroy" class="noselected">CORDUROY</a></li>
+
+                <li><a href="http://www.ssense.com/women/designers/all/harem" class="noselected">HAREM PANTS</a></li>
+
+                <li><a href="http://www.ssense.com/women/designers/all/leggings" class="noselected">LEGGINGS</a></li>
+
+                <li><a href="http://www.ssense.com/women/designers/all/lounge_pants" class="noselected">LOUNGE PANTS</a></li>
+
+                <li><a href="http://www.ssense.com/women/designers/all/trousers" class="noselected">TROUSERS</a></li>
+
+            </ul>
+
+            <li class="cp_menu_cat_button"><a href="http://www.ssense.com/women/designers/all/sandals" class="noselected">SANDALS</a></li>
+            <ul class="cp_menu_cat_panel" style="display:none;">
+
+            </ul>
+
+            <li class="cp_menu_cat_button"><a href="http://www.ssense.com/women/designers/all/scarves" class="noselected">SCARVES</a></li>
+            <ul class="cp_menu_cat_panel" style="display:none;">
+
+            </ul>
+
+            <li class="cp_menu_cat_button"><a href="http://www.ssense.com/women/designers/all/shirts" class="noselected">SHIRTS</a></li>
+            <ul class="cp_menu_cat_panel" style="display:none;">
+
+                <li><a href="http://www.ssense.com/women/designers/all/blouses" class="noselected">BLOUSES</a></li>
+
+                <li><a href="http://www.ssense.com/women/designers/all/polos" class="noselected">POLOS</a></li>
+
+                <li><a href="http://www.ssense.com/women/designers/all/t-shirts" class="noselected">T-SHIRTS</a></li>
+
+                <li><a href="http://www.ssense.com/women/designers/all/tank_tops" class="noselected">TANK TOPS</a></li>
+
+            </ul>
+
+            <li class="cp_menu_cat_button"><a href="http://www.ssense.com/women/designers/all/shorts" class="noselected">SHORTS</a></li>
+            <ul class="cp_menu_cat_panel" style="display:none;">
+
+            </ul>
+
+            <li class="cp_menu_cat_button"><a href="http://www.ssense.com/women/designers/all/skirts" class="noselected">SKIRTS</a></li>
+            <ul class="cp_menu_cat_panel" style="display:none;">
+
+            </ul>
+
+            <li class="cp_menu_cat_button"><a href="http://www.ssense.com/women/designers/all/sneakers" class="noselected">SNEAKERS</a></li>
+            <ul class="cp_menu_cat_panel" style="display:none;">
+
+            </ul>
+
+            <li class="cp_menu_cat_button"><a href="http://www.ssense.com/women/designers/all/sunglasses" class="noselected">SUNGLASSES</a></li>
+            <ul class="cp_menu_cat_panel" style="display:none;">
+
+            </ul>
+
+            <li class="cp_menu_cat_button"><a href="http://www.ssense.com/women/designers/all/sweaters" class="noselected">SWEATERS</a></li>
+            <ul class="cp_menu_cat_panel" style="display:none;">
+
+                <li><a href="http://www.ssense.com/women/designers/all/cardigans" class="noselected">CARDIGANS</a></li>
+
+                <li><a href="http://www.ssense.com/women/designers/all/crewnecks" class="noselected">CREWNECKS</a></li>
+
+                <li><a href="http://www.ssense.com/women/designers/all/hooded" class="noselected">HOODED</a></li>
+
+                <li><a href="http://www.ssense.com/women/designers/all/turtlenecks" class="noselected">TURTLENECKS</a></li>
+
+                <li><a href="http://www.ssense.com/women/designers/all/v-necks" class="noselected">V-NECKS</a></li>
+
+                <li><a href="http://www.ssense.com/women/designers/all/zipups" class="noselected">ZIPUPS</a></li>
+
+            </ul>
+
+            <li class="cp_menu_cat_button"><a href="http://www.ssense.com/women/designers/all/swimwear" class="noselected">SWIMWEAR</a></li>
+            <ul class="cp_menu_cat_panel" style="display:none;">
+
+            </ul>
+
+            <li class="cp_menu_cat_button"><a href="http://www.ssense.com/women/designers/all/underwear" class="noselected">UNDERWEAR</a></li>
+            <ul class="cp_menu_cat_panel" style="display:none;">
+
+                <li><a href="http://www.ssense.com/women/designers/all/bras" class="noselected">BRAS</a></li>
+
+                <li><a href="http://www.ssense.com/women/designers/all/briefs" class="noselected">BRIEFS</a></li>
+
+                <li><a href="http://www.ssense.com/women/designers/all/socks" class="noselected">SOCKS</a></li>
+
+                <li><a href="http://www.ssense.com/women/designers/all/thongs" class="noselected">THONGS</a></li>
+
+            </ul>
+
+    </ul>
+</section></section>
+
+<section><section>
+    <ul class="cp_menu_designers_panels">
+      <li><a href="http://www.ssense.com/women/designers/all/backpacks" class="selected">All Designers</a></li>
+
+        <li><a href="http://www.ssense.com/women/designers/christopher_kane/backpacks" class="noselected">CHRISTOPHER KANE</a></li>
+
+        <li><a href="http://www.ssense.com/women/designers/marc_by_marc_jacobs/backpacks" class="noselected">MARC BY MARC JACOBS</a></li>
+
+        <li><a href="http://www.ssense.com/women/designers/versus/backpacks" class="noselected">VERSUS</a></li>
+
+        <li><a href="http://www.ssense.com/women/designers/want_les_essentiels_de_la_vie/backpacks" class="noselected">WANT LES ESSENTIELS DE LA VIE</a></li>
+
+    </ul>
+</section></section>
+
+<div class="sort-menus">
+
+  <!-- <section class="shop-by-size"><section class="sort-results">
+    <section>
+        <a class="cp_menu_sort_button">▼ Sort Results</a>
+        <ul class="cp_menu_sort_panel">
+
+            <a href="#" onclick="sortProducts('PRICEUP')" class="noselected PRICEUP"><li>Price: High to Low</li></a>
+
+            <a href="#" onclick="sortProducts('PRICEDOWN')" class="noselected PRICEDOWN"><li>Price: Low to High</li></a>
+
+            <a href="#" onclick="sortProducts('DISCOUNTUP')" class="noselected DISCOUNTUP"><li>Discount: High to Low</li></a>
+
+            <a href="#" onclick="sortProducts('DISCOUNTDOWN')" class="noselected DISCOUNTDOWN"><li>Discount: Low to High</li></a>
+
+            <a href="#" onclick="sortProducts('OLDEST')" class="noselected OLDEST"><li>Date: Old to New</li></a>
+
+            <a href="#" onclick="sortProducts('NEWEST')" class="noselected NEWEST"><li>Date: New to Old</li></a>
+
+        </ul>
+    </section>
+</section></section> -->
+  <section class="sort-results">
+    <section>
+        <a class="cp_menu_sort_button">▼ Sort Results</a>
+        <ul class="cp_menu_sort_panel">
+
+            <a href="#" onclick="sortProducts('PRICEUP')" class="noselected PRICEUP"><li>Price: High to Low</li></a>
+
+            <a href="#" onclick="sortProducts('PRICEDOWN')" class="noselected PRICEDOWN"><li>Price: Low to High</li></a>
+
+            <a href="#" onclick="sortProducts('DISCOUNTUP')" class="noselected DISCOUNTUP"><li>Discount: High to Low</li></a>
+
+            <a href="#" onclick="sortProducts('DISCOUNTDOWN')" class="noselected DISCOUNTDOWN"><li>Discount: Low to High</li></a>
+
+            <a href="#" onclick="sortProducts('OLDEST')" class="noselected OLDEST"><li>Date: Old to New</li></a>
+
+            <a href="#" onclick="sortProducts('NEWEST')" class="noselected NEWEST"><li>Date: New to Old</li></a>
+
+        </ul>
+    </section>
+</section>
+</div>
+  </nav>
+  <ul id="productList" class="cp_listing clearfix">
+
+    <input type="hidden" value="#" name="prePage" id="prePage"/>
+    <input type="hidden" value="#" name="nextPage" id="nextPage"/>
+    <li class="cp_item">
+    <a href="http://www.ssense.com/women/product/marc_by_marc_jacobs/purple_multicolor_graphic_printed_pretty_nylon_backpack/74672">
+      <img class="show_back" src="http://cdn0.ssense.com/photos/women/03/2/3/32068F063001_1_3.jpg" alt="MARC BY MARC JACOBS Purple Multicolor Graphic Printed Pretty Nylon Backpack">
+      <p>MARC BY MARC JACOBS</p>
+      <p>Purple Multicolor Graphic Printed Pretty Nylon Backpack</p>
+      <p>
+        <span id="regularPrice" style="color: #AAAAAA; text-decoration: line-through"></span>
+                <span id="salePrice" style="color: #AAAAAA; text-decoration: line-through"></span> $200
+      </p>
+    </a>
+  </li>
+
+  <li class="cp_item">
+    <a href="http://www.ssense.com/women/product/christopher_kane/blue_floral_embroided_velvet_backpack/79044">
+      <img class="show_back" src="http://cdn0.ssense.com/photos/women/03/2/3/32170F063001_1_3.jpg" alt="CHRISTOPHER KANE Blue floral Embroided Velvet Backpack">
+      <p>CHRISTOPHER KANE</p>
+      <p>Blue floral Embroided Velvet Backpack</p>
+      <p>
+        <span id="regularPrice" style="color: #AAAAAA; text-decoration: line-through"></span>
+                <span id="salePrice" style="color: #AAAAAA; text-decoration: line-through"></span> $1715
+      </p>
+    </a>
+  </li>
+
+  <li class="cp_item">
+    <a href="http://www.ssense.com/women/product/versus/black_patent_and_mesh_backpack/73443">
+      <img class="show_back" src="http://cdn0.ssense.com/photos/women/03/1/3/31403F063003_1_3.jpg" alt="VERSUS Black patent and mesh Backpack">
+      <p>VERSUS</p>
+      <p>Black patent and mesh Backpack</p>
+      <p>
+        <span id="regularPrice" style="color: #AAAAAA; text-decoration: line-through">$845</span>
+                <span id="salePrice" style="color: #AAAAAA; text-decoration: line-through"></span> $254
+      </p>
+    </a>
+  </li>
+
+  <li class="cp_item">
+    <a href="http://www.ssense.com/women/product/want_les_essentiels_de_la_vie/black_and_white_leather_trimmed_kastrup_backpack/69923">
+      <img class="show_back" src="http://cdn0.ssense.com/photos/women/03/1/3/31315F063001_1_3.jpg" alt="WANT LES ESSENTIELS DE LA VIE Black & White Leather trimmed Kastrup Backpack">
+      <p>WANT LES ESSENTIELS DE LA VIE</p>
+      <p>Black & White Leather trimmed Kastrup Backpack</p>
+      <p>
+        <span id="regularPrice" style="color: #AAAAAA; text-decoration: line-through"></span>
+                <span id="salePrice" style="color: #AAAAAA; text-decoration: line-through"></span> $525
+      </p>
+    </a>
+  </li>
+  </ul>
+
+  <div class="designer_profile clearfix"></div>
+  <div class="back-to-top">
+    <a href="#">
+      <span class="arrow">&#9650;</span>
+      <span class="text">Top</span>
+    </a>
+  </div>
+</div>
+<!--<map name="Map">
+<area shape="rect" coords="0,0,1280,256" href="http://www.ssense.com/men/campaign/save20">
+<area shape="rect" coords="1280,0,2560,256" href="http://www.ssense.com/women/campaign/save20"></map>--></div>
+</div>
+<div class="footer_push" id="footer_push"></div>
+</div>
+<div id="footer"><div class="footer">
+
+
+  <section class="clearfix" style="min-height:111px;">
+
+    <div>
+      <header>
+        <h4>Account</h4>
+      </header>
+      <section>
+        <ul>
+
+          <li><a href="http://www.ssense.com/login">Login</a></li>
+
+
+          <li><a href="http://www.ssense.com/shopping_bag">Shopping Bag <span id="shoppingBagCountF"></span></a></li>
+          <li><a href="http://www.ssense.com/newsletter_signup">Newsletter Sign Up</a></li>
+        </ul>
+      </section>
+    </div>
+
+    <div>
+      <header>
+        <h4>Customer Service</h4>
+      </header>
+      <section>
+        <ul>
+          <li><a href="http://www.ssense.com/customer_service">Help &amp; Contact</a></li>
+          <li><a href="http://www.ssense.com/customer_service#0XX0">Shipping &amp; Taxes</a></li>
+          <li><a href="http://www.ssense.com/customer_service#0YY0">Return Policy</a></li>
+          <li><a href="http://www.ssense.com/careers">Careers</a></li>
+          <li><a href="http://www.ssense.com/affiliates">Affiliates</a></li>
+        </ul>
+      </section>
+    </div>
+
+    <!--div>
+      <header>
+        <h4>Style</h4>
+      </header>
+      <section>
+        <ul>
+          <li><a href="http://www.ssense.com/#mp_d_index_w">Designer Index</a></li>
+          <li><a href="http://www.ssense.com/#mp_d_index_w">Fashion Index</a></li>
+        </ul>
+      </section>
+    </div-->
+    <div>
+      <header>
+          <h4>Gifts</h4>
+        </header>
+        <section>
+          <ul>
+        <li><a href="http://www.ssense.com/gift">Gift Cards</a></li>
+          </ul>
+        </section>
+    </div>
+
+    <div>
+      <header>
+        <h4>Social</h4>
+      </header>
+            <section>
+                <ul>
+                    <li><a href="http://facebook.com/ssenseofficial" target="_blank">Facebook</a></li>
+                    <li><a href="http://twitter.com/ssense" target="_blank">Twitter</a></li>
+                    <li><a href="http://instagram.com/ssense" target="_blank">Instagram</a></li>
+                </ul>
+            </section>
+    </div>
+    <!--<div class="like">
+     <iframe src="http://www.facebook.com/plugins/like.php?href=www.facebook.com/pages/SSENSE/34888244242&amp;layout=button_count&amp;show_faces=false&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=35" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:35px; background-color:#000" allowTransparency="true"></iframe>
+    </div>-->
+  </section>
+  <section id="copyright">
+    <p>Copyright &copy; 2013 SSENSE.COM All Rights Reserved<a href="http://www.ssense.com/privacy_policy">Privacy policy</a><a href="http://www.ssense.com/terms_conditions">Terms and conditions</a></p>
+  </section>
+<!-- Google Code for Women - Visit Remarketing List -->
+                  <script type="text/javascript">
+                  /* <![CDATA[ */
+                  var google_conversion_id = 1063827787;
+                  var google_conversion_language = "en";
+                  var google_conversion_format = "3";
+                  var google_conversion_color = "666666";
+                  var google_conversion_label = "bYS0CIGtywEQy_Ki-wM";
+                  var google_conversion_value = 0;
+                  /* ]]> */
+                  </script>
+                  <script type="text/javascript" src="http://www.googleadservices.com/pagead/conversion.js">
+                  </script>
+                  <noscript>
+                  <div style="display:inline;">
+                  <img height="1" width="1" style="border-style:none;" alt="" src="http://www.googleadservices.com/pagead/conversion/1063827787/?label=bYS0CIGtywEQy_Ki-wM&amp;guid=ON&amp;script=0"/>
+                  </div>
+                  </noscript>
+</div>
+
+<script async = "true" src="http://connect.facebook.net/en_US/all.js#appId=128634087215623&amp;xfbml=1"></script></div>
+<script type="text/javascript">
+adroll_adv_id = "EYEMMEIFTBDN7HKKZOJ7NO";
+adroll_pix_id = "7DRPK6RKHNCUNL3OHFQD2Q";
+(function () {
+var oldonload = window.onload;
+window.onload = function(){
+   __adroll_loaded=true;
+   var scr = document.createElement("script");
+   var host = (("https:" == document.location.protocol) ? "https://s.adroll.com" : "http://a.adroll.com");
+   scr.setAttribute('async', 'true');
+   scr.type = "text/javascript";
+   scr.src = host + "/j/roundtrip.js";
+   ((document.getElementsByTagName('head') || [null])[0] ||
+    document.getElementsByTagName('script')[0].parentNode).appendChild(scr);
+   if(oldonload){oldonload()}};
+}());
+</script>
+<script type="text/javascript">
+setTimeout(function(){var a=document.createElement("script");
+var b=document.getElementsByTagName('script')[0];
+a.src=document.location.protocol+"//dnn506yrbagrg.cloudfront.net/pages/scripts/0012/1640.js?"+Ma
