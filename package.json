@@ -22,7 +22,8 @@
   },
   "config": {
     "blanket": {
-      "pattern": "index.js"
+      "pattern": "index.js",
+      "data-cover-never": ["node_modules"]
     },
     "travis-cov": {
       "threshold": 70
