@@ -486,6 +486,9 @@ var kElementsClosedByOpening = {
 };
 var kElementsClosedByClosing = {
   li: {ul: true, ol: true},
+  a: {div: true},
+  b: {div: true},
+  i: {div: true},
   p: {div: true},
   td: {tr: true, table: true},
   th: {tr: true, table: true}

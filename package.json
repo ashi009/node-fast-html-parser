@@ -1,6 +1,6 @@
 {
   "name": "fast-html-parser",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A very fast HTML parser, generating a simplified DOM, with basic element query support.",
   "main": "index.js",
   "scripts": {
@@ -27,5 +27,16 @@
     "travis-cov": {
       "threshold": 70
     }
-  }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ashi009/node-fast-html-parser.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ashi009/node-fast-html-parser/issues"
+  },
+  "homepage": "https://github.com/ashi009/node-fast-html-parser"
 }
