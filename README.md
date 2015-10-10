@@ -130,3 +130,24 @@ Get attributes
 ### HTMLElement#rawAttributes
 
 Get escaped (as-it) attributes
+
+### HTMLElement#parentNode
+
+gets parent node
+
+
+### HTMLElement#nodeIndex
+
+the ordinal position of tag in parent elements childern:
+
+### HTMLElement#children
+
+all the tags without text nodes
+
+### HTMLElement#nextSibling
+
+next Sibling tag
+
+### HTMLElement#previousSibling
+
+previous Sibling  tag
