@@ -70,10 +70,14 @@ var kBlockElements = {
  * @param {string} name     tagName
  * @param {Object} keyAttrs id and class attribute
  * @param {Object} rawAttrs attributes in string
+ * @param {Object} parentnode reference to parent node 
  */
-function HTMLElement(name, keyAttrs, rawAttrs) {
+function HTMLElement(name, keyAttrs, rawAttrs,nid) {
   this.tagName = name;
+  //this.parentNode = parentnode||null;
+  //this.nodeIndex = nodeindex||0;
   this.rawAttrs = rawAttrs || '';
+  //this. nid=nid;
   // this.parentNode = null;
   this.childNodes = [];
   if (keyAttrs.id)
@@ -326,7 +330,14 @@ $inherit(HTMLElement, Node, {
    * @return {Node}      node appended
    */
   appendChild: function(node) {
-    // node.parentNode = this;
+    
+    //node.nodeIndex=this.childNodes.length;
+    //node.parentNode=this;
+
+    Object.defineProperty(node, 'parentNode', {value:this,enumerable: false});
+    Object.defineProperty(node, 'nodeIndex', {value:this.childNodes.length,enumerable: false});
+
+
     this.childNodes.push(node);
     return node;
   },
@@ -377,8 +388,40 @@ $inherit(HTMLElement, Node, {
     }
     this._rawAttrs = attrs;
     return attrs;
-  }
+  },
 
+  /**
+   * Get only tags of children without text
+   * @return {string} text content
+   */
+   
+  get children() {
+    var res = [];
+    for (var i = 0; i < this.childNodes.length; i++)
+      if(this.childNodes[i].tagName)
+        res.push(this.childNodes[i]); 
+    return res;
+  },
+  
+  
+  
+  /**
+   * Get nextSibling
+   * @return {HTMLElement} next Sibling  or undefined
+   */
+
+  get nextSibling() {
+    return this.parentNode.childNodes[this.nodeIndex+1];
+  },
+
+/**
+   * Get previousSibling
+   * @return {HTMLElement} previous Sibling or undefined
+   */  
+  get previousSibling() {
+    return this.parentNode.childNodes[this.nodeIndex-1];
+  },
+  
 });
 $define(HTMLElement, {
   __wrap: function(el) {
@@ -478,21 +521,41 @@ var kSelfClosingElements = {
   br: true,
   hr: true
 };
-var kElementsClosedByOpening = {
-  li: {li: true},
+
+
+var kElementsByOpeningCloseUntil = {
+  li: {ol: true,ul: true},
   p: {p: true, div: true},
-  td: {td: true, th: true},
-  th: {td: true, th: true}
+  td: {tr:true, thead:true, tbody:true, tfoot: true, table:true},
+  th: {tr:true, thead:true, tbody:true, tfoot: true, table:true},
+  tr: { thead:true, tbody:true, tfoot: true , table:true}
 };
+
 var kElementsClosedByClosing = {
   li: {ul: true, ol: true},
   a: {div: true},
   b: {div: true},
+  span: {div: true, td:true, tr: true, table: true, thead:true, tbody:true, tfoot:true,},
   i: {div: true},
   p: {div: true},
-  td: {tr: true, table: true},
-  th: {tr: true, table: true}
+  td: {tr: true, table: true, thead:true, tbody:true, tfoot:true, },
+  th: {tr: true, table: true, thead:true, tbody:true, tfoot:true, },
+  tr: {tr: true, table: true, thead:true, tbody:true, tfoot:true, }
 };
+
+
+var kElementsByClosingCloseAllUntilTheOpenning = {
+  table: true,
+  div: true,
+  td:true,
+  th:true,
+  tr: true,
+  thead:true,
+  tbody:true,
+  tfoot:true,
+  table: true,
+};
+
 var kBlockTextElements = {
   script: true,
   noscript: true,
@@ -545,14 +608,22 @@ module.exports = {
         for (var attMatch; attMatch = kAttributePattern.exec(match[3]); )
           attrs[attMatch[1]] = attMatch[3] || attMatch[4] || attMatch[5];
         // console.log(attrs);
-        if (!match[4] && kElementsClosedByOpening[currentParent.tagName]) {
-          if (kElementsClosedByOpening[currentParent.tagName][match[2]]) {
+        
+        //globalnid=((function(){return this;})()).globalnid||0;globalnid++;
+        
+        
+        //match[4]= has self closing ending like < />
+        var tagselfclose=match[4];
+        var tagname=match[2];
+        if (!tagselfclose && kElementsByOpeningCloseUntil[tagname]) {
+          while (kElementsByOpeningCloseUntil[tagname] && stack.length>2 && (!kElementsByOpeningCloseUntil[tagname][currentParent.tagName])) {
+            //if(globalnid==11)
+            //    console.log(match[2],currentParent.tagName,stack.map(function(a){return a.tagName}) )
             stack.pop();
             currentParent = stack.back;
           }
         }
-        currentParent = currentParent.appendChild(
-            new HTMLElement(match[2], attrs, match[3]));
+        currentParent = currentParent.appendChild( new HTMLElement(match[2], attrs, match[3]/*,globalnid*/));
         stack.push(currentParent);
         if (kBlockTextElements[match[2]]) {
           // a little test to find next </script> or </style> ...
@@ -579,20 +650,33 @@ module.exports = {
       if (match[1] || match[4] ||
           kSelfClosingElements[match[2]]) {
         // </ or /> or <br> etc.
+        var tagname=match[2];
         while (true) {
-          if (currentParent.tagName == match[2]) {
+          if (currentParent.tagName == tagname) {
             stack.pop();
             currentParent = stack.back;
             break;
           } else {
             // Trying to close current tag, and move on
+            
+            
+            if(kElementsByClosingCloseAllUntilTheOpenning[tagname])
+            {
+                while(currentParent.tagName != tagname)
+                {
+                 stack.pop();
+                 currentParent = stack.back;
+                }
+            }
+            /*
             if (kElementsClosedByClosing[currentParent.tagName]) {
               if (kElementsClosedByClosing[currentParent.tagName][match[2]]) {
                 stack.pop();
                 currentParent = stack.back;
                 continue;
               }
-            }
+            }*/
+            
             // Use aggressive strategy to handle unmatching markups.
             break;
           }
