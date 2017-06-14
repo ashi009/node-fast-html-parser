@@ -4,8 +4,10 @@
 	"description": "A very fast HTML parser, generating a simplified DOM, with basic element query support.",
 	"main": "index.js",
 	"scripts": {
-		"test": "gulp && mocha",
-		"build": "gulp"
+		"test": "mocha",
+		"build": "gulp",
+		"pretest": "gulp",
+		"prepublish": "gulp"
 	},
 	"keywords": [
 		"fast html parser nodejs typescript"
