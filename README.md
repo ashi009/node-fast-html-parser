@@ -1,4 +1,4 @@
-# Fast HTML Parser [![NPM version](https://badge.fury.io/js/fast-html-parser.png)](http://badge.fury.io/js/fast-html-parser) [![Build Status](https://travis-ci.org/ashi009/node-fast-html-parser.svg?branch=master)](https://travis-ci.org/ashi009/node-fast-html-parser)
+# Fast HTML Parser [![NPM version](https://badge.fury.io/js/node-html-parser.png)](http://badge.fury.io/js/node-html-parser) [![Build Status](https://travis-ci.org/taoqf/node-fast-html-parser.svg?branch=master)](https://travis-ci.org/taoqf/node-fast-html-parser)
 
 Fast HTML Parser is a _very fast_ HTML parser. Which will generate a simplified
 DOM tree, with basic element query support.
@@ -34,7 +34,7 @@ Tested with [htmlparser-benchmark](https://github.com/AndreasMadsen/htmlparser-b
 ## Usage
 
 ```js
-var HTMLParser = require('fast-html-parser');
+var HTMLParser = require('node-html-parser');
 
 var root = HTMLParser.parse('<ul id="list"><li>Hello World</li></ul>');
 
