@@ -1,5 +1,5 @@
 {
-	"name": "fast-html-parser",
+	"name": "node-html-parser",
 	"version": "1.1.0",
 	"description": "A very fast HTML parser, generating a simplified DOM, with basic element query support.",
 	"main": "index.js",
@@ -7,7 +7,13 @@
 		"test": "gulp && mocha",
 		"build": "gulp"
 	},
+	"keywords": [
+		"fast html parser nodejs typescript"
+	],
 	"author": "Xiaoyi Shi <ashi009@gmail.com>",
+	"contributors": [
+		"taoqf<tao_qiufeng@126.com>"
+	],
 	"license": "MIT",
 	"dependencies": {
 		"entities": "latest"
@@ -42,10 +48,10 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/ashi009/node-fast-html-parser.git"
+		"url": "https://github.com/taoqf/node-fast-html-parser.git"
 	},
 	"bugs": {
-		"url": "https://github.com/ashi009/node-fast-html-parser/issues"
+		"url": "https://github.com/taoqf/node-fast-html-parser/issues"
 	},
-	"homepage": "https://github.com/ashi009/node-fast-html-parser"
+	"homepage": "https://github.com/taoqf/node-fast-html-parser"
 }

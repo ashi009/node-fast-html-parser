@@ -11,7 +11,7 @@ no closing `<li>`, `<td>` etc).
 ## Install
 
 ```shell
-npm install --save fast-html-parser
+npm install --save node-html-parser
 ```
 
 ## Performance
