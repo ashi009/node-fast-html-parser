@@ -20,3 +20,4 @@ bower_components
 
 *.sublime-*
 dist/
+yarn.lock
