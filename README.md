@@ -53,6 +53,8 @@ console.log(root.querySelector('#list'));
 //        classNames: [] } ],
 //   id: 'list',
 //   classNames: [] }
+console.log(root.toString());
+// <ul id="list"><li>Hello World</li></ul>
 ```
 
 ## API
@@ -130,3 +132,12 @@ Get attributes
 ### HTMLElement#rawAttributes
 
 Get escaped (as-it) attributes
+
+### HTMLElement#toString()
+Same as [outerHTML](#htmlelementouterhtml)
+
+### HTMLElement#innerHTML
+Get innerHTML.
+
+### HTMLElement#outerHTML
+Get outerHTML.
