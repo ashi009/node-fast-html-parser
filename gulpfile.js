@@ -14,11 +14,6 @@ gulp.task('compile-ts', () => {
 		.pipe(gulp.dest(dest));
 });
 
-gulp.task('copy-files', () => {
-	return gulp.src(['./package.json', 'readme.md'])
-		.pipe(gulp.dest('./dist/'));
-});
-
 gulp.task('watch-ts', async () => {
 	const ts = require('gulp-typescript');
 	const tsProject = ts.createProject('./tsconfig.json');
@@ -40,7 +35,7 @@ gulp.task('watch-ts', async () => {
 
 gulp.task('default', (cb) => {
 	const sequence = require('gulp-sequence');
-	sequence('clean', 'copy-files', 'compile-ts', cb);
+	sequence('clean', 'compile-ts', cb);
 });
 
 gulp.task('dev', ['watch-ts']);
