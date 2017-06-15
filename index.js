@@ -477,7 +477,8 @@ var kSelfClosingElements = {
   area: true,
   br: true,
   hr: true,
-  wbr: true
+  wbr: true,
+  col: true
 };
 var kElementsClosedByOpening = {
   li: {li: true},
