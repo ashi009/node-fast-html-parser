@@ -249,11 +249,35 @@ describe('HTML Parser', function () {
 			});
 
 		});
+		describe('#set_content', function () {
+
+			it('set content string', function () {
+				var root = parseHTML('<div></div>');
+				root.childNodes[0].set_content('<span><div>abc</div>bla</span>');
+				root.toString().should.eql('<div><span><div>abc</div>bla</span></div>');
+			});
+			it('set content nodes', function () {
+				var root = parseHTML('<div></div>');
+				root.childNodes[0].set_content(parseHTML('<span><div>abc</div>bla</span>').childNodes);
+				root.toString().should.eql('<div><span><div>abc</div>bla</span></div>');
+			});
+			it('set content node', function () {
+				var root = parseHTML('<div></div>');
+				root.childNodes[0].set_content(parseHTML('<span><div>abc</div>bla</span>').childNodes[0]);
+				root.toString().should.eql('<div><span><div>abc</div>bla</span></div>');
+			});
+			it('set content text', function () {
+				var root = parseHTML('<div></div>');
+				root.childNodes[0].set_content('abc');
+				root.toString().should.eql('<div>abc</div>');
+			});
+
+		});
 
 	});
 
 	describe('stringify', function () {
-		describe('toString', function () {
+		describe('#toString()', function () {
 			const html = '<p id="id" data-feidao-actions="ssss"><a class=\'cls\'>Hello</a><ul><li>aaaaa</li></ul><span>bbb</span></p>';
 			const root = parseHTML(html);
 			root.toString().should.eql(html)

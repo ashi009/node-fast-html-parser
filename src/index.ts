@@ -208,6 +208,16 @@ export class HTMLElement extends Node {
 		}).join('');
 	}
 
+	set_content(content: string | Node | Node[]) {
+		if (content instanceof Node) {
+			content = [content];
+		} else if (typeof content == 'string') {
+			const r = parse(content);
+			content = r.childNodes.length ? r.childNodes : [new TextNode(content)];
+		}
+		this.childNodes = content;
+	}
+
 	get outerHTML() {
 		return this.toString();
 	}
@@ -237,9 +247,9 @@ export class HTMLElement extends Node {
 		return this;
 	}
 	/**
- * Get DOM structure
- * @return {string} strucutre
- */
+	 * Get DOM structure
+	 * @return {string} strucutre
+	 */
 	get structure() {
 		const res = [] as string[];
 		let indention = 0;
