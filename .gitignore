@@ -19,3 +19,5 @@ bower_components
 !.gitignore
 
 *.sublime-*
+dist/
+yarn.lock
