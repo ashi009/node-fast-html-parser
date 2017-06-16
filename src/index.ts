@@ -1,4 +1,4 @@
-import * as entities from 'entities';
+import { decode } from 'he';
 
 export enum NodeType {
 	ELEMENT_NODE = 1,
@@ -36,7 +36,7 @@ export class TextNode extends Node {
 	 * @return {string} text content
 	 */
 	get text() {
-		return entities.decodeHTML5(this.rawText);
+		return decode(this.rawText);
 	}
 
 	/**
@@ -139,7 +139,7 @@ export class HTMLElement extends Node {
 	 * @return {string} text content
 	 */
 	get text() {
-		return entities.decodeHTML5(this.rawText);
+		return decode(this.rawText);
 	}
 	/**
 	 * Get structured Text (with '\n' etc.)
@@ -427,7 +427,7 @@ export class HTMLElement extends Node {
 		this._attrs = {};
 		const attrs = this.rawAttributes;
 		for (const key in attrs) {
-			this._attrs[key] = entities.decodeHTML5(attrs[key]);
+			this._attrs[key] = decode(attrs[key]);
 		}
 		return this._attrs;
 	}

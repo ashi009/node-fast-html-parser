@@ -19,10 +19,11 @@
 	],
 	"license": "MIT",
 	"dependencies": {
-		"entities": "latest"
+		"he": "latest"
 	},
 	"devDependencies": {
 		"@types/entities": "latest",
+		"@types/he": "latest",
 		"@types/node": "latest",
 		"blanket": "latest",
 		"del": "latest",
