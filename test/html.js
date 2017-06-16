@@ -222,6 +222,23 @@ describe('HTML Parser', function () {
 
 		});
 
+		describe('#querySelector()', function () {
+
+			it('should return correct elements in DOM tree', function () {
+
+				var root = parseHTML('<a id="id"><div><span class="a b"></span><span></span><span></span></div></a>');
+
+				root.querySelector('#id').should.eql(root.firstChild);
+				root.querySelector('span.a').should.eql(root.firstChild.firstChild.firstChild);
+				root.querySelector('span.b').should.eql(root.firstChild.firstChild.firstChild);
+				root.querySelector('span.a.b').should.eql(root.firstChild.firstChild.firstChild);
+				root.querySelector('#id .b').should.eql(root.firstChild.firstChild.firstChild);
+				root.querySelector('#id span').should.eql(root.firstChild.firstChild.firstChild);
+
+			});
+
+		});
+
 		describe('#querySelectorAll()', function () {
 
 			it('should return correct elements in DOM tree', function () {
