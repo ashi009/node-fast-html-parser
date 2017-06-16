@@ -26,7 +26,6 @@
 		"baseUrl": "",
 		"charset": "utf8",
 		"declaration": true,
-		// "declarationDir": "./dts/",
 		"inlineSourceMap": false,
 		"allowSyntheticDefaultImports": false,
 		"diagnostics": false,
