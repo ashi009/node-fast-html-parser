@@ -7,8 +7,7 @@
 	"scripts": {
 		"test": "mocha",
 		"build": "gulp",
-		"pretest": "gulp",
-		"prepublish": "gulp"
+		"prepare": "gulp"
 	},
 	"keywords": [
 		"fast html parser nodejs typescript"
