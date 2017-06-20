@@ -482,15 +482,29 @@ export class Matcher {
 			const parts = matcher.split('.');
 			const tagName = parts[0];
 			const classes = parts.slice(1).sort();
-			let source = '';
+			let source = '"use strict";';
 			if (tagName && tagName != '*') {
-				if (tagName[0] == '#')
+				let matcher: RegExpMatchArray;
+				if (tagName[0] == '#') {
 					source += 'if (el.id != ' + JSON.stringify(tagName.substr(1)) + ') return false;';
-				else
+				} else if (matcher = tagName.match(/^\[\s*(\S+)\s*(=|!=)\s*((((["'])([^\6]*)\6))|(\S*?))\]\s*/)) {
+					const attr_key = matcher[1];
+					let method = matcher[2];
+					if (method !== '=' && method !== '!=') {
+						throw new Error('Selector not supported, Expect [key${op}value].op must be =,!=');
+					}
+					if (method === '=') {
+						method = '==';
+					}
+					const value = matcher[7] || matcher[8];
+					source += `const attrs = el.attributes;for (const key in attrs){const val = attrs[key]; if (key == "${attr_key}" && val ${method} "${value}"){return true;}} return false;`;
+				} else {
 					source += 'if (el.tagName != ' + JSON.stringify(tagName) + ') return false;';
+				}
 			}
-			if (classes.length > 0)
+			if (classes.length > 0) {
 				source += 'for (var cls = ' + JSON.stringify(classes) + ', i = 0; i < cls.length; i++) if (el.classNames.indexOf(cls[i]) === -1) return false;';
+			}
 			source += 'return true;';
 			return pMatchFunctionCache[matcher] = new Function('el', source) as MatherFunction;
 		});
@@ -537,7 +551,7 @@ export class Matcher {
 }
 
 const kMarkupPattern = /<!--[^]*?(?=-->)-->|<(\/?)([a-z][a-z0-9]*)\s*([^>]*?)(\/?)>/ig;
-const kAttributePattern = /\b(id|class)\s*=\s*("([^"]+)"|'([^']+)'|(\S+))/ig;
+const kAttributePattern = /(^|\s)(id|class)\s*=\s*("([^"]+)"|'([^']+)'|(\S+))/ig;
 const kSelfClosingElements = {
 	meta: true,
 	img: true,
@@ -604,7 +618,7 @@ export function parse(data: string, options?: {
 			// not </ tags
 			var attrs = {};
 			for (var attMatch; attMatch = kAttributePattern.exec(match[3]);)
-				attrs[attMatch[1]] = attMatch[3] || attMatch[4] || attMatch[5];
+				attrs[attMatch[2]] = attMatch[4] || attMatch[5] || attMatch[6];
 			// console.log(attrs);
 			if (!match[4] && kElementsClosedByOpening[currentParent.tagName]) {
 				if (kElementsClosedByOpening[currentParent.tagName][match[2]]) {
