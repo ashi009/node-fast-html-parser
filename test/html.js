@@ -11,9 +11,7 @@ describe('HTML Parser', function () {
 	var TextNode = HTMLParser.TextNode;
 
 	describe('Matcher', function () {
-
 		it('should match corrent elements', function () {
-
 			var matcher = new Matcher('#id .a a.b *.a.b .a.b * a');
 			var MatchesNothingButStarEl = new HTMLElement('_', {});
 			var withIdEl = new HTMLElement('p', { id: 'id' });
@@ -55,15 +53,12 @@ describe('HTML Parser', function () {
 			matcher.advance(withClassNameEl).should.be.ok; // a
 
 			matcher.matched.should.be.ok;
-
 		});
-
 	});
 
 	var parseHTML = HTMLParser.parse;
 
 	describe('parse()', function () {
-
 		it('should parse "<p id=\\"id\\"><a class=\'cls\'>Hello</a><ul><li><li></ul><span></span></p>" and return root element', function () {
 
 			var root = parseHTML('<p id="id"><a class=\'cls\'>Hello</a><ul><li><li></ul><span></span></p>');
@@ -77,7 +72,6 @@ describe('HTML Parser', function () {
 			p.appendChild(new HTMLElement('span', {}, ''));
 
 			root.firstChild.should.eql(p);
-
 		});
 
 		it('should parse "<DIV><a><img/></A><p></P></div>" and return root element', function () {
@@ -160,7 +154,6 @@ describe('HTML Parser', function () {
 	});
 
 	describe('TextNode', function () {
-
 		describe('#isWhitespace', function () {
 			var node = new TextNode('');
 			node.isWhitespace.should.be.ok;
@@ -169,15 +162,12 @@ describe('HTML Parser', function () {
 			node = new TextNode(' \t&nbsp; \t');
 			node.isWhitespace.should.be.ok;
 		});
-
 	});
 
 	describe('HTMLElement', function () {
 
 		describe('#removeWhitespace()', function () {
-
 			it('should remove whitespaces while preserving nodes with content', function () {
-
 				var root = parseHTML('<p> \r \n  \t <h5> 123 </h5></p>');
 
 				var p = new HTMLElement('p', {}, '');
@@ -185,89 +175,64 @@ describe('HTML Parser', function () {
 					.appendChild(new TextNode('123'));
 
 				root.firstChild.removeWhitespace().should.eql(p);
-
 			});
-
 		});
 
 		describe('#rawAttributes', function () {
-
 			it('should return escaped attributes of the element', function () {
-
 				var root = parseHTML('<p a=12 data-id="!$$&amp;" yAz=\'1\'></p>');
-
 				root.firstChild.rawAttributes.should.eql({
 					'a': '12',
 					'data-id': '!$$&amp;',
 					'yAz': '1'
 				});
-
 			});
-
 		});
 
 		describe('#attributes', function () {
-
 			it('should return attributes of the element', function () {
-
 				var root = parseHTML('<p a=12 data-id="!$$&amp;" yAz=\'1\'></p>');
-
 				root.firstChild.attributes.should.eql({
 					'a': '12',
 					'data-id': '!$$&',
 					'yAz': '1'
 				});
-
 			});
-
 		});
 
 		describe('#querySelector()', function () {
-
 			it('should return correct elements in DOM tree', function () {
-
-				var root = parseHTML('<a id="id"><div><span class="a b"></span><span></span><span></span></div></a>');
-
+				var root = parseHTML('<a id="id" data-id="myid"><div><span class="a b"></span><span></span><span></span></div></a>');
 				root.querySelector('#id').should.eql(root.firstChild);
 				root.querySelector('span.a').should.eql(root.firstChild.firstChild.firstChild);
 				root.querySelector('span.b').should.eql(root.firstChild.firstChild.firstChild);
 				root.querySelector('span.a.b').should.eql(root.firstChild.firstChild.firstChild);
 				root.querySelector('#id .b').should.eql(root.firstChild.firstChild.firstChild);
 				root.querySelector('#id span').should.eql(root.firstChild.firstChild.firstChild);
-
+				root.querySelector('[data-id=myid]').should.eql(root.firstChild);
+				root.querySelector('[data-id="myid"]').should.eql(root.firstChild);
 			});
-
 		});
 
 		describe('#querySelectorAll()', function () {
-
 			it('should return correct elements in DOM tree', function () {
-
 				var root = parseHTML('<a id="id"><div><span class="a b"></span><span></span><span></span></div></a>');
-
 				root.querySelectorAll('#id').should.eql([root.firstChild]);
 				root.querySelectorAll('span.a').should.eql([root.firstChild.firstChild.firstChild]);
 				root.querySelectorAll('span.b').should.eql([root.firstChild.firstChild.firstChild]);
 				root.querySelectorAll('span.a.b').should.eql([root.firstChild.firstChild.firstChild]);
 				root.querySelectorAll('#id .b').should.eql([root.firstChild.firstChild.firstChild]);
 				root.querySelectorAll('#id span').should.eql(root.firstChild.firstChild.childNodes);
-
 			});
-
 		});
 
 		describe('#structuredText', function () {
-
 			it('should return correct structured text', function () {
-
 				var root = parseHTML('<span>o<p>a</p><p>b</p>c</span>');
 				root.structuredText.should.eql('o\na\nb\nc');
-
 			});
-
 		});
 		describe('#set_content', function () {
-
 			it('set content string', function () {
 				var root = parseHTML('<div></div>');
 				root.childNodes[0].set_content('<span><div>abc</div>bla</span>');
@@ -288,9 +253,7 @@ describe('HTML Parser', function () {
 				root.childNodes[0].set_content('abc');
 				root.toString().should.eql('<div>abc</div>');
 			});
-
 		});
-
 	});
 
 	describe('stringify', function () {
