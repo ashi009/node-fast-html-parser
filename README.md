@@ -33,10 +33,10 @@ Tested with [htmlparser-benchmark](https://github.com/AndreasMadsen/htmlparser-b
 
 ## Usage
 
-```js
-var HTMLParser = require('fast-html-parser');
+```ts
+import { parse } from 'node-html-parser';
 
-var root = HTMLParser.parse('<ul id="list"><li>Hello World</li></ul>');
+const root = parse('<ul id="list"><li>Hello World</li></ul>');
 
 console.log(root.firstChild.structure);
 // ul#list
@@ -53,6 +53,16 @@ console.log(root.querySelector('#list'));
 //        classNames: [] } ],
 //   id: 'list',
 //   classNames: [] }
+console.log(root.toString());
+// <ul id="list"><li>Hello World</li></ul>
+root.set_content('<li>Hello World</li>');
+root.toString();	// <li>Hello World</li>
+```
+
+```js
+var HTMLParser = require('node-html-parser');
+
+var root = HTMLParser.parse('<ul id="list"><li>Hello World</li></ul>');
 ```
 
 ## API
@@ -130,3 +140,14 @@ Get attributes
 ### HTMLElement#rawAttributes
 
 Get escaped (as-it) attributes
+
+### HTMLElement#toString()
+Same as [outerHTML](#htmlelementouterhtml)
+
+### HTMLElement#innerHTML
+Get innerHTML.
+
+### HTMLElement#outerHTML
+Get outerHTML.
+### HTMLElement#set_content(content: string | Node | Node[])
+Set content. **Notice**: Do not set content of the **root** node.

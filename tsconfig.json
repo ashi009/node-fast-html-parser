@@ -1,0 +1,77 @@
+{
+	"exclude": [
+		"./dist/"
+	],
+	"include": [
+		"./src/**/*.ts"
+	],
+	"compilerOptions": {
+		"module": "commonjs",
+		"target": "esnext",
+		"noImplicitAny": true,
+		"sourceMap": false,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"strictNullChecks": false,
+		"noImplicitThis": true,
+		"rootDir": "./src/",
+		"rootDirs": [
+			"./src/",
+			"./tests/"
+		],
+		"allowJs": false,
+		"allowUnreachableCode": false,
+		"allowUnusedLabels": false,
+		"alwaysStrict": true,
+		"baseUrl": "",
+		"charset": "utf8",
+		"declaration": true,
+		"inlineSourceMap": false,
+		"allowSyntheticDefaultImports": false,
+		"diagnostics": false,
+		"emitBOM": false,
+		"forceConsistentCasingInFileNames": false,
+		"importHelpers": false,
+		"inlineSources": false,
+		"isolatedModules": false,
+		"lib": [
+			// "es6",
+			"esnext"
+		],
+		"listFiles": true, // default false
+		"listEmittedFiles": true, // default false
+		"locale": "zh_CN",
+		"newLine": "CRLF",
+		"noEmit": false,
+		"moduleResolution": "node",
+		"noEmitHelpers": false,
+		"noEmitOnError": false,
+		"noImplicitReturns": false,
+		"noImplicitUseStrict": false,
+		"maxNodeModuleJsDepth": 0,
+		"noLib": false,
+		"outDir": "./dist",
+		// "outFile": "./dist/tqf",
+		"noFallthroughCasesInSwitch": false,
+		"noResolve": false,
+		"noUnusedLocals": false,
+		"noUnusedParameters": false,
+		"paths": {},
+		"preserveConstEnums": false,
+		"pretty": true,
+		// "mapRoot": "",
+		"removeComments": false,
+		"skipDefaultLibCheck": true, // default false
+		"skipLibCheck": true, // default false
+		"stripInternal": false,
+		"suppressExcessPropertyErrors": false,
+		"suppressImplicitAnyIndexErrors": true, // default false
+		"traceResolution": true, // default false
+		"typeRoots": [
+		],
+		"types": [
+			"node"
+		],
+		"watch": false
+	}
+}
