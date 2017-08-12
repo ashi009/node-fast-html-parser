@@ -467,7 +467,61 @@ $define(Matcher, {
   }
 });
 
-var kMarkupPattern = /<!--[^]*?(?=-->)-->|<(\/?)([a-z][a-z0-9]*)\s*([^>]*?)(\/?)>/ig;
+var kMarkupPattern = (function () {
+    var lastIndex = 0;
+
+    return {
+        lastIndex: lastIndex,
+        exec: function (str) {
+            var bracketStack = 0;
+            var readTagName = true;
+            var match = ['', '', '', ''];
+            match['input'] = str;
+
+            for (var i = lastIndex; i < str.length; ++i) {
+                ++lastIndex;
+                switch (str[i]) {
+                    case '<':
+                        if (!bracketStack) {
+                            match['index'] = i;
+                        }
+                        bracketStack++;
+                        break;
+                    case '/':
+                        if (i > 0 && str[i - 1] === '<') {
+                            match[1] = '/';
+                        } else if (i < str.length - 1 && str[i + 1] === '>') {
+                            match[4] = '/';
+                        }
+                        break;
+                    case ' ':
+                        if (!readTagName) {
+                            match[3] += str[i];
+                        } else {
+                            readTagName = false;
+                        }
+                        break;
+                    case '>':
+                        if (!(--bracketStack)) {
+                            match[0] = str.slice(match['index'], i + 1);
+                            return match;
+                        }
+                        break;
+                    default:
+                        if (readTagName) {
+                            match[2] += str[i];
+                        } else {
+                            match[3] += str[i];
+                        }
+                        break;
+                }
+            }
+            lastIndex = 0;
+            return null;
+        }
+    }
+})();
+
 var kAttributePattern = /\b(id|class)\s*=\s*("([^"]+)"|'([^']+)'|(\S+))/ig;
 var kSelfClosingElements = {
   meta: true,
@@ -527,6 +581,7 @@ module.exports = {
     options = options || {};
 
     for (var match, text; match = kMarkupPattern.exec(data); ) {
+        console.log(match);
       if (lastTextPos > -1) {
         if (lastTextPos + match[0].length < kMarkupPattern.lastIndex) {
           // if has content
