@@ -371,7 +371,7 @@ $inherit(HTMLElement, Node, {
       return this._rawAttrs;
     var attrs = {};
     if (this.rawAttrs) {
-      var re = /\b([a-z][a-z0-9\-]*)\s*=\s*("([^"]+)"|'([^']+)'|(\S+))/ig;
+      var re = /\b([_a-z][a-z0-9\-]*)\s*=\s*("([^"]+)"|'([^']+)'|(\S+))/ig;
       for (var match; match = re.exec(this.rawAttrs); )
         attrs[match[1]] = match[3] || match[4] || match[5];
     }
