@@ -490,13 +490,17 @@ var kMarkupPattern = (function () {
                         if (!bracketStack) {
                             match['index'] = i;
                             inTag = true;
+                        } else if (inTag && readTagName) {
+                            match[2] += str[i];
+                        } else if (inTag && readAttributes) {
+                            match[3] += str[i];
                         }
                         bracketStack++;
                         break;
                     case '/':
-                        if (i > 0 && str[i - 1] === '<') {
+                        if (i - 1 === match['index']) {
                             match[1] = '/';
-                        } else if (i < str.length - 1 && str[i + 1] === '>') {
+                        } else if (bracketStack === 1 && i < str.length - 1 && str[i + 1] === '>') {
                             match[4] = '/';
                         } else if (inTag && readTagName) {
                           match[2] += str[i];
@@ -516,6 +520,10 @@ var kMarkupPattern = (function () {
                         if (bracketStack > 0 && !(--bracketStack)) {
                             match[0] = str.slice(match['index'], i + 1);
                             return match;
+                        } else if (inTag && readTagName) {
+                            match[2] += str[i];
+                        } else if (inTag && readAttributes) {
+                            match[3] += str[i];
                         }
                         break;
                     default:
