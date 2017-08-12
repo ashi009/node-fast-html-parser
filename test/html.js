@@ -6,59 +6,8 @@ var HTMLParser = require('../');
 
 describe('HTML Parser', function() {
 
-  var Matcher = HTMLParser.Matcher;
   var HTMLElement = HTMLParser.HTMLElement;
   var TextNode = HTMLParser.TextNode;
-
-  describe('Matcher', function() {
-
-    it('should match corrent elements', function() {
-
-      var matcher = new Matcher('#id .a a.b *.a.b .a.b * a');
-      var MatchesNothingButStarEl = new HTMLElement('_', {});
-      var withIdEl = new HTMLElement('p', { id: 'id' });
-      var withClassNameEl = new HTMLElement('a', { class: 'a b' });
-
-      // console.log(util.inspect([withIdEl, withClassNameEl], {
-      //     showHidden: true,
-      //     depth: null
-      //   }));
-
-      matcher.advance(MatchesNothingButStarEl).should.not.be.ok; // #id
-      matcher.advance(withClassNameEl).should.not.be.ok; // #id
-      matcher.advance(withIdEl).should.be.ok; // #id
-
-      matcher.advance(MatchesNothingButStarEl).should.not.be.ok; // .a
-      matcher.advance(withIdEl).should.not.be.ok; // .a
-      matcher.advance(withClassNameEl).should.be.ok; // .a
-
-      matcher.advance(MatchesNothingButStarEl).should.not.be.ok; // a.b
-      matcher.advance(withIdEl).should.not.be.ok; // a.b
-      matcher.advance(withClassNameEl).should.be.ok; // a.b
-
-      matcher.advance(withIdEl).should.not.be.ok; // *.a.b
-      matcher.advance(MatchesNothingButStarEl).should.not.be.ok; // *.a.b
-      matcher.advance(withClassNameEl).should.be.ok; // *.a.b
-
-      matcher.advance(withIdEl).should.not.be.ok; // .a.b
-      matcher.advance(MatchesNothingButStarEl).should.not.be.ok; // .a.b
-      matcher.advance(withClassNameEl).should.be.ok; // .a.b
-
-      matcher.advance(withIdEl).should.be.ok; // *
-      matcher.rewind();
-      matcher.advance(MatchesNothingButStarEl).should.be.ok; // *
-      matcher.rewind();
-      matcher.advance(withClassNameEl).should.be.ok; // *
-
-      matcher.advance(withIdEl).should.not.be.ok; // a
-      matcher.advance(MatchesNothingButStarEl).should.not.be.ok; // a
-      matcher.advance(withClassNameEl).should.be.ok; // a
-
-      matcher.matched.should.be.ok;
-
-    });
-
-  });
 
   var parseHTML = HTMLParser.parse;
 
@@ -163,36 +112,7 @@ describe('HTML Parser', function() {
 
   });
 
-  describe('TextNode', function() {
-
-    describe('#isWhitespace', function() {
-      var node = new TextNode('');
-      node.isWhitespace.should.be.ok;
-      node = new TextNode(' \t');
-      node.isWhitespace.should.be.ok;
-      node = new TextNode(' \t&nbsp; \t');
-      node.isWhitespace.should.be.ok;
-    });
-
-  });
-
   describe('HTMLElement', function() {
-
-    describe('#removeWhitespace()', function() {
-
-      it('should remove whitespaces while preserving nodes with content', function() {
-
-        var root = parseHTML('<p> \r \n  \t <h5> 123 </h5></p>');
-
-        var p = new HTMLElement('p', {}, '');
-        p.appendChild(new HTMLElement('h5', {}, ''))
-            .appendChild(new TextNode('123'));
-
-        root.firstChild.removeWhitespace().should.eql(p);
-
-      });
-
-    });
 
     describe('#rawAttributes', function() {
 
@@ -221,34 +141,6 @@ describe('HTML Parser', function() {
           'data-id': '!$$&',
           'yAz': '1'
         });
-
-      });
-
-    });
-
-    describe('#querySelectorAll()', function() {
-
-      it('should return correct elements in DOM tree', function() {
-
-        var root = parseHTML('<a id="id"><div><span class="a b"></span><span></span><span></span></div></a>');
-
-        root.querySelectorAll('#id').should.eql([root.firstChild]);
-        root.querySelectorAll('span.a').should.eql([root.firstChild.firstChild.firstChild]);
-        root.querySelectorAll('span.b').should.eql([root.firstChild.firstChild.firstChild]);
-        root.querySelectorAll('span.a.b').should.eql([root.firstChild.firstChild.firstChild]);
-        root.querySelectorAll('#id .b').should.eql([root.firstChild.firstChild.firstChild]);
-        root.querySelectorAll('#id span').should.eql(root.firstChild.firstChild.childNodes);
-
-      });
-
-    });
-
-    describe('#structuredText', function() {
-
-      it('should return correct structured text', function() {
-
-        var root = parseHTML('<span>o<p>a</p><p>b</p>c</span>');
-        root.structuredText.should.eql('o\na\nb\nc');
 
       });
 

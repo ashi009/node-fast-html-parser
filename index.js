@@ -24,7 +24,10 @@ $inherit(TextNode, Node, {
    * Node Type declaration.
    * @type {Number}
    */
-  nodeType: Node.TEXT_NODE
+  nodeType: Node.TEXT_NODE,
+  get text() {
+    return entities.decodeHTML5(this.rawText);
+  }
 });
 
 /**
@@ -53,6 +56,9 @@ $inherit(HTMLElement, Node, {
    * Get unescaped text value of current node and its children.
    * @return {string} text content
    */
+  get text() {
+      return entities.decodeHTML5(this.rawText);
+  },
 
   /**
    * Get escpaed (as-it) text value of current node and its children.
@@ -74,6 +80,17 @@ $inherit(HTMLElement, Node, {
     // node.parentNode = this;
     this.childNodes.push(node);
     return node;
+  },
+  get firstChild() {
+    return this.childNodes.front;
+  },
+
+/**
+ * Get last child node
+ * @return {Node} last child node
+ */
+  get lastChild() {
+    return this.childNodes.back;
   },
   /**
    * Get attributes
