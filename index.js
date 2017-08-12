@@ -250,7 +250,9 @@ var kMarkupPattern = (function () {
         get lastIndex() {
           return lastIndex;
         },
-        set lastIndex(newLastIndex) {}
+        set lastIndex(newLastIndex) {
+            lastIndex = newLastIndex;
+        }
     }
 })();
 
