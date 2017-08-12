@@ -468,82 +468,147 @@ $define(Matcher, {
   }
 });
 
+// parser states
+var INITIAL = 'INITIAL';
+var TAG_OPENED = 'TAG_OPENED';
+var READ_TAG_NAME = 'READ_TAG_NAME';
+var READ_ATTRIBUTES = 'READ_ATTRIBUTES';
+var IS_SELF_CLOSING = 'IS_SELF_CLOSING';
+var TAG_CLOSE = 'TAG_CLOSE';
+
 var kMarkupPattern = (function () {
     var lastIndex = 0;
 
+    function makeState(state, match, bracketStack ) {
+      return {
+          state: state,
+          match: match,
+          bracketStack: bracketStack
+      };
+    }
+
+    function initial(match, sym, index) {
+        if (sym === '<' ) {
+            match['index'] = index;
+            return makeState(TAG_OPENED, match, 1);
+        }
+
+        return makeState(INITIAL, match, 0);
+    }
+
+    function tagOpened(match, sym) {
+        if (sym === '!') {
+            return makeState(INITIAL, match, 0);
+        }
+
+        if (sym === '/') {
+            match[1] = '/';
+        } else {
+            match[2] += sym;
+        }
+
+        return makeState(READ_TAG_NAME, match, 1);
+    }
+
+    function readTagName(match, sym) {
+        switch (sym) {
+            case ' ':
+                return makeState(READ_ATTRIBUTES, match, 1);
+            case '/':
+                return makeState(IS_SELF_CLOSING, match, 1);
+            case '>':
+                return makeState(TAG_CLOSE, match, 1);
+            default:
+                match[2] += sym;
+                return makeState(READ_TAG_NAME, match, 1);
+        }
+    }
+
+    function readAttributes(match, sym, bracketStack) {
+        switch (sym) {
+            case '/':
+                if (bracketStack === 1) {
+                    return makeState(IS_SELF_CLOSING, match, bracketStack);
+                }
+
+                return makeState(READ_ATTRIBUTES, match, bracketStack);
+            case '>':
+                if (--bracketStack) {
+                    match[3] += sym;
+                    return makeState(READ_ATTRIBUTES, match, bracketStack);
+                }
+
+                return makeState(TAG_CLOSE, match, bracketStack);
+            case '<':
+                ++bracketStack;
+            default:
+                match[3] += sym;
+                return makeState(READ_ATTRIBUTES, match, bracketStack);
+        }
+    }
+
+    function isSelfClosing(match, sym) {
+        if (sym === '>') {
+            match[4] = '/';
+            return makeState(TAG_CLOSE, match, 0);
+        }
+
+        match[3] += '/' + sym;
+        return makeState(READ_ATTRIBUTES, match, 1);
+    }
+
+    function tagClose(match, str, index) {
+        lastIndex = index;
+        match[0] = str.slice(match['index'], index);
+
+        return makeState(INITIAL, match, 0);
+    }
+
     return {
         exec: function (str) {
-            var bracketStack = 0;
-            var readTagName = true;
-            var readAttributes = false;
-            var inTag = false;
-            var match = ['', '', '', '', ''];
-            match['input'] = str;
+            var state = {
+                state: INITIAL,
+                match: ['', '', '', '', ''],
+                bracketStack: 0
+            };
+            state.match['input'] = str;
 
             for (var i = lastIndex; i < str.length; ++i) {
-                ++lastIndex;
-                switch (str[i]) {
-                    case '<':
-                        if (i < str.length - 1 && str[i + 1] === '!') {
-                          break;
-                        }
-                        if (!bracketStack) {
-                            match['index'] = i;
-                            inTag = true;
-                        } else if (inTag && readTagName) {
-                            match[2] += str[i];
-                        } else if (inTag && readAttributes) {
-                            match[3] += str[i];
-                        }
-                        bracketStack++;
+                switch (state.state) {
+                    case INITIAL:
+                        state = initial(state.match, str[i], i);
                         break;
-                    case '/':
-                        if (i - 1 === match['index']) {
-                            match[1] = '/';
-                        } else if (bracketStack === 1 && i < str.length - 1 && str[i + 1] === '>') {
-                            match[4] = '/';
-                        } else if (inTag && readTagName) {
-                          match[2] += str[i];
-                        } else if (inTag && readAttributes) {
-                          match[3] += str[i];
-                        }
+                    case TAG_OPENED:
+                        state = tagOpened(state.match, str[i]);
                         break;
-                    case ' ':
-                        if (inTag && readAttributes) {
-                            match[3] += str[i];
-                        } else if (inTag) {
-                            readTagName = false;
-                            readAttributes = true;
-                        }
+                    case READ_TAG_NAME:
+                        state = readTagName(state.match, str[i]);
                         break;
-                    case '>':
-                        if (bracketStack > 0 && !(--bracketStack)) {
-                            match[0] = str.slice(match['index'], i + 1);
-                            return match;
-                        } else if (inTag && readTagName) {
-                            match[2] += str[i];
-                        } else if (inTag && readAttributes) {
-                            match[3] += str[i];
-                        }
+                    case READ_ATTRIBUTES:
+                        state = readAttributes(state.match, str[i], state.bracketClose);
                         break;
+                    case IS_SELF_CLOSING:
+                        state = isSelfClosing(state.match, str[i]);
+                        break;
+                    case TAG_CLOSE:
+                        state = tagClose(state.match, str, i);
+                        return state.match;
                     default:
-                        if (inTag && readTagName) {
-                            match[2] += str[i];
-                        } else if (inTag && readAttributes) {
-                            match[3] += str[i];
-                        }
-                        break;
+                          break;
                 }
             }
+            if (state.state === TAG_CLOSE) {
+                state = tagClose(state.match, str, str.length);
+                return state.match;
+            }
+
             lastIndex = 0;
             return null;
         },
         get lastIndex() {
           return lastIndex;
         },
-        set lastIndex(newLastIndex) {
-          // lastIndex = newLastIndex;
-        }
+        set lastIndex(newLastIndex) {}
     }
 })();
 
