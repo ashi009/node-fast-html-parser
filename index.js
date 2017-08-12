@@ -1,17 +1,12 @@
 require('apollojs');
-var equal = require('ramda').equals;
-
 var entities = require('entities');
 
 /**
  * Node Class as base class for TextNode and HTMLElement.
  */
-function Node() {
+function Node() {}
 
-}
-$declare(Node, {
-
-});
+$declare(Node, {});
 $defenum(Node, {
   ELEMENT_NODE:  1,
   TEXT_NODE:     3
@@ -25,43 +20,12 @@ function TextNode(value) {
   this.rawText = value;
 }
 $inherit(TextNode, Node, {
-
   /**
    * Node Type declaration.
    * @type {Number}
    */
-  nodeType: Node.TEXT_NODE,
-
-  /**
-   * Get unescaped text value of current node and its children.
-   * @return {string} text content
-   */
-  get text() {
-    return entities.decodeHTML5(this.rawText);
-  },
-
-  /**
-   * Detect if the node contains only white space.
-   * @return {bool}
-   */
-  get isWhitespace() {
-    return /^(\s|&nbsp;)*$/.test(this.rawText);
-  }
-
+  nodeType: Node.TEXT_NODE
 });
-
-var kBlockElements = {
-  div: true,
-  p: true,
-  // ul: true,
-  // ol: true,
-  li: true,
-  // table: true,
-  // tr: true,
-  td: true,
-  section: true,
-  br: true
-};
 
 /**
  * HTMLElement, which contains a set of children.
@@ -75,30 +39,20 @@ var kBlockElements = {
 function HTMLElement(name, keyAttrs, rawAttrs) {
   this.tagName = name;
   this.rawAttrs = rawAttrs || '';
-  // this.parentNode = null;
   this.childNodes = [];
   if (keyAttrs.id)
     this.id = keyAttrs.id;
-  if (keyAttrs.class)
-    this.classNames = keyAttrs.class.split(/\s+/);
-  else
-    this.classNames = [];
 }
 $inherit(HTMLElement, Node, {
-
   /**
    * Node Type declaration.
    * @type {Number}
    */
   nodeType: Node.ELEMENT_NODE,
-
   /**
    * Get unescaped text value of current node and its children.
    * @return {string} text content
    */
-  get text() {
-    return entities.decodeHTML5(this.rawText);
-  },
 
   /**
    * Get escpaed (as-it) text value of current node and its children.
@@ -112,216 +66,6 @@ $inherit(HTMLElement, Node, {
   },
 
   /**
-   * Get structured Text (with '\n' etc.)
-   * @return {string} structured text
-   */
-  get structuredText() {
-    var currentBlock = [];
-    var blocks = [currentBlock];
-    function dfs(node) {
-      if (node.nodeType === Node.ELEMENT_NODE) {
-        if (kBlockElements[node.tagName]) {
-          if (currentBlock.length > 0)
-            blocks.push(currentBlock = []);
-          node.childNodes.forEach(dfs);
-          if (currentBlock.length > 0)
-            blocks.push(currentBlock = []);
-        } else {
-          node.childNodes.forEach(dfs);
-        }
-      } else if (node.nodeType === Node.TEXT_NODE) {
-        if (node.isWhitespace) {
-          // Whitespace node, postponed output
-          currentBlock.prependWhitespace = true;
-        } else {
-          var text = node.text;
-          if (currentBlock.prependWhitespace) {
-            text = ' ' + text;
-            currentBlock.prependWhitespace = false;
-          }
-          currentBlock.push(text);
-        }
-      }
-    }
-    dfs(this);
-    return blocks
-        .map(function(block) {
-          // Normalize each line's whitespace
-          return block.join('').trim().replace(/\s{2,}/g, ' ');
-        })
-        .join('\n').trimRight();
-  },
-
-  /**
-   * Trim element from right (in block) after seeing pattern in a TextNode.
-   * @param  {RegExp} pattern pattern to find
-   * @return {HTMLElement}    reference to current node
-   */
-  trimRight: function(pattern) {
-    function dfs(node) {
-      for (var i = 0; i < node.childNodes.length; i++) {
-        var childNode = node.childNodes[i];
-        if (childNode.nodeType === Node.ELEMENT_NODE) {
-          dfs(childNode);
-        } else {
-          var index = childNode.rawText.search(pattern);
-          if (index > -1) {
-            childNode.rawText = childNode.rawText.substr(0, index);
-            // trim all following nodes.
-            node.childNodes.length = i+1;
-          }
-        }
-      }
-    }
-    dfs(this);
-    return this;
-  },
-
-  /**
-   * Get DOM structure
-   * @return {string} strucutre
-   */
-  get structure() {
-    var res = [];
-    var indention = 0;
-    function write(str) {
-      res.push('  '.repeat(indention) + str);
-    }
-    function dfs(node) {
-      var idStr = node.id ? ('#' + node.id) : '';
-      var classStr = node.classNames.length ? ('.' + node.classNames.join('.')) : '';
-      write(node.tagName + idStr + classStr);
-      indention++;
-      for (var i = 0; i < node.childNodes.length; i++) {
-        var childNode = node.childNodes[i];
-        if (childNode.nodeType === Node.ELEMENT_NODE) {
-          dfs(childNode);
-        } else if (childNode.nodeType === Node.TEXT_NODE) {
-          if (!childNode.isWhitespace)
-            write('#text');
-        }
-      }
-      indention--;
-    }
-    dfs(this);
-    return res.join('\n');
-  },
-
-  /**
-   * Remove whitespaces in this sub tree.
-   * @return {HTMLElement} pointer to this
-   */
-  removeWhitespace: function() {
-    var i = 0, o = 0;
-    for (; i < this.childNodes.length; i++) {
-      var node = this.childNodes[i];
-      if (node.nodeType === Node.TEXT_NODE) {
-        if (node.isWhitespace)
-          continue;
-        node.rawText = node.rawText.trim();
-      } else if (node.nodeType === Node.ELEMENT_NODE) {
-        node.removeWhitespace();
-      }
-      this.childNodes[o++] = node;
-    }
-    this.childNodes.length = o;
-    return this;
-  },
-
-  /**
-   * Query CSS selector to find matching nodes.
-   * @param  {string}         selector Simplified CSS selector
-   * @param  {Matcher}        selector A Matcher instance
-   * @return {HTMLElement[]}  matching elements
-   */
-  querySelectorAll: function(selector) {
-    var matcher;
-    if (selector instanceof Matcher) {
-      matcher = selector;
-      matcher.reset();
-    } else {
-      matcher = new Matcher(selector);
-    }
-    var res = [];
-    var stack = [];
-    for (var i = 0; i < this.childNodes.length; i++) {
-      stack.push([this.childNodes[i], 0, false]);
-      while (stack.length) {
-        var state = stack.back;
-        var el = state[0];
-        if (state[1] === 0) {
-          // Seen for first time.
-          if (el.nodeType !== Node.ELEMENT_NODE) {
-            stack.pop();
-            continue;
-          }
-          if (state[2] = matcher.advance(el)) {
-            if (matcher.matched) {
-              res.push(el);
-              // no need to go further.
-              matcher.rewind();
-              stack.pop();
-              continue;
-            }
-          }
-        }
-        if (state[1] < el.childNodes.length) {
-          stack.push([el.childNodes[state[1]++], 0, false]);
-        } else {
-          if (state[2])
-            matcher.rewind();
-          stack.pop();
-        }
-      }
-    }
-    return res;
-  },
-
-  /**
-   * Query CSS Selector to find matching node.
-   * @param  {string}         selector Simplified CSS selector
-   * @param  {Matcher}        selector A Matcher instance
-   * @return {HTMLElement}    matching node
-   */
-  querySelector: function(selector) {
-    var matcher;
-    if (selector instanceof Matcher) {
-      matcher = selector;
-      matcher.reset();
-    } else {
-      matcher = new Matcher(selector);
-    }
-    var stack = [];
-    for (var i = 0; i < this.childNodes.length; i++) {
-      stack.push([this.childNodes[i], 0, false]);
-      while (stack.length) {
-        var state = stack.back;
-        var el = state[0];
-        if (state[1] === 0) {
-          // Seen for first time.
-          if (el.nodeType !== Node.ELEMENT_NODE) {
-            stack.pop();
-            continue;
-          }
-          if (state[2] = matcher.advance(el)) {
-            if (matcher.matched) {
-              return el;
-            }
-          }
-        }
-        if (state[1] < el.childNodes.length) {
-          stack.push([el.childNodes[state[1]++], 0, false]);
-        } else {
-          if (state[2])
-            matcher.rewind();
-          stack.pop();
-        }
-      }
-    }
-    return null;
-  },
-
-  /**
    * Append a child node to childNodes
    * @param  {Node} node node to append
    * @return {Node}      node appended
@@ -331,23 +75,6 @@ $inherit(HTMLElement, Node, {
     this.childNodes.push(node);
     return node;
   },
-
-  /**
-   * Get first child node
-   * @return {Node} first child node
-   */
-  get firstChild() {
-    return this.childNodes.front;
-  },
-
-  /**
-   * Get last child node
-   * @return {Node} last child node
-   */
-  get lastChild() {
-    return this.childNodes.back;
-  },
-
   /**
    * Get attributes
    * @return {Object} parsed and unescaped attributes
@@ -379,94 +106,8 @@ $inherit(HTMLElement, Node, {
     this._rawAttrs = attrs;
     return attrs;
   }
-
 });
-$define(HTMLElement, {
-  __wrap: function(el) {
-    el.childNodes.forEach(function(node) {
-      if (node.rawText) {
-        $wrap(node, TextNode);
-      } else {
-        $wrap(node, HTMLElement);
-      }
-    });
-  }
-});
-
-/**
- * Cache to store generated match functions
- * @type {Object}
- */
-var pMatchFunctionCache = {};
-
-/**
- * Matcher class to make CSS match
- * @param {string} selector Selector
- */
-function Matcher(selector) {
-  this.matchers = selector.split(' ').map(function(matcher) {
-    if (pMatchFunctionCache[matcher])
-      return pMatchFunctionCache[matcher];
-    var parts = matcher.split('.');
-    var tagName = parts[0];
-    var classes = parts.slice(1).sort();
-    var source = '';
-    if (tagName && tagName != '*') {
-      if (tagName[0] == '#')
-        source += 'if (el.id != ' + JSON.stringify(tagName.substr(1)) + ') return false;';
-      else
-        source += 'if (el.tagName != ' + JSON.stringify(tagName) + ') return false;';
-    }
-    if (classes.length > 0)
-      source += 'for (var cls = ' + JSON.stringify(classes) + ', i = 0; i < cls.length; i++) if (el.classNames.indexOf(cls[i]) === -1) return false;';
-    source += 'return true;';
-    return pMatchFunctionCache[matcher] = new Function('el', source);
-  });
-  this.nextMatch = 0;
-}
-$declare(Matcher, {
-  /**
-   * Trying to advance match pointer
-   * @param  {HTMLElement} el element to make the match
-   * @return {bool}           true when pointer advanced.
-   */
-  advance: function(el) {
-    if (this.nextMatch < this.matchers.length &&
-        this.matchers[this.nextMatch](el)) {
-      this.nextMatch++;
-      return true;
-    }
-    return false;
-  },
-  /**
-   * Rewind the match pointer
-   */
-  rewind: function() {
-    this.nextMatch--;
-  },
-  /**
-   * Trying to determine if match made.
-   * @return {bool} true when the match is made
-   */
-  get matched() {
-    return this.nextMatch == this.matchers.length;
-  },
-  /**
-   * Rest match pointer.
-   * @return {[type]} [description]
-   */
-  reset: function() {
-    this.nextMatch = 0;
-  }
-});
-$define(Matcher, {
-  /**
-   * flush cache to free memory
-   */
-  flushCache: function() {
-    pMatchFunctionCache = {};
-  }
-});
+$define(HTMLElement, {});
 
 // parser states
 var INITIAL = 'INITIAL';
@@ -531,6 +172,7 @@ var kMarkupPattern = (function () {
                     return makeState(IS_SELF_CLOSING, match, bracketStack);
                 }
 
+                match[3] += sym;
                 return makeState(READ_ATTRIBUTES, match, bracketStack);
             case '>':
                 if (--bracketStack) {
@@ -585,7 +227,7 @@ var kMarkupPattern = (function () {
                         state = readTagName(state.match, str[i]);
                         break;
                     case READ_ATTRIBUTES:
-                        state = readAttributes(state.match, str[i], state.bracketClose);
+                        state = readAttributes(state.match, str[i], state.bracketStack);
                         break;
                     case IS_SELF_CLOSING:
                         state = isSelfClosing(state.match, str[i]);
@@ -651,7 +293,6 @@ var kBlockTextElements = {
  */
 module.exports = {
 
-  Matcher: Matcher,
   Node: Node,
   HTMLElement: HTMLElement,
   TextNode: TextNode,
