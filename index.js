@@ -1,4 +1,5 @@
 require('apollojs');
+var equal = require('ramda').equals;
 
 var entities = require('entities');
 
@@ -471,19 +472,24 @@ var kMarkupPattern = (function () {
     var lastIndex = 0;
 
     return {
-        lastIndex: lastIndex,
         exec: function (str) {
             var bracketStack = 0;
             var readTagName = true;
-            var match = ['', '', '', ''];
+            var readAttributes = false;
+            var inTag = false;
+            var match = ['', '', '', '', ''];
             match['input'] = str;
 
             for (var i = lastIndex; i < str.length; ++i) {
                 ++lastIndex;
                 switch (str[i]) {
                     case '<':
+                        if (i < str.length - 1 && str[i + 1] === '!') {
+                          break;
+                        }
                         if (!bracketStack) {
                             match['index'] = i;
+                            inTag = true;
                         }
                         bracketStack++;
                         break;
@@ -492,25 +498,30 @@ var kMarkupPattern = (function () {
                             match[1] = '/';
                         } else if (i < str.length - 1 && str[i + 1] === '>') {
                             match[4] = '/';
+                        } else if (inTag && readTagName) {
+                          match[2] += str[i];
+                        } else if (inTag && readAttributes) {
+                          match[3] += str[i];
                         }
                         break;
                     case ' ':
-                        if (!readTagName) {
+                        if (inTag && readAttributes) {
                             match[3] += str[i];
-                        } else {
+                        } else if (inTag) {
                             readTagName = false;
+                            readAttributes = true;
                         }
                         break;
                     case '>':
-                        if (!(--bracketStack)) {
+                        if (bracketStack > 0 && !(--bracketStack)) {
                             match[0] = str.slice(match['index'], i + 1);
                             return match;
                         }
                         break;
                     default:
-                        if (readTagName) {
+                        if (inTag && readTagName) {
                             match[2] += str[i];
-                        } else {
+                        } else if (inTag && readAttributes) {
                             match[3] += str[i];
                         }
                         break;
@@ -518,6 +529,12 @@ var kMarkupPattern = (function () {
             }
             lastIndex = 0;
             return null;
+        },
+        get lastIndex() {
+          return lastIndex;
+        },
+        set lastIndex(newLastIndex) {
+          // lastIndex = newLastIndex;
         }
     }
 })();
@@ -581,7 +598,6 @@ module.exports = {
     options = options || {};
 
     for (var match, text; match = kMarkupPattern.exec(data); ) {
-        console.log(match);
       if (lastTextPos > -1) {
         if (lastTextPos + match[0].length < kMarkupPattern.lastIndex) {
           // if has content
