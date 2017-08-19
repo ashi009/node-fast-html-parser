@@ -156,7 +156,7 @@ var kMarkupPattern = (function () {
 
     /**
      * Make state object from params
-     * @param {string} status               next parcer status
+     * @param {string} status               next parser status
      * @param {Array}  match                array which contains parsed values
      * @param {Number} openedBracketCounter counter of unclosed tag brackets
      */
@@ -168,7 +168,7 @@ var kMarkupPattern = (function () {
         };
     }
 
-    // Status functions that determine the processing of the next character
+    // Status functions those determine the processing of the next character
 
     /**
      * Initial status function
