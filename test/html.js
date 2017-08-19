@@ -31,9 +31,7 @@ describe('HTML Parser', function() {
 
     it('should parse "<DIV><a><img/></A><p></P></div>" and return root element', function() {
 
-      var root = parseHTML('<DIV><a><img/></A><p></P></div>', {
-        lowerCaseTagName: true
-      });
+      var root = parseHTML('<div><a><img/></a><p></P></div>');
 
       var div = new HTMLElement('div', {}, '');
       var a = div.appendChild(new HTMLElement('a', {}, ''));
@@ -100,9 +98,7 @@ describe('HTML Parser', function() {
     it('should parse "<DIV><a><img/></A><p></P></div>.." fast', function() {
 
       for (var i = 0; i < 100; i++)
-        parseHTML('<DIV><a><img/></A><p></P></div><DIV><a><img/></A><p></P></div><DIV><a><img/></A><p></P></div><DIV><a><img/></A><p></P></div><DIV><a><img/></A><p></P></div><DIV><a><img/></A><p></P></div><DIV><a><img/></A><p></P></div><DIV><a><img/></A><p></P></div><DIV><a><img/></A><p></P></div><DIV><a><img/></A><p></P></div><DIV><a><img/></A><p></P></div><DIV><a><img/></A><p></P></div><DIV><a><img/></A><p></P></div><DIV><a><img/></A><p></P></div><DIV><a><img/></A><p></P></div><DIV><a><img/></A><p></P></div><DIV><a><img/></A><p></P></div><DIV><a><img/></A><p></P></div><DIV><a><img/></A><p></P></div><DIV><a><img/></A><p></P></div>', {
-          lowerCaseTagName: true
-        });
+        parseHTML('<DIV><a><img/></A><p></P></div><DIV><a><img/></A><p></P></div><DIV><a><img/></A><p></P></div><DIV><a><img/></A><p></P></div><DIV><a><img/></A><p></P></div><DIV><a><img/></A><p></P></div><DIV><a><img/></A><p></P></div><DIV><a><img/></A><p></P></div><DIV><a><img/></A><p></P></div><DIV><a><img/></A><p></P></div><DIV><a><img/></A><p></P></div><DIV><a><img/></A><p></P></div><DIV><a><img/></A><p></P></div><DIV><a><img/></A><p></P></div><DIV><a><img/></A><p></P></div><DIV><a><img/></A><p></P></div><DIV><a><img/></A><p></P></div><DIV><a><img/></A><p></P></div><DIV><a><img/></A><p></P></div><DIV><a><img/></A><p></P></div>');
     });
 
   });
