@@ -15,9 +15,5 @@ npm-debug.log
 node_modules
 bower_components
 
-.*
-!.gitignore
-
 *.sublime-*
 dist/
-yarn.lock
