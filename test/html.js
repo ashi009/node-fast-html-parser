@@ -263,4 +263,13 @@ describe('HTML Parser', function () {
 			root.toString().should.eql(html)
 		});
 	});
+
+	describe('Custom Element', function () {
+		it('parse "<my-widget></my-widget>" tagName should be "my-widget"', function () {
+
+			var root = parseHTML('<my-widget></my-widget>');
+
+			root.firstChild.tagName.should.eql('my-widget');
+		});
+	});
 });
