@@ -497,7 +497,7 @@ export class Matcher {
 						method = '==';
 					}
 					const value = matcher[7] || matcher[8];
-					source += `const attrs = el.attributes;for (const key in attrs){const val = attrs[key]; if (key == "${attr_key}" && val ${method} "${value}"){return true;}} return false;`;
+					source += `var attrs = el.attributes;for (var key in attrs){const val = attrs[key]; if (key == "${attr_key}" && val ${method} "${value}"){return true;}} return false;`;
 				} else {
 					source += 'if (el.tagName != ' + JSON.stringify(tagName) + ') return false;';
 				}
