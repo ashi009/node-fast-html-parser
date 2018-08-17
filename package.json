@@ -19,7 +19,7 @@
 	],
 	"license": "MIT",
 	"dependencies": {
-		"he": "latest"
+		"he": "^1.1.1"
 	},
 	"devDependencies": {
 		"@types/entities": "latest",
@@ -29,7 +29,7 @@
 		"del": "latest",
 		"gulp": "latest",
 		"gulp-sequence": "latest",
-		"gulp-shell": "^0.6.5",
+		"gulp-shell": "latest",
 		"mocha": "latest",
 		"should": "latest",
 		"spec": "latest",
