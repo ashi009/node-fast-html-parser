@@ -38,11 +38,9 @@
 			// "es6",
 			"esnext"
 		],
-		"listFiles": true, // default false
-		"listEmittedFiles": true, // default false
 		"locale": "zh_CN",
 		"newLine": "CRLF",
-		"noEmit": false,
+		"noEmit": true,
 		"moduleResolution": "node",
 		"noEmitHelpers": false,
 		"noEmitOnError": false,
@@ -66,9 +64,7 @@
 		"stripInternal": false,
 		"suppressExcessPropertyErrors": false,
 		"suppressImplicitAnyIndexErrors": true, // default false
-		"traceResolution": true, // default false
-		"typeRoots": [
-		],
+		"typeRoots": [],
 		"types": [
 			"node"
 		],
