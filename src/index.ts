@@ -215,7 +215,7 @@ export class HTMLElement extends Node {
 			const r = parse(content);
 			content = r.childNodes.length ? r.childNodes : [new TextNode(content)];
 		}
-		this.childNodes = content;
+		this.childNodes = content as Node[];
 	}
 
 	get outerHTML() {
