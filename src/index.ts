@@ -550,7 +550,8 @@ export class Matcher {
 	}
 }
 
-const kMarkupPattern = /<!--[^]*?(?=-->)-->|<(\/?)([a-z][a-z0-9]*-?[a-z0-9]*)\s*([^>]*?)(\/?)>/ig;
+// https://html.spec.whatwg.org/multipage/custom-elements.html#valid-custom-element-name
+const kMarkupPattern = /<!--[^]*?(?=-->)-->|<(\/?)([a-z][-.0-9_a-z]*)\s*([^>]*?)(\/?)>/ig;
 const kAttributePattern = /(^|\s)(id|class)\s*=\s*("([^"]+)"|'([^']+)'|(\S+))/ig;
 const kSelfClosingElements = {
 	meta: true,
