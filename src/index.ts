@@ -452,15 +452,118 @@ export class HTMLElement extends Node {
 	}
 }
 
-interface MatherFunction {
-	(el: Node): boolean;
-}
+interface MatherFunction { func: any; tagName: string; classes: string | string[]; attr_key: any; value: any; }
 
 /**
  * Cache to store generated match functions
  * @type {Object}
  */
 let pMatchFunctionCache = {} as { [name: string]: MatherFunction };
+
+/**
+ * Function cache
+ */
+let functionCache = {
+	"f145":function(el: any,tagName: string,classes: any[],attr_key: string,value: string){
+		"use strict";
+		tagName = tagName||"";
+		classes = classes||[];
+		attr_key = attr_key||"";
+		value = value||"";
+		if (el.id != tagName.substr(1)) return false;
+		for (var cls = classes, i = 0; i < cls.length; i++) if (el.classNames.indexOf(cls[i]) === -1) return false;
+		return true;
+	 },
+	"f45":function(el: any,tagName: string,classes: any[],attr_key: string,value: string){
+		"use strict";
+		tagName = tagName||"";
+		classes = classes||[];
+		attr_key = attr_key||"";
+		value = value||"";
+		for (var cls = classes, i = 0; i < cls.length; i++) if (el.classNames.indexOf(cls[i]) === -1) return false;
+		return true;
+	},
+	"f15":function(el: any,tagName: string,classes: any[],attr_key: string,value: string){
+		"use strict";
+		tagName = tagName||"";
+		classes = classes||[];
+		attr_key = attr_key||"";
+		value = value||"";
+		if (el.id != tagName.substr(1)) return false;
+		return true;
+	},
+	"f1":function(el: any,tagName: string,classes: any[],attr_key: string,value: string){
+		"use strict";
+		tagName = tagName||"";
+		classes = classes||[];
+		attr_key = attr_key||"";
+		value = value||"";
+		if (el.id != tagName.substr(1)) return false;
+	},
+	"f5":function(el: any,tagName: string,classes: any[],attr_key: string,value: string){
+		"use strict";
+		el = el||{};
+		tagName = tagName||"";
+		classes = classes||[];
+		attr_key = attr_key||"";
+		value = value||"";
+		return true;
+	},
+	"f245":function(el: any,tagName: string,classes: any[],attr_key: string,value: string){
+		"use strict";
+		tagName = tagName||"";
+		classes = classes||[];
+		attr_key = attr_key||"";
+		value = value||"";
+		var attrs = el.attributes;for (var key in attrs){const val = attrs[key]; if (key == attr_key && val == value){return true;}} return false;
+		// for (var cls = classes, i = 0; i < cls.length; i++) {if (el.classNames.indexOf(cls[i]) === -1){ return false;}}
+		// return true;
+	},
+	"f25":function(el: any,tagName: string,classes: any[],attr_key: string,value: string){
+		"use strict";
+		tagName = tagName||"";
+		classes = classes||[];
+		attr_key = attr_key||"";
+		value = value||"";
+		var attrs = el.attributes;for (var key in attrs){const val = attrs[key]; if (key == attr_key && val == value){return true;}} return false;
+		//return true;
+	},
+	"f2":function(el: any,tagName: string,classes: any[],attr_key: string,value: string){
+		"use strict";
+		tagName = tagName||"";
+		classes = classes||[];
+		attr_key = attr_key||"";
+		value = value||"";
+		var attrs = el.attributes;for (var key in attrs){const val = attrs[key]; if (key == attr_key && val == value){return true;}} return false;
+	},
+	"f345":function(el: any,tagName: string,classes: any[],attr_key: string,value: string){
+		"use strict";
+		tagName = tagName||"";
+		classes = classes||[];
+		attr_key = attr_key||"";
+		value = value||"";
+		if (el.tagName != tagName) return false;
+		for (var cls = classes, i = 0; i < cls.length; i++) if (el.classNames.indexOf(cls[i]) === -1) return false;
+		return true;
+	},
+	"f35":function(el: any,tagName: string,classes: any[],attr_key: string,value: string){
+		"use strict";
+		tagName = tagName||"";
+		classes = classes||[];
+		attr_key = attr_key||"";
+		value = value||"";
+		if (el.tagName != tagName) return false;
+		return true;
+	},
+	"f3":function(el: any,tagName: string,classes: any[],attr_key: string,value: string){
+		"use strict";
+		tagName = tagName||"";
+		classes = classes||[];
+		attr_key = attr_key||"";
+		value = value||"";
+		if (el.tagName != tagName) return false;
+	}
+}
 /**
  * Matcher class to make CSS match
  *
@@ -476,6 +579,7 @@ export class Matcher {
 	 * @memberof Matcher
 	 */
 	constructor(selector: string) {
+		functionCache["f5"] = functionCache["f5"];
 		this.matchers = selector.split(' ').map((matcher) => {
 			if (pMatchFunctionCache[matcher])
 				return pMatchFunctionCache[matcher];
@@ -483,12 +587,16 @@ export class Matcher {
 			const tagName = parts[0];
 			const classes = parts.slice(1).sort();
 			let source = '"use strict";';
+			let function_name = 'f';
+			let attr_key = "";
+			let value = "";
 			if (tagName && tagName != '*') {
 				let matcher: RegExpMatchArray;
 				if (tagName[0] == '#') {
-					source += 'if (el.id != ' + JSON.stringify(tagName.substr(1)) + ') return false;';
+					source += 'if (el.id != ' + JSON.stringify(tagName.substr(1)) + ') return false;';//1
+					function_name += '1';
 				} else if (matcher = tagName.match(/^\[\s*(\S+)\s*(=|!=)\s*((((["'])([^\6]*)\6))|(\S*?))\]\s*/)) {
-					const attr_key = matcher[1];
+					attr_key = matcher[1];
 					let method = matcher[2];
 					if (method !== '=' && method !== '!=') {
 						throw new Error('Selector not supported, Expect [key${op}value].op must be =,!=');
@@ -496,17 +604,30 @@ export class Matcher {
 					if (method === '=') {
 						method = '==';
 					}
-					const value = matcher[7] || matcher[8];
-					source += `var attrs = el.attributes;for (var key in attrs){const val = attrs[key]; if (key == "${attr_key}" && val ${method} "${value}"){return true;}} return false;`;
+					value = matcher[7] || matcher[8];
+
+					source += `var attrs = el.attributes;for (var key in attrs){const val = attrs[key]; if (key == "${attr_key}" && val == "${value}"){return true;}} return false;`;//2
+					function_name += '2';
 				} else {
-					source += 'if (el.tagName != ' + JSON.stringify(tagName) + ') return false;';
+					source += 'if (el.tagName != ' + JSON.stringify(tagName) + ') return false;';//3
+					function_name += '3';
 				}
 			}
 			if (classes.length > 0) {
-				source += 'for (var cls = ' + JSON.stringify(classes) + ', i = 0; i < cls.length; i++) if (el.classNames.indexOf(cls[i]) === -1) return false;';
+				source += 'for (var cls = ' + JSON.stringify(classes) + ', i = 0; i < cls.length; i++) if (el.classNames.indexOf(cls[i]) === -1) return false;';//4
+				function_name += '4';
 			}
-			source += 'return true;';
-			return pMatchFunctionCache[matcher] = new Function('el', source) as MatherFunction;
+			source += 'return true;';//5
+			function_name += '5';
+			let obj = {
+				func : functionCache[function_name],
+				tagName: tagName||"",
+				classes : classes||"",
+				attr_key : attr_key||"",
+				value : value||""
+			}
+			source = source||"";
+			return pMatchFunctionCache[matcher] = obj as MatherFunction;
 		});
 	}
 	/**
@@ -516,7 +637,7 @@ export class Matcher {
 	 */
 	advance(el: Node) {
 		if (this.nextMatch < this.matchers.length &&
-			this.matchers[this.nextMatch](el)) {
+			this.matchers[this.nextMatch].func(el,this.matchers[this.nextMatch].tagName,this.matchers[this.nextMatch].classes,this.matchers[this.nextMatch].attr_key,this.matchers[this.nextMatch].value)) {
 			this.nextMatch++;
 			return true;
 		}
