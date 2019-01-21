@@ -6,9 +6,11 @@
 	"types": "dist/index.d.ts",
 	"scripts": {
 		"test": "mocha",
-		"build": "gulp",
-		"pretest": "gulp",
-		"prepare": "gulp"
+		"clean": "del-cli ./dist/",
+		"ts:cjs": "tsc -m commonjs",
+		"ts:umd": "tsc -t es5 -m umd --outDir ./dist/umd/",
+		"build": "npm run clean && npm run ts:cjs && npm run ts:umd",
+		"dev": "tsc -w"
 	},
 	"keywords": [
 		"fast html parser nodejs typescript"
@@ -26,10 +28,7 @@
 		"@types/he": "latest",
 		"@types/node": "latest",
 		"blanket": "latest",
-		"del": "latest",
-		"gulp": "latest",
-		"gulp-sequence": "latest",
-		"gulp-shell": "latest",
+		"del-cli": "latest",
 		"mocha": "latest",
 		"should": "latest",
 		"spec": "latest",

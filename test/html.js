@@ -17,11 +17,6 @@ describe('HTML Parser', function () {
 			var withIdEl = new HTMLElement('p', { id: 'id' });
 			var withClassNameEl = new HTMLElement('a', { class: 'a b' });
 
-			// console.log(util.inspect([withIdEl, withClassNameEl], {
-			//     showHidden: true,
-			//     depth: null
-			//   }));
-
 			matcher.advance(MatchesNothingButStarEl).should.not.be.ok; // #id
 			matcher.advance(withClassNameEl).should.not.be.ok; // #id
 			matcher.advance(withIdEl).should.be.ok; // #id
@@ -151,6 +146,84 @@ describe('HTML Parser', function () {
 
 		});
 
+		// Test for broken tags. <h3>something<h3>
+
+		it('should parse "<div><h3>content<h3> <span> other <span></div>" (fix h3, span closing tag) very fast', function () {
+			var root = parseHTML(fs.readFileSync(__dirname + '/html/incomplete-script').toString());
+		});
+
+	});
+
+	describe('parseWithValidation', function () {
+		// parse with validation tests
+
+		it('should return Object with valid: true.  does not count <p><p></p> as error. instead fixes it to <p></p><p></p>', function () {
+			var result = parseHTML('<p><p></p>');
+			result.valid.should.eql(true);
+		})
+
+		it('should return Object with valid: true.  does not count <p><p/></p> as error. instead fixes it to <p><p></p></p>', function () {
+			var result = parseHTML('<p><p/></p>');
+			result.valid.should.eql(true);
+		})
+
+		it('should return Object with valid: false.  does not count <p><h3></p> as error', function () {
+			var result = parseHTML('<p><h3></p>');
+			result.valid.should.eql(false);
+		})
+
+		it('hillcrestpartyrentals.html  should return Object with valid: false.  not closing <p> tag on line 476', function () {
+			var result = parseHTML(fs.readFileSync(__dirname + '/html/hillcrestpartyrentals.html').toString(), {
+				noFix: true
+			});
+			result.valid.should.eql(false);
+		})
+
+		it('google.html  should return Object with valid: true', function () {
+			var result = parseHTML(fs.readFileSync(__dirname + '/html/google.html').toString(), {
+				noFix: true
+			});
+			result.valid.should.eql(true);
+		})
+
+		it('gmail.html  should return Object with valid: true', function () {
+			var result = parseHTML(fs.readFileSync(__dirname + '/html/gmail.html').toString(), {
+				noFix: true
+			});
+			result.valid.should.eql(true);
+		})
+
+		it('ffmpeg.html  should return Object with valid: false (extra opening <div>', function () {
+			var result = parseHTML(fs.readFileSync(__dirname + '/html/ffmpeg.html').toString(), {
+				noFix: true
+			});
+			result.valid.should.eql(false);
+		})
+
+		// fix issue speed test
+
+		it('should fix "<div><h3><h3><div>" to "<div><h3></h3></div>"', function () {
+			var result = parseHTML('<div data-id=1><h3 data-id=2><h3><div>');
+			result.valid.should.eql(false);
+			result.toString().should.eql('<div data-id=1><h3 data-id=2></h3></div>');
+		})
+
+		it('should fix "<div><h3><h3><span><span><div>" to "<div><h3></h3><span></span></div>"', function () {
+			var result = parseHTML('<div><h3><h3><span><span><div>');
+			result.valid.should.eql(false);
+			result.toString().should.eql('<div><h3></h3><span></span></div>');
+		})
+
+		it('gmail.html  should return Object with valid: true', function () {
+			var result = parseHTML(fs.readFileSync(__dirname + '/html/gmail.html').toString().replace(/<\//gi, '<'));
+			result.valid.should.eql(false);
+		})
+
+		it('gmail.html  should return Object with valid: true', function () {
+			var result = parseHTML(fs.readFileSync(__dirname + '/html/nice.html').toString().replace(/<\//gi, '<'));
+			result.valid.should.eql(false);
+		})
+
 	});
 
 	describe('TextNode', function () {
@@ -257,7 +330,7 @@ describe('HTML Parser', function () {
 	});
 
 	describe('stringify', function () {
-		describe('#toString()', function () {
+		it('#toString()', function () {
 			const html = '<p id="id" data-feidao-actions="ssss"><a class=\'cls\'>Hello</a><ul><li>aaaaa</li></ul><span>bbb</span></p>';
 			const root = parseHTML(html);
 			root.toString().should.eql(html)
@@ -273,12 +346,12 @@ describe('HTML Parser', function () {
 		});
 	});
 
-  describe('Custom Element multiple dash', function () {
-    it('parse "<my-new-widget></my-new-widget>" tagName should be "my-new-widget"', function () {
+	describe('Custom Element multiple dash', function () {
+		it('parse "<my-new-widget></my-new-widget>" tagName should be "my-new-widget"', function () {
 
-      var root = parseHTML('<my-new-widget></my-new-widget>');
+			var root = parseHTML('<my-new-widget></my-new-widget>');
 
-      root.firstChild.tagName.should.eql('my-new-widget');
-    });
-  });
+			root.firstChild.tagName.should.eql('my-new-widget');
+		});
+	});
 });
