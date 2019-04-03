@@ -460,7 +460,7 @@ export class HTMLElement extends Node {
 			return this._rawAttrs;
 		const attrs = {} as RawAttributes;
 		if (this.rawAttrs) {
-			const re = /\b([a-z][a-z0-9\-]*)(?:\s*=\s*(?:"([^"]+)"|'([^']+)'|(\S+)))?/ig;
+			const re = /\b([a-z][a-z0-9\-]*)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|(\S+)))?/ig;
 			let match: RegExpExecArray;
 			while (match = re.exec(this.rawAttrs)) {
 				attrs[match[1]] = match[2] || match[3] || match[4] || "";

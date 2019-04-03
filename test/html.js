@@ -264,12 +264,13 @@ describe('HTML Parser', function () {
 
 		describe('#attributes', function () {
 			it('should return attributes of the element', function () {
-				var root = parseHTML('<p a=12 data-id="!$$&amp;" yAz=\'1\' disabled></p>');
+				var root = parseHTML('<p a=12 data-id="!$$&amp;" yAz=\'1\' class="" disabled></p>');
 				root.firstChild.attributes.should.eql({
 					'a': '12',
 					'data-id': '!$$&',
 					'yAz': '1',
-					'disabled': ''
+					'disabled': '',
+					'class': ''
 				});
 			});
 		});
