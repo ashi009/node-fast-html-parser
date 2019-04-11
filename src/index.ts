@@ -742,6 +742,9 @@ const kBlockTextElements = {
 export function parse(data: string, options?: {
 	lowerCaseTagName?: boolean;
 	noFix?: boolean;
+	script?: boolean;
+	style?: boolean;
+	pre?: boolean;
 }) {
 	const root = new HTMLElement(null, {});
 	let currentParent = root;
