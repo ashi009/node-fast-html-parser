@@ -97,6 +97,18 @@ describe('HTML Parser', function () {
 
 		});
 
+		it('should parse picture element', function () {
+
+			var root = parseHTML('<picture><source srcset="/images/example-1.jpg 1200w, /images/example-2.jpg 1600w" sizes="100vw"><img src="/images/example.jpg" alt="Example"/></picture>');
+			
+			var picture = new HTMLElement('picture', {}, '');
+			var source = picture.appendChild(new HTMLElement('source', {}, 'srcset="/images/example-1.jpg 1200w, /images/example-2.jpg 1600w" sizes="100vw"'));
+			var img = picture.appendChild(new HTMLElement('img', {}, 'src="/images/example.jpg" alt="Example"'));
+
+			root.firstChild.should.eql(picture);
+
+		});
+
 		it('should not extract text in script and style by default', function () {
 
 			var root = parseHTML('<script>1</script><style>2</style>');

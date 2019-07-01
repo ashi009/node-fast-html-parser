@@ -702,7 +702,8 @@ const kSelfClosingElements = {
 	img: true,
 	input: true,
 	link: true,
-	meta: true
+	meta: true,
+	source: true
 };
 const kElementsClosedByOpening = {
 	li: { li: true },
