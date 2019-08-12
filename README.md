@@ -1,6 +1,5 @@
 # Fast HTML Parser [![NPM version](https://badge.fury.io/js/fast-html-parser.png)](http://badge.fury.io/js/fast-html-parser) [![Build Status](https://travis-ci.org/ashi009/node-fast-html-parser.svg?branch=master)](https://travis-ci.org/ashi009/node-fast-html-parser) ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 
-
 Fast HTML Parser is a _very fast_ HTML parser. Which will generate a simplified
 DOM tree, with basic element query support.
 
