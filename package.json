@@ -8,7 +8,7 @@
 		"test": "mocha",
 		"clean": "del-cli ./dist/",
 		"ts:cjs": "tsc -m commonjs",
-		"ts:umd": "tsc -t es5 -m umd --outDir ./dist/umd/",
+		"ts:umd": "tsc -t es5 -m umd -d false --outDir ./dist/umd/",
 		"build": "npm run clean && npm run ts:cjs && npm run ts:umd",
 		"dev": "tsc -w",
 		"pretest": "tsc -m commonjs"
