@@ -310,6 +310,7 @@ describe('HTML Parser', function () {
 				root.querySelectorAll('span.a.b').should.eql([root.firstChild.firstChild.firstChild]);
 				root.querySelectorAll('#id .b').should.eql([root.firstChild.firstChild.firstChild]);
 				root.querySelectorAll('#id span').should.eql(root.firstChild.firstChild.childNodes);
+				root.querySelectorAll('#id, #id .b').should.eql([root.firstChild, root.firstChild.firstChild.firstChild]);
 			});
 		});
 
