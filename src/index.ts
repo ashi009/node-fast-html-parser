@@ -330,7 +330,7 @@ export class HTMLElement extends Node {
 				let result = [] as HTMLElement[];
 				selectors.forEach((s) => {
 					result = result.concat(this.querySelectorAll(s.trim()));
-				})
+				});
 				return result;
 			}
 			matcher = new Matcher(selector);
