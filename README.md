@@ -79,7 +79,8 @@ Parse given data, and return root of the generated DOM.
     lowerCaseTagName: false,  // convert tag name to lower case (hurt performance heavily)
     script: false,            // retrieve content in <script> (hurt performance slightly)
     style: false,             // retrieve content in <style> (hurt performance slightly)
-    pre: false                // retrieve content in <pre> (hurt performance slightly)
+    pre: false,               // retrieve content in <pre> (hurt performance slightly)
+    comment: false            // retrieve comments (hurt performance slightly)
   }
   ```
 
