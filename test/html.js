@@ -9,6 +9,7 @@ describe('HTML Parser', function () {
 	var Matcher = HTMLParser.Matcher;
 	var HTMLElement = HTMLParser.HTMLElement;
 	var TextNode = HTMLParser.TextNode;
+	var CommentNode = HTMLParser.CommentNode;
 
 	describe('Matcher', function () {
 		it('should match corrent elements', function () {
@@ -95,6 +96,34 @@ describe('HTML Parser', function () {
 
 			root.firstChild.should.eql(div);
 
+		});
+
+		it('should parse "<div><a><!-- my comment --></a></div>" and return root element without comments', function () {
+			var root = parseHTML('<div><a><!-- my comment --></a></div>');
+
+			var div = new HTMLElement('div', {}, '');
+			var a = div.appendChild(new HTMLElement('a', {}, ''));
+
+			root.firstChild.should.eql(div);
+		});
+
+		it('should parse "<div><a><!-- my comment --></a></div>" and return root element with comments', function () {
+			var root = parseHTML('<div><a><!-- my comment --></a></div>', { comment: true });
+
+			var div = new HTMLElement('div', {}, '');
+			var a = div.appendChild(new HTMLElement('a', {}, ''));
+			var comment = a.appendChild(new CommentNode(' my comment '));
+
+			root.firstChild.should.eql(div);
+		});
+
+		it('should not parse HTML inside comments', function () {
+			var root = parseHTML('<div><!--<a></a>--></div>', { comment: true });
+
+			var div = new HTMLElement('div', {}, '');
+			var comment = div.appendChild(new CommentNode('<a></a>'));
+
+			root.firstChild.should.eql(div);
 		});
 
 		it('should parse picture element', function () {
@@ -319,6 +348,11 @@ describe('HTML Parser', function () {
 				var root = parseHTML('<span>o<p>a</p><p>b</p>c</span>');
 				root.structuredText.should.eql('o\na\nb\nc');
 			});
+
+			it('should not return comments in structured text', function () {
+				var root = parseHTML('<span>o<p>a</p><!-- my comment --></span>', { comment: true });
+				root.structuredText.should.eql('o\na');
+			});
 		});
 		describe('#set_content', function () {
 			it('set content string', function () {
@@ -349,6 +383,26 @@ describe('HTML Parser', function () {
 			const html = '<p id="id" data-feidao-actions="ssss"><a class=\'cls\'>Hello</a><ul><li>aaaaa</li></ul><span>bbb</span></p>';
 			const root = parseHTML(html);
 			root.toString().should.eql(html)
+		});
+
+		it('#toString() should not return comments by default', function () {
+			const html = '<p><!-- my comment --></p>';
+			const result = '<p></p>';
+			const root = parseHTML(html);
+			root.toString().should.eql(result);
+		});
+
+		it('#toString() should return comments when specified', function () {
+			const html = '<!----><p><!-- my comment --></p>';
+			const root = parseHTML(html, { comment: true });
+			root.toString().should.eql(html);
+		});
+	});
+
+	describe('Comment Element', function () {
+		it('comment nodeType should be 8', function () {
+			var root = parseHTML('<!-- my comment -->', { comment: true });
+			root.firstChild.nodeType.should.eql(8);
 		});
 	});
 

@@ -2,7 +2,8 @@ import { decode } from 'he';
 
 export enum NodeType {
 	ELEMENT_NODE = 1,
-	TEXT_NODE = 3
+	TEXT_NODE = 3,
+	COMMENT_NODE = 8
 }
 
 /**
@@ -49,6 +50,31 @@ export class TextNode extends Node {
 
 	toString() {
 		return this.text;
+	}
+}
+
+export class CommentNode extends Node {
+	constructor(value: string) {
+		super();
+		this.rawText = value;
+	}
+
+	/**
+	 * Node Type declaration.
+	 * @type {Number}
+	 */
+	nodeType = NodeType.COMMENT_NODE;
+
+	/**
+	 * Get unescaped text value of current node and its children.
+	 * @return {string} text content
+	 */
+	get text() {
+		return decode(this.rawText);
+	}
+
+	toString() {
+		return `<!--${this.rawText}-->`;
 	}
 }
 
@@ -193,7 +219,7 @@ export class HTMLElement extends Node {
 					currentBlock.push(text);
 				}
 			}
-		}
+		} 
 		dfs(this);
 		return blocks
 			.map(function (block) {
@@ -754,6 +780,7 @@ export function parse(data: string, options?: {
 	script?: boolean;
 	style?: boolean;
 	pre?: boolean;
+	comment?: boolean;
 }) {
 	const root = new HTMLElement(null, {});
 	let currentParent = root;
@@ -772,6 +799,11 @@ export function parse(data: string, options?: {
 		lastTextPos = kMarkupPattern.lastIndex;
 		if (match[0][1] == '!') {
 			// this is a comment
+			if (options.comment) {
+				// Only keep what is in between <!-- and -->
+				const text = data.substring(lastTextPos - 3 , lastTextPos - match[0].length + 4);
+				currentParent.appendChild(new CommentNode(text));
+			}
 			continue;
 		}
 		if (options.lowerCaseTagName)
