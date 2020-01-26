@@ -129,7 +129,7 @@ describe('HTML Parser', function () {
 		it('should parse picture element', function () {
 
 			var root = parseHTML('<picture><source srcset="/images/example-1.jpg 1200w, /images/example-2.jpg 1600w" sizes="100vw"><img src="/images/example.jpg" alt="Example"/></picture>');
-			
+
 			var picture = new HTMLElement('picture', {}, '');
 			var source = picture.appendChild(new HTMLElement('source', {}, 'srcset="/images/example-1.jpg 1200w, /images/example-2.jpg 1600w" sizes="100vw"'));
 			var img = picture.appendChild(new HTMLElement('img', {}, 'src="/images/example.jpg" alt="Example"'));
@@ -340,6 +340,16 @@ describe('HTML Parser', function () {
 				root.querySelectorAll('#id .b').should.eql([root.firstChild.firstChild.firstChild]);
 				root.querySelectorAll('#id span').should.eql(root.firstChild.firstChild.childNodes);
 				root.querySelectorAll('#id, #id .b').should.eql([root.firstChild, root.firstChild.firstChild.firstChild]);
+			});
+			it('should return just one element', function () {
+				var root = parseHTML('<time class="date">');
+				root.querySelectorAll('time,.date').should.eql([root.firstChild]);
+			});
+			it('should return elements in order', function () {
+				var root = parseHTML('<img src=""><p>hello</p>');
+				var results = root.querySelectorAll('p,img');
+				results[0].rawText.should.eql('hello');
+				results[1].should.eql(root.firstChild);
 			});
 		});
 

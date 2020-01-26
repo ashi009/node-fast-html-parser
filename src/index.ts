@@ -219,7 +219,7 @@ export class HTMLElement extends Node {
 					currentBlock.push(text);
 				}
 			}
-		} 
+		}
 		dfs(this);
 		return blocks
 			.map(function (block) {
@@ -353,11 +353,12 @@ export class HTMLElement extends Node {
 		} else {
 			if (selector.includes(',')) {
 				const selectors = selector.split(',') as string[];
-				let result = [] as HTMLElement[];
-				selectors.forEach((s) => {
-					result = result.concat(this.querySelectorAll(s.trim()));
-				});
-				return result;
+				return Array.from(selectors.reduce((pre, cur) => {
+					const result = this.querySelectorAll(cur.trim()) as HTMLElement[];
+					return result.reduce((p, c) => {
+						return p.add(c);
+					}, pre);
+				}, new Set<HTMLElement>()));
 			}
 			matcher = new Matcher(selector);
 		}
@@ -801,7 +802,7 @@ export function parse(data: string, options?: {
 			// this is a comment
 			if (options.comment) {
 				// Only keep what is in between <!-- and -->
-				const text = data.substring(lastTextPos - 3 , lastTextPos - match[0].length + 4);
+				const text = data.substring(lastTextPos - 3, lastTextPos - match[0].length + 4);
 				currentParent.appendChild(new CommentNode(text));
 			}
 			continue;
