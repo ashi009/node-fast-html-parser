@@ -1,3 +1,0 @@
---require blanket
---require should
---reporter spec

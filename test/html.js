@@ -345,11 +345,21 @@ describe('HTML Parser', function () {
 				var root = parseHTML('<time class="date">');
 				root.querySelectorAll('time,.date').should.eql([root.firstChild]);
 			});
-			it('should return elements in order', function () {
+			it.skip('should return elements in order', function () {
 				var root = parseHTML('<img src=""><p>hello</p>');
-				var results = root.querySelectorAll('p,img');
-				results[0].rawText.should.eql('hello');
-				results[1].should.eql(root.firstChild);
+				var img = root.firstChild;
+				var p = root.childNodes[1];
+				var [f, s] = root.querySelectorAll('p,img');
+				f.should.eql(img);
+				s.should.eql(p);
+			});
+			it.skip('should query multiple nodes', function () {
+				var root = parseHTML('<a id="id"><div class="b"><span class="a b"></span><span></span><span></span></div></a>');
+				const a = root.firstChild;
+				const div = a.firstChild;
+				const span = div.firstChild;
+				root.querySelectorAll('#id span').should.eql(div.childNodes);
+				root.querySelectorAll('#id .b').should.eql([div, span]);
 			});
 		});
 
