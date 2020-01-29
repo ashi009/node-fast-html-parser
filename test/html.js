@@ -171,6 +171,11 @@ describe('HTML Parser', function () {
 
 		});
 
+		it('should be able to parse namespaces', function () {
+			const namespacedXML = '<ns:identifier>content</ns:identifier>';
+			parseHTML(namespacedXML).toString().should.eql(namespacedXML);
+		});
+
 		it('should parse "<div><a><img/></a><p></p></div>.." very fast', function () {
 
 			for (var i = 0; i < 100; i++)
