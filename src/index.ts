@@ -1,4 +1,4 @@
-import { decode } from 'he';
+import { decode, encode } from 'he';
 
 export enum NodeType {
 	ELEMENT_NODE = 1,
@@ -502,6 +502,44 @@ export class HTMLElement extends Node {
 		}
 		this._rawAttrs = attrs;
 		return attrs;
+	}
+
+	/**
+	 * Set an attribute value to the HTMLElement
+	 * @param {string} key The attribute name
+	 * @param {string} value The value to set, or null / undefined to remove an attribute
+	 */
+	setAttribute(key: string, value: string) {
+		//Update the attributes map
+		const attrs = this.attributes;
+		if(value===undefined || value===null) delete attrs[key];
+		else attrs[key] = value+'';
+		//Update the raw attributes
+		if(this._rawAttrs) {
+			if(value===undefined || value===null) delete this._rawAttrs[key];
+			else this._rawAttrs[key] = encode(value+'');
+		}
+		//Update rawString
+		this.rawAttrs = Object.keys(attrs).map(attr => attr+'='+encode(attrs[attr])).join(' ');
+	}
+
+	/**
+	 * Replace all the attributes of the HTMLElement by the provided attributes
+	 * @param {Attributes} attributes the new attribute set
+	 */
+	setAttributes(attributes: Attributes) {
+		//Update the attributes map
+		if(this.attributes) {
+			Object.keys(this.attributes).forEach(key => delete this.attributes[key]);
+			Object.keys(attributes).forEach(key => this.attributes[key] = attributes[key]+'');
+		}
+		//Update the raw attributes map
+		if(this.rawAttributes) {
+			Object.keys(this.rawAttributes).forEach(key => delete this.rawAttributes[key]);
+			Object.keys(attributes).forEach(key => this.rawAttributes[key] = encode(attributes[key]+''));
+		}
+		//Update rawString
+		this.rawAttrs = Object.keys(attributes).map(attr => attr+'='+encode(attributes[attr]+'')).join(' ');
 	}
 }
 
