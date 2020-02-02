@@ -142,6 +142,14 @@ Get attributes
 
 Get escaped (as-it) attributes
 
+### HTMLElement#setAttribute(key: string, value: string | null)
+
+Set `value` to `key` attribute. If `value` is null, remove the attribute instead.
+
+### HTMLElement#setAttributes(attributes: Attributes)
+
+Replace all the current attributes by the provided attribute set.
+
 ### HTMLElement#toString()
 Same as [outerHTML](#htmlelementouterhtml)
 
@@ -150,5 +158,6 @@ Get innerHTML.
 
 ### HTMLElement#outerHTML
 Get outerHTML.
+
 ### HTMLElement#set_content(content: string | Node | Node[])
 Set content. **Notice**: Do not set content of the **root** node.
