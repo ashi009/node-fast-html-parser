@@ -302,8 +302,8 @@ describe('HTML Parser', function () {
 				var root = parseHTML('<p a=12 data-id="!$$&amp;" yAz=\'1\'></p>');
 				root.firstChild.rawAttributes.should.eql({
 					'a': '12',
-					'data-id': '!$$&amp;',
-					'yAz': '1'
+					'data-id': '"!$$&amp;"',
+					'yAz': '\'1\''
 				});
 			});
 		});
@@ -348,16 +348,31 @@ describe('HTML Parser', function () {
 				});
 				root.firstChild.toString().should.eql('<p a=12></p>');
 			});
+			it('should keep quotes arount value', function () {
+				var root = parseHTML('<p a="12"></p>');
+				root.firstChild.setAttribute('b', 13);
+				root.firstChild.setAttribute('c', '2');
+				root.firstChild.attributes.should.eql({
+					'a': '12',
+					'b': '13',
+					'c': '2'
+				});
+				root.firstChild.toString().should.eql('<p a="12" b=13 c="2"></p>');
+			});
 		});
 
 		describe('#setAttributes', function () {
 			it('should return attributes of the element', function () {
 				var root = parseHTML('<p a=12 data-id="!$$&amp;" yAz=\'1\' class="" disabled></p>');
-				root.firstChild.setAttributes({c: 12});
+				root.firstChild.setAttributes({
+					c: 12,
+					d: '&&<>foo'
+				});
 				root.firstChild.attributes.should.eql({
 					'c': '12',
+					d: '&&<>foo'
 				});
-				root.firstChild.toString().should.eql('<p c=12></p>');
+				root.firstChild.toString().should.eql('<p c=12 d="&#x26;&#x26;&#x3C;&#x3E;foo"></p>');
 			});
 		});
 
