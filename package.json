@@ -6,7 +6,7 @@
 	"types": "dist/index.d.ts",
 	"scripts": {
 		"test": "mocha",
-		"lint": "eslint ./src/*.ts",
+		"lint": "eslint ./src/*.ts ./src/**/*.ts",
 		"clean": "del-cli ./dist/",
 		"ts:cjs": "tsc -m commonjs",
 		"ts:umd": "tsc -t es5 -m umd -d false --outDir ./dist/umd/",

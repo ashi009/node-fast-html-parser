@@ -3,14 +3,12 @@ var fs = require('fs');
 var util = require('util');
 
 var HTMLParser = require('../dist');
+var Matcher = require('../dist/matcher').default;
+var HTMLElement = require('../dist/nodes/html').default;
+var TextNode = require('../dist/nodes/text').default;
+var CommentNode = require('../dist/nodes/comment').default;
 
 describe('HTML Parser', function () {
-
-	var Matcher = HTMLParser.Matcher;
-	var HTMLElement = HTMLParser.HTMLElement;
-	var TextNode = HTMLParser.TextNode;
-	var CommentNode = HTMLParser.CommentNode;
-
 	describe('Matcher', function () {
 		it('should match corrent elements', function () {
 			var matcher = new Matcher('#id .a a.b *.a.b .a.b * a');
@@ -372,7 +370,8 @@ describe('HTML Parser', function () {
 					'c': '12',
 					d: '&&<>foo'
 				});
-				root.firstChild.toString().should.eql('<p c=12 d="&#x26;&#x26;&#x3C;&#x3E;foo"></p>');
+				root.firstChild.toString().should.eql('<p c=12 d="&&<>foo"></p>');
+				// root.firstChild.toString().should.eql('<p c=12 d="&#x26;&#x26;&#x3C;&#x3E;foo"></p>');
 			});
 		});
 
