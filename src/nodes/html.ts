@@ -424,7 +424,7 @@ export default class HTMLElement extends Node {
 			const re = /\b([a-z][a-z0-9\-]*)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|(\S+)))?/ig;
 			let match: RegExpExecArray;
 			while (match = re.exec(this.rawAttrs)) {
-				attrs[match[1]] = match[2] || null;
+				attrs[match[1]] = match[2] || match[3] || match[4] || null;
 			}
 		}
 		this._rawAttrs = attrs;
