@@ -421,7 +421,7 @@ export default class HTMLElement extends Node {
 			return this._rawAttrs;
 		const attrs = {} as RawAttributes;
 		if (this.rawAttrs) {
-			const re = /\b([a-z][a-z0-9\-]*)(?:\s*=\s*("(?:[^"]*)"|'(?:[^']*)'|(?:\S+)))?/ig;
+			const re = /\b([a-z][a-z0-9\-]*)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|(\S+)))?/ig;
 			let match: RegExpExecArray;
 			while (match = re.exec(this.rawAttrs)) {
 				attrs[match[1]] = match[2] || null;
@@ -441,20 +441,15 @@ export default class HTMLElement extends Node {
 		if (this._attrs) {
 			delete this._attrs;
 		}
-		const attrs = this.rawAttributes;	// ref this._rawAttrs
+		const attrs = this.rawAttributes;
 		if (value === undefined || value === null) {
 			delete attrs[key];
 		} else {
-			attrs[key] = JSON.stringify(value);
-			// if (typeof value === 'string') {
-			// 	attrs[key] = JSON.stringify(encode(value));//??? should we encode value here?
-			// } else {
-			// 	attrs[key] = JSON.stringify(value);
-			// }
+			attrs[key] = String(value);
 		}
 		// Update rawString
 		this.rawAttrs = Object.keys(attrs).map((name) => {
-			const val = attrs[name];
+			const val = JSON.stringify(attrs[name]);
 			if (val === undefined || val === null) {
 				return name;
 			} else {
