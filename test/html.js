@@ -355,7 +355,7 @@ describe('HTML Parser', function () {
 					'b': '13',
 					'c': '2'
 				});
-				root.firstChild.toString().should.eql('<p a="12" b=13 c="2"></p>');
+				root.firstChild.toString().should.eql('<p a="12" b="13" c="2"></p>');
 			});
 		});
 
@@ -370,7 +370,7 @@ describe('HTML Parser', function () {
 					'c': '12',
 					d: '&&<>foo'
 				});
-				root.firstChild.toString().should.eql('<p c=12 d="&&<>foo"></p>');
+				root.firstChild.toString().should.eql('<p c="12" d="&&<>foo"></p>');
 				// root.firstChild.toString().should.eql('<p c=12 d="&#x26;&#x26;&#x3C;&#x3E;foo"></p>');
 			});
 		});

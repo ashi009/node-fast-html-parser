@@ -407,7 +407,7 @@ export default class HTMLElement extends Node {
 		const attrs = this.rawAttributes;
 		for (const key in attrs) {
 			const val = attrs[key] || '';
-			this._attrs[key] = decode(val.replace(/^['"]/, '').replace(/['"]$/, ''));
+			this._attrs[key] = decode(val);
 		}
 		return this._attrs;
 	}
@@ -477,12 +477,7 @@ export default class HTMLElement extends Node {
 			if (val === undefined || val === null) {
 				return name;
 			} else {
-				return name + '=' + JSON.stringify(val);
-				// if (typeof val === 'string') {
-				// 	return name + '=' + JSON.stringify(encode(val)); //??? should we encode value here?
-				// } else {
-				// 	return name + '=' + JSON.stringify(val);
-				// }
+				return name + '=' + JSON.stringify(String(val));
 			}
 		}).join(' ');
 	}
