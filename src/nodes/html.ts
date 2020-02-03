@@ -432,6 +432,14 @@ export default class HTMLElement extends Node {
 	}
 
 	/**
+	 * Get an attribute
+	 * @return {string} value of the attribute
+	 */
+	getAttribute(key: string) {
+		return this.attributes[key] || null;
+	}
+
+	/**
 	 * Set an attribute value to the HTMLElement
 	 * @param {string} key The attribute name
 	 * @param {string|number} value The value to set, or null / undefined to remove an attribute

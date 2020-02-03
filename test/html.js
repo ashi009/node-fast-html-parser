@@ -319,6 +319,18 @@ describe('HTML Parser', function () {
 			});
 		});
 
+		describe('#getAttribute', function () {
+			it('should return value of the attribute', function () {
+				var root = parseHTML('<p a="a1b"></p>');
+				root.firstChild.getAttribute('a').should.eql('a1b');
+			});
+
+			it('should return null when there is no such attribute', function () {
+				var root = parseHTML('<p></p>');
+				should.equal(root.firstChild.getAttribute('b'), null);
+			});
+		});
+
 		describe('#setAttribute', function () {
 			it('should edit the attributes of the element', function () {
 				var root = parseHTML('<p a=12></p>');
