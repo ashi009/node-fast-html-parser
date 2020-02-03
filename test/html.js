@@ -326,7 +326,7 @@ describe('HTML Parser', function () {
 				root.firstChild.attributes.should.eql({
 					'a': '13',
 				});
-				root.firstChild.toString().should.eql('<p a=13></p>');
+				root.firstChild.toString().should.eql('<p a="13"></p>');
 			});
 			it('should add an attribute to the element', function () {
 				var root = parseHTML('<p a=12></p>');
