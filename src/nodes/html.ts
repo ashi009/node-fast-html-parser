@@ -445,7 +445,7 @@ export default class HTMLElement extends Node {
 	 * @param {string|number} value The value to set, or null / undefined to remove an attribute
 	 */
 	setAttribute(key: string, value: string | number) {
-		// Update the this.attributes
+		// Invalidate current this.attributes
 		if (this._attrs) {
 			delete this._attrs;
 		}
