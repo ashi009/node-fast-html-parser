@@ -471,11 +471,11 @@ export default class HTMLElement extends Node {
 	 * @param {Attributes} attributes the new attribute set
 	 */
 	setAttributes(attributes: Attributes) {
-		// Update the this.attributes
+		// Invalidate current this.attributes
 		if (this._attrs) {
 			delete this._attrs;
 		}
-		// Update the raw attributes map
+		// Invalidate current this.rawAttributes
 		if (this._rawAttrs) {
 			delete this._rawAttrs;
 		}
