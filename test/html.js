@@ -300,8 +300,8 @@ describe('HTML Parser', function () {
 				var root = parseHTML('<p a=12 data-id="!$$&amp;" yAz=\'1\'></p>');
 				root.firstChild.rawAttributes.should.eql({
 					'a': '12',
-					'data-id': '"!$$&amp;"',
-					'yAz': '\'1\''
+					'data-id': '!$$&amp;',
+					'yAz': '1'
 				});
 			});
 		});
@@ -335,7 +335,7 @@ describe('HTML Parser', function () {
 					'a': '12',
 					'b': '13',
 				});
-				root.firstChild.toString().should.eql('<p a=12 b=13></p>');
+				root.firstChild.toString().should.eql('<p a="12" b="13"></p>');
 			});
 			it('should remove an attribute from the element', function () {
 				var root = parseHTML('<p a=12 b=13 c=14></p>');
@@ -344,7 +344,7 @@ describe('HTML Parser', function () {
 				root.firstChild.attributes.should.eql({
 					'a': '12',
 				});
-				root.firstChild.toString().should.eql('<p a=12></p>');
+				root.firstChild.toString().should.eql('<p a="12"></p>');
 			});
 			it('should keep quotes arount value', function () {
 				var root = parseHTML('<p a="12"></p>');
