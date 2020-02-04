@@ -1,9 +1,11 @@
 import arr_back from './back';
 import CommentNode from './nodes/comment';
-export { default as HTMLElement } from './nodes/html';
 import HTMLElement from './nodes/html';
 import TextNode from './nodes/text';
+export { default as CommentNode } from './nodes/comment';
+export { default as HTMLElement } from './nodes/html';
 export { default as Node } from './nodes/node';
+export { default as TextNode } from './nodes/text';
 
 // https://html.spec.whatwg.org/multipage/custom-elements.html#valid-custom-element-name
 const kMarkupPattern = /<!--[^]*?(?=-->)-->|<(\/?)([a-z][-.:0-9_a-z]*)\s*([^>]*?)(\/?)>/ig;
