@@ -445,15 +445,18 @@ export default class HTMLElement extends Node {
 	 * @param {string|number} value The value to set, or null / undefined to remove an attribute
 	 */
 	setAttribute(key: string, value: string | number) {
-		// Invalidate current this.attributes
-		if (this._attrs) {
-			delete this._attrs;
-		}
 		const attrs = this.rawAttributes;
 		if (value === undefined || value === null) {
 			delete attrs[key];
+			// Update this.attribute
+			if (this._attrs && this._attrs[key]) {
+				delete this._attrs[key];
+			}
 		} else {
 			attrs[key] = String(value);
+			if (this._attrs) {
+				this._attrs[key] = decode(attrs[key]);
+			}
 		}
 		// Update rawString
 		this.rawAttrs = Object.keys(attrs).map((name) => {

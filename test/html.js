@@ -334,10 +334,12 @@ describe('HTML Parser', function () {
 		describe('#setAttribute', function () {
 			it('should edit the attributes of the element', function () {
 				var root = parseHTML('<p a=12></p>');
+				var attr = root.firstChild.attributes;
 				root.firstChild.setAttribute('a', 13);
-				root.firstChild.attributes.should.eql({
+				attr.should.eql({
 					'a': '13',
 				});
+				root.firstChild.getAttribute('a').should.eql('13');
 				root.firstChild.toString().should.eql('<p a="13"></p>');
 			});
 			it('should add an attribute to the element', function () {
