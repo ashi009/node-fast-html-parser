@@ -407,7 +407,7 @@ export default class HTMLElement extends Node {
 		const attrs = this.rawAttributes;
 		for (const key in attrs) {
 			const val = attrs[key] || '';
-			this._attrs[key] = decode(val.replace(/^['"]/, '').replace(/['"]$/, ''));
+			this._attrs[key] = decode(val);
 		}
 		return this._attrs;
 	}
@@ -421,14 +421,22 @@ export default class HTMLElement extends Node {
 			return this._rawAttrs;
 		const attrs = {} as RawAttributes;
 		if (this.rawAttrs) {
-			const re = /\b([a-z][a-z0-9\-]*)(?:\s*=\s*("(?:[^"]*)"|'(?:[^']*)'|(?:\S+)))?/ig;
+			const re = /\b([a-z][a-z0-9\-]*)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|(\S+)))?/ig;
 			let match: RegExpExecArray;
 			while (match = re.exec(this.rawAttrs)) {
-				attrs[match[1]] = match[2] || null;
+				attrs[match[1]] = match[2] || match[3] || match[4] || null;
 			}
 		}
 		this._rawAttrs = attrs;
 		return attrs;
+	}
+
+	/**
+	 * Get an attribute
+	 * @return {string} value of the attribute
+	 */
+	getAttribute(key: string) {
+		return this.attributes[key] || null;
 	}
 
 	/**
@@ -437,24 +445,19 @@ export default class HTMLElement extends Node {
 	 * @param {string|number} value The value to set, or null / undefined to remove an attribute
 	 */
 	setAttribute(key: string, value: string | number) {
-		// Update the this.attributes
+		// Invalidate current this.attributes
 		if (this._attrs) {
 			delete this._attrs;
 		}
-		const attrs = this.rawAttributes;	// ref this._rawAttrs
+		const attrs = this.rawAttributes;
 		if (value === undefined || value === null) {
 			delete attrs[key];
 		} else {
-			attrs[key] = JSON.stringify(value);
-			// if (typeof value === 'string') {
-			// 	attrs[key] = JSON.stringify(encode(value));//??? should we encode value here?
-			// } else {
-			// 	attrs[key] = JSON.stringify(value);
-			// }
+			attrs[key] = String(value);
 		}
 		// Update rawString
 		this.rawAttrs = Object.keys(attrs).map((name) => {
-			const val = attrs[name];
+			const val = JSON.stringify(attrs[name]);
 			if (val === undefined || val === null) {
 				return name;
 			} else {
@@ -468,11 +471,11 @@ export default class HTMLElement extends Node {
 	 * @param {Attributes} attributes the new attribute set
 	 */
 	setAttributes(attributes: Attributes) {
-		// Update the this.attributes
+		// Invalidate current this.attributes
 		if (this._attrs) {
 			delete this._attrs;
 		}
-		// Update the raw attributes map
+		// Invalidate current this.rawAttributes
 		if (this._rawAttrs) {
 			delete this._rawAttrs;
 		}
@@ -482,12 +485,7 @@ export default class HTMLElement extends Node {
 			if (val === undefined || val === null) {
 				return name;
 			} else {
-				return name + '=' + JSON.stringify(val);
-				// if (typeof val === 'string') {
-				// 	return name + '=' + JSON.stringify(encode(val)); //??? should we encode value here?
-				// } else {
-				// 	return name + '=' + JSON.stringify(val);
-				// }
+				return name + '=' + JSON.stringify(String(val));
 			}
 		}).join(' ');
 	}

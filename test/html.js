@@ -300,8 +300,8 @@ describe('HTML Parser', function () {
 				var root = parseHTML('<p a=12 data-id="!$$&amp;" yAz=\'1\'></p>');
 				root.firstChild.rawAttributes.should.eql({
 					'a': '12',
-					'data-id': '"!$$&amp;"',
-					'yAz': '\'1\''
+					'data-id': '!$$&amp;',
+					'yAz': '1'
 				});
 			});
 		});
@@ -319,6 +319,18 @@ describe('HTML Parser', function () {
 			});
 		});
 
+		describe('#getAttribute', function () {
+			it('should return value of the attribute', function () {
+				var root = parseHTML('<p a="a1b"></p>');
+				root.firstChild.getAttribute('a').should.eql('a1b');
+			});
+
+			it('should return null when there is no such attribute', function () {
+				var root = parseHTML('<p></p>');
+				should.equal(root.firstChild.getAttribute('b'), null);
+			});
+		});
+
 		describe('#setAttribute', function () {
 			it('should edit the attributes of the element', function () {
 				var root = parseHTML('<p a=12></p>');
@@ -326,7 +338,7 @@ describe('HTML Parser', function () {
 				root.firstChild.attributes.should.eql({
 					'a': '13',
 				});
-				root.firstChild.toString().should.eql('<p a=13></p>');
+				root.firstChild.toString().should.eql('<p a="13"></p>');
 			});
 			it('should add an attribute to the element', function () {
 				var root = parseHTML('<p a=12></p>');
@@ -335,7 +347,7 @@ describe('HTML Parser', function () {
 					'a': '12',
 					'b': '13',
 				});
-				root.firstChild.toString().should.eql('<p a=12 b=13></p>');
+				root.firstChild.toString().should.eql('<p a="12" b="13"></p>');
 			});
 			it('should remove an attribute from the element', function () {
 				var root = parseHTML('<p a=12 b=13 c=14></p>');
@@ -344,7 +356,7 @@ describe('HTML Parser', function () {
 				root.firstChild.attributes.should.eql({
 					'a': '12',
 				});
-				root.firstChild.toString().should.eql('<p a=12></p>');
+				root.firstChild.toString().should.eql('<p a="12"></p>');
 			});
 			it('should keep quotes arount value', function () {
 				var root = parseHTML('<p a="12"></p>');
@@ -355,7 +367,7 @@ describe('HTML Parser', function () {
 					'b': '13',
 					'c': '2'
 				});
-				root.firstChild.toString().should.eql('<p a="12" b=13 c="2"></p>');
+				root.firstChild.toString().should.eql('<p a="12" b="13" c="2"></p>');
 			});
 		});
 
@@ -370,7 +382,7 @@ describe('HTML Parser', function () {
 					'c': '12',
 					d: '&&<>foo'
 				});
-				root.firstChild.toString().should.eql('<p c=12 d="&&<>foo"></p>');
+				root.firstChild.toString().should.eql('<p c="12" d="&&<>foo"></p>');
 				// root.firstChild.toString().should.eql('<p c=12 d="&#x26;&#x26;&#x3C;&#x3E;foo"></p>');
 			});
 		});
