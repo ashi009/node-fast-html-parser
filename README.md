@@ -134,30 +134,30 @@ Get first child node
 
 Get last child node
 
-### HTMLElement#attributes
+### HTMLElement#setAttribute(key: string, value: string)
 
-Get attributes
+Set `value` to `key` attribute.
 
-### HTMLElement#rawAttributes
+### HTMLElement#removeAttribute(key: string)
 
-Get escaped (as-it) attributes
+Remove `key` attribute.
 
-### HTMLElement#setAttribute(key: string, value: string | null)
+### HTMLElement#getAttribute(key: string)
 
-Set `value` to `key` attribute. If `value` is null, remove the attribute instead.
-
-### HTMLElement#setAttributes(attributes: Attributes)
-
-Replace all the current attributes by the provided attribute set.
+Get `key` attrubte.
 
 ### HTMLElement#toString()
+
 Same as [outerHTML](#htmlelementouterhtml)
 
 ### HTMLElement#innerHTML
+
 Get innerHTML.
 
 ### HTMLElement#outerHTML
+
 Get outerHTML.
 
 ### HTMLElement#set_content(content: string | Node | Node[])
+
 Set content. **Notice**: Do not set content of the **root** node.
