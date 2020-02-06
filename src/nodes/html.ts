@@ -431,37 +431,55 @@ export default class HTMLElement extends Node {
 		return attrs;
 	}
 
+	public removeAttribute(key: string) {
+		const attrs = this.rawAttributes;
+		delete attrs[key];
+		// Update this.attribute
+		if (this._attrs) {
+			delete this._attrs[key];
+		}
+		// Update rawString
+		this.rawAttrs = Object.keys(attrs).map((name) => {
+			const val = JSON.stringify(attrs[name]);
+			if (val === undefined || val === 'null') {
+				return name;
+			} else {
+				return name + '=' + val;
+			}
+		}).join(' ');
+	}
+
+	public hasAttribute(key: string) {
+		console.error(this.attributes, key);
+		return key in this.attributes;
+	}
+
 	/**
 	 * Get an attribute
 	 * @return {string} value of the attribute
 	 */
-	getAttribute(key: string) {
-		return this.attributes[key] || null;
+	public getAttribute(key: string) {
+		return this.attributes[key];
 	}
 
 	/**
 	 * Set an attribute value to the HTMLElement
 	 * @param {string} key The attribute name
-	 * @param {string|number} value The value to set, or null / undefined to remove an attribute
+	 * @param {string} value The value to set, or null / undefined to remove an attribute
 	 */
-	setAttribute(key: string, value: string | number) {
+	public setAttribute(key: string, value: string) {
+		if (arguments.length < 2) {
+			throw new Error('Failed to execute \'setAttribute\' on \'Element\'');
+		}
 		const attrs = this.rawAttributes;
-		if (value === undefined || value === null) {
-			delete attrs[key];
-			// Update this.attribute
-			if (this._attrs && this._attrs[key]) {
-				delete this._attrs[key];
-			}
-		} else {
-			attrs[key] = String(value);
-			if (this._attrs) {
-				this._attrs[key] = decode(attrs[key]);
-			}
+		attrs[key] = String(value);
+		if (this._attrs) {
+			this._attrs[key] = decode(attrs[key]);
 		}
 		// Update rawString
 		this.rawAttrs = Object.keys(attrs).map((name) => {
 			const val = JSON.stringify(attrs[name]);
-			if (val === undefined || val === null) {
+			if (val === undefined || val === 'null') {
 				return name;
 			} else {
 				return name + '=' + val;
@@ -473,7 +491,7 @@ export default class HTMLElement extends Node {
 	 * Replace all the attributes of the HTMLElement by the provided attributes
 	 * @param {Attributes} attributes the new attribute set
 	 */
-	setAttributes(attributes: Attributes) {
+	public setAttributes(attributes: Attributes) {
 		// Invalidate current this.attributes
 		if (this._attrs) {
 			delete this._attrs;

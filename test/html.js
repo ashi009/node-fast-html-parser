@@ -329,6 +329,19 @@ describe('HTML Parser', function () {
 				var root = parseHTML('<p></p>');
 				should.equal(root.firstChild.getAttribute('b'), null);
 			});
+
+			it('should return empty string as broser behavior', function () {
+				var root = parseHTML('<input required>');
+				var input = root.firstChild;
+				input.getAttribute('required').should.eql('');
+			});
+
+			it('should return null as broser behavior', function () {
+				var root = parseHTML('<input required>');
+				var input = root.firstChild;
+				input.setAttribute('readonly', null);
+				input.getAttribute('readonly').should.eql('null');
+			});
 		});
 
 		describe('#setAttribute', function () {
@@ -351,14 +364,20 @@ describe('HTML Parser', function () {
 				});
 				root.firstChild.toString().should.eql('<p a="12" b="13"></p>');
 			});
-			it('should remove an attribute from the element', function () {
+			it('should convert value to string', function () {
 				var root = parseHTML('<p a=12 b=13 c=14></p>');
-				root.firstChild.setAttribute('b', null);
-				root.firstChild.setAttribute('c');
-				root.firstChild.attributes.should.eql({
-					'a': '12',
-				});
-				root.firstChild.toString().should.eql('<p a="12"></p>');
+				var p = root.firstChild;
+				p.setAttribute('b', null);
+				p.setAttribute('c', undefined);
+				p.getAttribute('b').should.eql('null');
+				p.getAttribute('c').should.eql('undefined');
+				p.toString().should.eql('<p a="12" b="null" c="undefined"></p>');
+			});
+			it('should throw type Error', function () {
+				var root = parseHTML('<p a=12 b=13 c=14></p>');
+				var p = root.firstChild;
+				should.throws(function () { p.setAttribute('b') });
+				should.throws(function () { p.setAttribute() });
 			});
 			it('should keep quotes arount value', function () {
 				var root = parseHTML('<p a="12"></p>');
@@ -387,6 +406,21 @@ describe('HTML Parser', function () {
 				root.firstChild.toString().should.eql('<p c="12" d="&&<>foo"></p>');
 				// root.firstChild.toString().should.eql('<p c=12 d="&#x26;&#x26;&#x3C;&#x3E;foo"></p>');
 			});
+		});
+
+		describe('#removeAttribute', function () {
+			var root = parseHTML('<input required>');
+			var input = root.firstChild;
+			input.removeAttribute('required');
+			input.toString().should.eql('<input />');
+		});
+
+		describe('#hasAttribute', function () {
+			var root = parseHTML('<input required>');
+			var input = root.firstChild;
+			input.hasAttribute('required').should.eql(true);
+			input.removeAttribute('required');
+			input.hasAttribute('required').should.eql(false);
 		});
 
 		describe('#querySelector()', function () {
@@ -467,6 +501,16 @@ describe('HTML Parser', function () {
 				var root = parseHTML('<div></div>');
 				root.childNodes[0].set_content('abc');
 				root.toString().should.eql('<div>abc</div>');
+			});
+		});
+
+		describe('encode/decode', function () {
+			it('should decode attributes value', function () {
+				var root = parseHTML('<img src="default.jpg" alt="Verissimo, Ilaria D&#39;Amico: &laquo;Sogno una bambina. Buffon mi ha chiesto in moglie tante volte&raquo;">');
+				root.firstChild.getAttribute('alt').should.eql(`Verissimo, Ilaria D'Amico: «Sogno una bambina. Buffon mi ha chiesto in moglie tante volte»`);
+				root.firstChild.attributes.alt.should.eql(`Verissimo, Ilaria D'Amico: «Sogno una bambina. Buffon mi ha chiesto in moglie tante volte»`);
+				root.firstChild.setAttribute('alt', '&laquo;Sogno');
+				root.firstChild.getAttribute('alt').should.eql('«Sogno');
 			});
 		});
 	});
