@@ -511,6 +511,7 @@ describe('HTML Parser', function () {
 				root.firstChild.attributes.alt.should.eql(`Verissimo, Ilaria D'Amico: «Sogno una bambina. Buffon mi ha chiesto in moglie tante volte»`);
 				root.firstChild.setAttribute('alt', '&laquo;Sogno');
 				root.firstChild.getAttribute('alt').should.eql('«Sogno');
+				root.firstChild.rawAttributes.alt.should.eql('&laquo;Sogno');
 			});
 		});
 	});
