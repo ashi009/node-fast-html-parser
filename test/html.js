@@ -416,11 +416,13 @@ describe('HTML Parser', function () {
 		});
 
 		describe('#hasAttribute', function () {
-			var root = parseHTML('<input required>');
-			var input = root.firstChild;
-			input.hasAttribute('required').should.eql(true);
-			input.removeAttribute('required');
-			input.hasAttribute('required').should.eql(false);
+			it('should return true or false when has or has not some attribute', function () {
+				var root = parseHTML('<input required>');
+				var input = root.firstChild;
+				input.hasAttribute('required').should.eql(true);
+				input.removeAttribute('required');
+				input.hasAttribute('required').should.eql(false);
+			});
 		});
 
 		describe('#querySelector()', function () {
@@ -512,6 +514,46 @@ describe('HTML Parser', function () {
 				root.firstChild.setAttribute('alt', '&laquo;Sogno');
 				root.firstChild.getAttribute('alt').should.eql('«Sogno');
 				root.firstChild.rawAttributes.alt.should.eql('&laquo;Sogno');
+			});
+		});
+
+		describe('#insertAdjacentHTML() should parse and insert childrens', function () {
+			it('shoud insert children after current node', function () {
+				const html = '<a><b></b></a>';
+				const root = parseHTML(html);
+				const a = root.firstChild;
+				const b = a.firstChild;
+				b.insertAdjacentHTML('afterend', '<c><d></d></c>');
+				a.toString().should.eql('<a><b></b><c><d></d></c></a>');
+			});
+
+			it('shoud insert children before current node', function () {
+				const html = '<a><b></b></a>';
+				const root = parseHTML(html);
+				const a = root.firstChild;
+				const b = a.firstChild;
+				b.insertAdjacentHTML('beforebegin', '<c></c>');
+				a.toString().should.eql('<a><c></c><b></b></a>');
+			});
+
+			it('shoud append children in current node', function () {
+				const html = '<a></a>';
+				const root = parseHTML(html);
+				const a = root.firstChild;
+				a.insertAdjacentHTML('beforeend', '<b></b>');
+				a.toString().should.eql('<a><b></b></a>');
+				a.insertAdjacentHTML('beforeend', '<c></c>');
+				a.toString().should.eql('<a><b></b><c></c></a>');
+			});
+
+			it('shoud insert children at position 0', function () {
+				const html = '<a></a>';
+				const root = parseHTML(html);
+				const a = root.firstChild;
+				a.insertAdjacentHTML('afterbegin', '<b></b>');
+				a.toString().should.eql('<a><b></b></a>');
+				a.insertAdjacentHTML('afterbegin', '<c></c>');
+				a.toString().should.eql('<a><c></c><b></b></a>');
 			});
 		});
 	});

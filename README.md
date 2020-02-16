@@ -126,6 +126,10 @@ Query CSS Selector to find matching node.
 
 Append a child node to childNodes
 
+### HTMLElement#insertAdjacentHTML(where, html)
+
+parses the specified text as HTML and inserts the resulting nodes into the DOM tree at a specified position.
+
 ### HTMLElement#firstChild
 
 Get first child node

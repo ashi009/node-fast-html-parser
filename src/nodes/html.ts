@@ -19,6 +19,8 @@ export interface RawAttributes {
 	[key: string]: string;
 }
 
+export type InsertPosition = 'beforebegin' | 'afterbegin' | 'beforeend' | 'afterend';
+
 const kBlockElements = {
 	div: true,
 	p: true,
@@ -57,7 +59,7 @@ export default class HTMLElement extends Node {
 	 *
 	 * @memberof HTMLElement
 	 */
-	constructor(public tagName: string, keyAttrs: KeyAttributes, private rawAttrs = '', public parentNode = null as Node) {
+	public constructor(public tagName: string, keyAttrs: KeyAttributes, private rawAttrs = '', public parentNode = null as Node) {
 		super();
 		this.rawAttrs = rawAttrs || '';
 		this.parentNode = parentNode || null;
@@ -97,7 +99,7 @@ export default class HTMLElement extends Node {
 	 * Get escpaed (as-it) text value of current node and its children.
 	 * @return {string} text content
 	 */
-	get rawText() {
+	public get rawText() {
 		return this.childNodes.reduce((pre, cur) => {
 			return pre += cur.rawText;
 		}, '');
@@ -106,14 +108,14 @@ export default class HTMLElement extends Node {
 	 * Get unescaped text value of current node and its children.
 	 * @return {string} text content
 	 */
-	get text() {
+	public get text() {
 		return decode(this.rawText);
 	}
 	/**
 	 * Get structured Text (with '\n' etc.)
 	 * @return {string} structured text
 	 */
-	get structuredText() {
+	public get structuredText() {
 		let currentBlock = [] as string[];
 		const blocks = [currentBlock];
 		function dfs(node: Node) {
@@ -170,7 +172,7 @@ export default class HTMLElement extends Node {
 		}
 	}
 
-	get innerHTML() {
+	public get innerHTML() {
 		return this.childNodes.map((child) => {
 			return child.toString();
 		}).join('');
@@ -186,7 +188,7 @@ export default class HTMLElement extends Node {
 		this.childNodes = content;
 	}
 
-	get outerHTML() {
+	public get outerHTML() {
 		return this.toString();
 	}
 
@@ -215,7 +217,7 @@ export default class HTMLElement extends Node {
 	 * Get DOM structure
 	 * @return {string} strucutre
 	 */
-	get structure() {
+	public get structure() {
 		const res = [] as string[];
 		let indention = 0;
 		function write(str: string) {
@@ -383,7 +385,7 @@ export default class HTMLElement extends Node {
 	 * Get first child node
 	 * @return {Node} first child node
 	 */
-	get firstChild() {
+	public get firstChild() {
 		return this.childNodes[0];
 	}
 
@@ -391,7 +393,7 @@ export default class HTMLElement extends Node {
 	 * Get last child node
 	 * @return {Node} last child node
 	 */
-	get lastChild() {
+	public get lastChild() {
 		return arr_back(this.childNodes);
 	}
 
@@ -399,7 +401,7 @@ export default class HTMLElement extends Node {
 	 * Get attributes
 	 * @return {Object} parsed and unescaped attributes
 	 */
-	get attributes() {
+	public get attributes() {
 		if (this._attrs) {
 			return this._attrs;
 		}
@@ -416,7 +418,7 @@ export default class HTMLElement extends Node {
 	 * Get escaped (as-it) attributes
 	 * @return {Object} parsed attributes
 	 */
-	get rawAttributes() {
+	public get rawAttributes() {
 		if (this._rawAttrs)
 			return this._rawAttrs;
 		const attrs = {} as RawAttributes;
@@ -509,5 +511,30 @@ export default class HTMLElement extends Node {
 				return name + '=' + JSON.stringify(String(val));
 			}
 		}).join(' ');
+	}
+
+	public insertAdjacentHTML(where: InsertPosition, html: string) {
+		if (arguments.length < 2) {
+			throw new Error('2 arguments required');
+		}
+		const p = parse(html) as HTMLElement;
+		if (where === 'afterend') {
+			p.childNodes.forEach((n) => {
+				(this.parentNode as HTMLElement).appendChild(n);
+			});
+		} else if (where === 'afterbegin') {
+			this.childNodes.unshift(...p.childNodes);
+		} else if (where === 'beforeend') {
+			p.childNodes.forEach((n) => {
+				this.appendChild(n);
+			});
+		} else if (where === 'beforebegin') {
+			(this.parentNode as HTMLElement).childNodes.unshift(...p.childNodes);
+		} else {
+			throw new Error(`The value provided ('${where}') is not one of 'beforebegin', 'afterbegin', 'beforeend', or 'afterend'`);
+		}
+		if (!where || html === undefined || html === null) {
+			return;
+		}
 	}
 }
