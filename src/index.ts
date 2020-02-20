@@ -6,6 +6,7 @@ export { default as CommentNode } from './nodes/comment';
 export { default as HTMLElement } from './nodes/html';
 export { default as Node } from './nodes/node';
 export { default as TextNode } from './nodes/text';
+export { default as NodeType } from './nodes/type';
 
 // https://html.spec.whatwg.org/multipage/custom-elements.html#valid-custom-element-name
 const kMarkupPattern = /<!--[^]*?(?=-->)-->|<(\/?)([a-z][-.:0-9_a-z]*)\s*([^>]*?)(\/?)>/ig;
