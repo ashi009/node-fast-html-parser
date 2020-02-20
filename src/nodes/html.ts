@@ -351,7 +351,7 @@ export default class HTMLElement extends Node {
 					state[2] = matcher.advance(el as HTMLElement);
 					if (state[2]) {
 						if (matcher.matched) {
-							return el;
+							return el as HTMLElement;
 						}
 					}
 				}
