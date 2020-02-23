@@ -452,7 +452,6 @@ export default class HTMLElement extends Node {
 	}
 
 	public hasAttribute(key: string) {
-		console.error(this.attributes, key);
 		return key in this.attributes;
 	}
 
