@@ -113,7 +113,13 @@ export function parse(data: string, options = {} as Options) {
 			if (kBlockTextElements[match[2]]) {
 				// a little test to find next </script> or </style> ...
 				const closeMarkup = '</' + match[2] + '>';
-				const index = data.indexOf(closeMarkup, kMarkupPattern.lastIndex);
+				const index = (() => {
+					if (options.lowerCaseTagName) {
+						return data.toLocaleLowerCase().indexOf(closeMarkup, kMarkupPattern.lastIndex);
+					} else {
+						return data.indexOf(closeMarkup, kMarkupPattern.lastIndex);
+					}
+				})();
 				if (options[match[2]]) {
 					let text: string;
 					if (index === -1) {
