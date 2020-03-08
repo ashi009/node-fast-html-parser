@@ -9,7 +9,7 @@
 		"lint": "eslint ./src/*.ts ./src/**/*.ts",
 		"clean": "del-cli ./dist/",
 		"ts:cjs": "tsc -m commonjs",
-		"ts:umd": "tsc -t es5 -m umd -d false --outDir ./dist/umd/",
+		"ts:umd": "tsc -t es5 -m amd -d false --outFile ./dist/main.js",
 		"build": "npm run lint && npm run clean && npm run ts:cjs && npm run ts:umd",
 		"dev": "tsc -w",
 		"pretest": "tsc -m commonjs"
