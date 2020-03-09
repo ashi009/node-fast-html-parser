@@ -1,4 +1,3 @@
-import { decode } from 'he';
 import NodeType from './type';
 import Node from './node';
 
@@ -23,7 +22,7 @@ export default class TextNode extends Node {
 	 * @return {string} text content
 	 */
 	get text() {
-		return decode(this.rawText);
+		return this.rawText;
 	}
 
 	/**

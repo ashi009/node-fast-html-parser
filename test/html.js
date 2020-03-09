@@ -526,6 +526,27 @@ describe('HTML Parser', function () {
 				root.firstChild.getAttribute('alt').should.eql('«Sogno');
 				root.firstChild.rawAttributes.alt.should.eql('&laquo;Sogno');
 			});
+			it('shoud not decode text', function () {
+				// https://github.com/taoqf/node-html-parser/issues/33
+				const root = parseHTML(`<html>
+<body>
+<div id='source'>
+&lt;p&gt;
+This content should be enclosed within an escaped p tag&lt;br /&gt;
+&lt;/p&gt;
+</div>
+</body>
+</html>`)
+				root.toString().should.eql(`<html>
+<body>
+<div id='source'>
+&lt;p&gt;
+This content should be enclosed within an escaped p tag&lt;br /&gt;
+&lt;/p&gt;
+</div>
+</body>
+</html>`);
+			});
 		});
 
 		describe('#insertAdjacentHTML() should parse and insert childrens', function () {

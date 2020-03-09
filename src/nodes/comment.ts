@@ -1,4 +1,3 @@
-import { decode } from 'he';
 import Node from './node';
 import NodeType from './type';
 
@@ -19,7 +18,7 @@ export default class CommentNode extends Node {
 	 * @return {string} text content
 	 */
 	get text() {
-		return decode(this.rawText);
+		return this.rawText;
 	}
 
 	toString() {
