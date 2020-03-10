@@ -62,6 +62,15 @@ const functionCache = {
 		'use strict';
 		return true;
 	},
+	f55(el: HTMLElement, tagName: string, classes: string[], attr_key: string, value: string) {
+		'use strict';
+		tagName = tagName || '';
+		classes = classes || [];
+		attr_key = attr_key || '';
+		value = value || '';
+		const attrs = el.attributes;
+		return attrs.hasOwnProperty(attr_key);
+	},
 	f245(el: HTMLElement, tagName: string, classes: string[], attr_key: string, value: string) {
 		'use strict';
 		tagName = tagName || '';
@@ -175,6 +184,11 @@ export default class Matcher {
 
 						// source += `let attrs = el.attributes;for (let key in attrs){const val = attrs[key]; if (key == "${attr_key}" && val == "${value}"){return true;}} return false;`;// 2
 						function_name += '2';
+					} else if (reg = /^\[(.*?)\]/.exec(tagName)) {
+						attr_key = reg[1];
+
+						function_name += '5';
+
 					} else {
 						// source += 'if (el.tagName != ' + JSON.stringify(tagName) + ') return false;';// 3
 						function_name += '3';
