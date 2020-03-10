@@ -62,12 +62,11 @@ const functionCache = {
 		'use strict';
 		return true;
 	},
-	f55(el: HTMLElement, tagName: string, classes: string[], attr_key: string, value: string) {
+	f55(el: HTMLElement, tagName: string, classes: string[], attr_key: string) {
 		'use strict';
 		tagName = tagName || '';
 		classes = classes || [];
 		attr_key = attr_key || '';
-		value = value || '';
 		const attrs = el.attributes;
 		return attrs.hasOwnProperty(attr_key);
 	},
