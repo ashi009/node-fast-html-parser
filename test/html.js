@@ -374,6 +374,8 @@ describe('HTML Parser', function () {
 					'b': '13',
 				});
 				root.firstChild.toString().should.eql('<p a="12" b="13"></p>');
+				root.firstChild.setAttribute('required', '');
+				root.firstChild.toString().should.eql('<p a="12" b="13" required=""></p>');
 			});
 			it('should convert value to string', function () {
 				const root = parseHTML('<p a=12 b=13 c=14></p>');
