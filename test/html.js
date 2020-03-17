@@ -207,6 +207,13 @@ describe('HTML Parser', function () {
 			const root = parseHTML(fs.readFileSync(__dirname + '/html/incomplete-script').toString());
 		});
 
+		it('should parse talble currect', function () {
+			const root = parseHTML(fs.readFileSync(__dirname + '/html/tables.html').toString(), {
+				script: true
+			});
+			const tables = root.querySelectorAll('table');
+			tables.length.should.eql(3176);
+		});
 	});
 
 	describe('parseWithValidation', function () {

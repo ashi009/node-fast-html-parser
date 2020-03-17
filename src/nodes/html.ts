@@ -286,11 +286,16 @@ export default class HTMLElement extends Node {
 			}
 			matcher = new Matcher(selector);
 		}
-		const stack = [] as { 0: Node; 1: 0 | 1; 2: boolean }[];
+		interface IStack {
+			0: Node;	// node
+			1: number;	// children
+			2: boolean;	// found flag
+		}
+		const stack = [] as IStack[];
 		return this.childNodes.reduce((res, cur) => {
 			stack.push([cur, 0, false]);
 			while (stack.length) {
-				const state = arr_back(stack);
+				const state = arr_back(stack);	// get last element
 				const el = state[0];
 				if (state[1] === 0) {
 					// Seen for first time.
@@ -298,10 +303,12 @@ export default class HTMLElement extends Node {
 						stack.pop();
 						continue;
 					}
-					state[2] = matcher.advance(el as HTMLElement);
+					const html_el = el as HTMLElement;
+					state[2] = matcher.advance(html_el);
 					if (state[2]) {
 						if (matcher.matched) {
-							res.push(el as HTMLElement);
+							res.push(html_el);
+							res.push(...(html_el.querySelectorAll(selector)));
 							// no need to go further.
 							matcher.rewind();
 							stack.pop();
