@@ -178,11 +178,11 @@ export default class HTMLElement extends Node {
 		}).join('');
 	}
 
-	public set_content(content: string | Node | Node[]) {
+	public set_content(content: string | Node | Node[], options = {} as Options) {
 		if (content instanceof Node) {
 			content = [content];
 		} else if (typeof content == 'string') {
-			const r = parse(content);
+			const r = parse(content, options);
 			content = r.childNodes.length ? r.childNodes : [new TextNode(content)];
 		}
 		this.childNodes = content;
