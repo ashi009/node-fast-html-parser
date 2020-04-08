@@ -628,8 +628,9 @@ export function parse(data: string, options = {} as Options) {
 			}
 			continue;
 		}
-		if (options.lowerCaseTagName)
+		if (options.lowerCaseTagName) {
 			match[2] = match[2].toLowerCase();
+		}
 		if (!match[1]) {
 			// not </ tags
 			const attrs = {};
@@ -677,8 +678,7 @@ export function parse(data: string, options = {} as Options) {
 				}
 			}
 		}
-		if (match[1] || match[4] ||
-			kSelfClosingElements[match[2]]) {
+		if (match[1] || match[4] || kSelfClosingElements[match[2]]) {
 			// </ or /> or <br> etc.
 			while (true) {
 				if (currentParent.tagName === match[2]) {
