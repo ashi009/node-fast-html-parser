@@ -157,13 +157,10 @@ export default class HTMLElement extends Node {
 	public toString() {
 		const tag = this.tagName;
 		if (tag) {
-			const is_un_closed = /^meta$/i.test(tag);
-			const is_self_closed = /^(img|br|hr|area|base|input|doctype|link)$/i.test(tag);
+			const is_void = /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/i.test(tag);
 			const attrs = this.rawAttrs ? ' ' + this.rawAttrs : '';
-			if (is_un_closed) {
+			if (is_void) {
 				return `<${tag}${attrs}>`;
-			} else if (is_self_closed) {
-				return `<${tag}${attrs} />`;
 			} else {
 				return `<${tag}${attrs}>${this.innerHTML}</${tag}>`;
 			}

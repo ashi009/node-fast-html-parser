@@ -89,7 +89,7 @@ describe('HTML Parser', function () {
 				lowerCaseTagName: true
 			});
 
-			root.toString().should.eql('<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt-br"><head><title>SISREG III</title><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" ><meta http-equiv="Content-Language" content="pt-BR" ><link rel="stylesheet" href="/css/estilo.css" type="text/css" /><script type="text/javascript" src="/javascript/jquery.js" charset="utf-8"></script><script LANGUAGE=\'JavaScript\'></script></head><body link=\'#0000AA\' vlink=\'#0000AA\'><center><h1>CONSULTA AO CADASTRO DE PACIENTES SUS</h1></center><div id=\'progress_div\'><br /><br /><center><img src=\'/imagens/loading.gif\'  /></center><center><span style=\'font-size: 80%\'>Processando...</span></center><br /><br /></div></body></html>');
+			root.toString().should.eql('<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt-br"><head><title>SISREG III</title><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" ><meta http-equiv="Content-Language" content="pt-BR" ><link rel="stylesheet" href="/css/estilo.css" type="text/css"><script type="text/javascript" src="/javascript/jquery.js" charset="utf-8"></script><script LANGUAGE=\'JavaScript\'></script></head><body link=\'#0000AA\' vlink=\'#0000AA\'><center><h1>CONSULTA AO CADASTRO DE PACIENTES SUS</h1></center><div id=\'progress_div\'><br><br><center><img src=\'/imagens/loading.gif\' ></center><center><span style=\'font-size: 80%\'>Processando...</span></center><br><br></div></body></html>');
 			// root.toString().firstChild.should.eql(div);
 
 		});
@@ -432,7 +432,7 @@ describe('HTML Parser', function () {
 			const root = parseHTML('<input required>');
 			const input = root.firstChild;
 			input.removeAttribute('required');
-			input.toString().should.eql('<input />');
+			input.toString().should.eql('<input>');
 		});
 
 		describe('#hasAttribute', function () {
