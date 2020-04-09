@@ -429,10 +429,12 @@ describe('HTML Parser', function () {
 		});
 
 		describe('#removeAttribute', function () {
-			const root = parseHTML('<input required>');
-			const input = root.firstChild;
-			input.removeAttribute('required');
-			input.toString().should.eql('<input />');
+			it('should remove attribute required', function () {
+				const root = parseHTML('<input required>');
+				const input = root.firstChild;
+				input.removeAttribute('required');
+				input.toString().should.eql('<input />');
+			});
 		});
 
 		describe('#hasAttribute', function () {
