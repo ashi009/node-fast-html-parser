@@ -623,6 +623,9 @@ export function parse(data: string, options = {} as Options) {
 			}
 		}
 		lastTextPos = kMarkupPattern.lastIndex;
+		if (match[2] === frameflag) {
+			continue;
+		}
 		if (match[0][1] === '!') {
 			// this is a comment
 			if (options.comment) {
@@ -649,12 +652,10 @@ export function parse(data: string, options = {} as Options) {
 					currentParent = arr_back(stack);
 				}
 			}
-			if (match[2] !== frameflag) {
-				// ignore container tag we add above
-				// https://github.com/taoqf/node-html-parser/issues/38
-				currentParent = currentParent.appendChild(new HTMLElement(match[2], attrs, match[3]));
-				stack.push(currentParent);
-			}
+			// ignore container tag we add above
+			// https://github.com/taoqf/node-html-parser/issues/38
+			currentParent = currentParent.appendChild(new HTMLElement(match[2], attrs, match[3]));
+			stack.push(currentParent);
 			if (kBlockTextElements[match[2]]) {
 				// a little test to find next </script> or </style> ...
 				const closeMarkup = '</' + match[2] + '>';
