@@ -595,6 +595,8 @@ export interface Options {
 	comment?: boolean;
 }
 
+const frameflag = 'documentfragmentcontainer';
+
 /**
  * Parses HTML and returns a root element
  * Parse a chuck of HTML source.
@@ -607,6 +609,8 @@ export function parse(data: string, options = {} as Options) {
 	const stack = [root];
 	let lastTextPos = -1;
 	let match: RegExpExecArray;
+	// https://github.com/taoqf/node-html-parser/issues/38
+	data = `<${frameflag}>${data}</${frameflag}>`;
 	while (match = kMarkupPattern.exec(data)) {
 		if (lastTextPos > -1) {
 			if (lastTextPos + match[0].length < kMarkupPattern.lastIndex) {
@@ -616,6 +620,9 @@ export function parse(data: string, options = {} as Options) {
 			}
 		}
 		lastTextPos = kMarkupPattern.lastIndex;
+		if (match[2] === frameflag) {
+			continue;
+		}
 		if (match[0][1] === '!') {
 			// this is a comment
 			if (options.comment) {
@@ -642,8 +649,9 @@ export function parse(data: string, options = {} as Options) {
 					currentParent = arr_back(stack);
 				}
 			}
-			currentParent = currentParent.appendChild(
-				new HTMLElement(match[2], attrs, match[3]));
+			// ignore container tag we add above
+			// https://github.com/taoqf/node-html-parser/issues/38
+			currentParent = currentParent.appendChild(new HTMLElement(match[2], attrs, match[3]));
 			stack.push(currentParent);
 			if (kBlockTextElements[match[2]]) {
 				// a little test to find next </script> or </style> ...
