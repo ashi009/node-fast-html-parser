@@ -626,6 +626,19 @@ This content should be enclosed within an escaped p tag&lt;br /&gt;
 			const root = parseHTML(html, { comment: true });
 			root.toString().should.eql(html);
 		});
+
+		it('#toString() should contains id and classnames', function () {
+			const el = new HTMLElement('div', { 'id': 'new_container', 'class': 'container' });
+			el.id.should.eql('new_container');
+			el.classNames.should.deepEqual(['container']);
+			el.toString().should.eql('<div id="new_container" class="container"></div>');
+		});
+
+		it('#toString() should contains classnames withspaces', function () {
+			const el = new HTMLElement('div', { 'class': 'container1  container2' });
+			el.classNames.should.deepEqual(['container1', 'container2']);
+			el.toString().should.eql('<div class="container1 container2"></div>');
+		});
 	});
 
 	describe('Comment Element', function () {

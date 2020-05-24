@@ -66,9 +66,20 @@ export default class HTMLElement extends Node {
 		this.childNodes = [];
 		if (keyAttrs.id) {
 			this.id = keyAttrs.id;
+			if (!rawAttrs) {
+				this.rawAttrs = `id="${keyAttrs.id}"`;
+			}
 		}
 		if (keyAttrs.class) {
 			this.classNames = keyAttrs.class.split(/\s+/);
+			if (!rawAttrs) {
+				const cls = `class="${this.classNames.join(' ')}"`;
+				if (this.rawAttrs) {
+					this.rawAttrs += ` ${cls}`;
+				} else {
+					this.rawAttrs = cls;
+				}
+			}
 		}
 	}
 	/**
