@@ -289,13 +289,18 @@ describe('HTML Parser', function () {
 	});
 
 	describe('TextNode', function () {
-		describe('#isWhitespace', function () {
+		it('#isWhitespace', function () {
 			let node = new TextNode('');
 			node.isWhitespace.should.be.ok;
 			node = new TextNode(' \t');
 			node.isWhitespace.should.be.ok;
 			node = new TextNode(' \t&nbsp; \t');
 			node.isWhitespace.should.be.ok;
+		});
+		it.only('parse text node', function () {
+			const result = parseHTML('hello mmstudio');
+			result.firstChild.should.instanceOf(TextNode);
+			result.toString().should.eql('hello mmstudio');
 		});
 	});
 
