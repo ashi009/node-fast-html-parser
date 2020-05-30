@@ -599,7 +599,6 @@ const kBlockTextElements = {
 
 export interface Options {
 	lowerCaseTagName?: boolean;
-	noFix?: boolean;
 	script?: boolean;
 	style?: boolean;
 	pre?: boolean;
@@ -614,7 +613,10 @@ const frameflag = 'documentfragmentcontainer';
  * @param  {string} data      html
  * @return {HTMLElement}      root element
  */
-export function parse(data: string, options = {} as Options) {
+export function parse(data: string, options?: Options): HTMLElement & { valid: boolean };
+export function parse(data: string, options?: Options & { noFix: false }): HTMLElement & { valid: boolean };
+export function parse(data: string, options?: Options & { noFix: true }): (HTMLElement | TextNode) & { valid: boolean };
+export function parse(data: string, options = {} as Options & { noFix?: boolean }) {
 	const root = new HTMLElement(null, {});
 	let currentParent = root;
 	const stack = [root];
