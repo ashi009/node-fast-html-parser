@@ -297,7 +297,7 @@ describe('HTML Parser', function () {
 			node = new TextNode(' \t&nbsp; \t');
 			node.isWhitespace.should.be.ok;
 		});
-		it.only('parse text node', function () {
+		it('parse text node', function () {
 			const result = parseHTML('hello mmstudio');
 			result.firstChild.should.instanceOf(TextNode);
 			result.toString().should.eql('hello mmstudio');
@@ -359,11 +359,15 @@ describe('HTML Parser', function () {
 				input.getAttribute('required').should.eql('');
 			});
 
-			it('should return null as broser behavior', function () {
-				const root = parseHTML('<input required>');
+			it('should return null as browser behavior', function () {
+				const root = parseHTML('<input required foo="" bar=\'\'>');
 				const input = root.firstChild;
+				input.getAttribute('required').should.eql('');
 				input.setAttribute('readonly', null);
 				input.getAttribute('readonly').should.eql('null');
+				input.setAttribute('disabled', '');
+				input.getAttribute('disabled').should.eql('');
+				input.toString().should.eql('<input required foo bar readonly="null" disabled>')
 			});
 		});
 
@@ -387,7 +391,7 @@ describe('HTML Parser', function () {
 				});
 				root.firstChild.toString().should.eql('<p a="12" b="13"></p>');
 				root.firstChild.setAttribute('required', '');
-				root.firstChild.toString().should.eql('<p a="12" b="13" required=""></p>');
+				root.firstChild.toString().should.eql('<p a="12" b="13" required></p>');
 			});
 			it('should convert value to string', function () {
 				const root = parseHTML('<p a=12 b=13 c=14></p>');

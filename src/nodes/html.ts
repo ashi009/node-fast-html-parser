@@ -495,7 +495,7 @@ export default class HTMLElement extends Node {
 		// Update rawString
 		this.rawAttrs = Object.keys(attrs).map((name) => {
 			const val = JSON.stringify(attrs[name]);
-			if (val === undefined || val === 'null') {
+			if (val === 'null' || val === '""') {
 				return name;
 			} else {
 				return name + '=' + val;
@@ -519,7 +519,7 @@ export default class HTMLElement extends Node {
 		// Update rawString
 		this.rawAttrs = Object.keys(attributes).map((name) => {
 			const val = attributes[name];
-			if (val === undefined || val === null) {
+			if (val === 'null' || val === '""') {
 				return name;
 			} else {
 				return name + '=' + JSON.stringify(String(val));
