@@ -613,6 +613,14 @@ This content should be enclosed within an escaped p tag&lt;br /&gt;
 				a.insertAdjacentHTML('afterbegin', '<c></c>');
 				a.toString().should.eql('<a><c></c><b></b></a>');
 			});
+
+			it('shoud insert text child at position 0', function () {
+				const html = '<a></a>';
+				const root = parseHTML(html);
+				const a = root.firstChild;
+				a.insertAdjacentHTML('afterbegin', 'abc');
+				a.toString().should.eql('<a>abc</a>');
+			});
 		});
 	});
 
