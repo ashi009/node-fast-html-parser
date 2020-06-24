@@ -474,7 +474,7 @@ export default class HTMLElement extends Node {
 	 * Get an attribute
 	 * @return {string} value of the attribute
 	 */
-	public getAttribute(key: string) {
+	public getAttribute(key: string): string | undefined {
 		return this.attributes[key];
 	}
 
