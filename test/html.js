@@ -468,6 +468,12 @@ describe('HTML Parser', function () {
 				root.querySelector('[data-id=myid]').should.eql(root.firstChild);
 				root.querySelector('[data-id="myid"]').should.eql(root.firstChild);
 			});
+			it('should find correct elements in DOM tree', function () {
+				const root = parseHTML('<a class="abc" data-id="myid"><div class="abcd"><span class="bcd"></span><span></span><span></span></div></a>');
+				root.querySelector('[class^=abc]').length.should.eql(2);
+				root.querySelector('[class$=bcd]').length.should.eql(2);
+				root.querySelector('[class*=bc]').length.should.eql(3);
+			});
 		});
 
 		describe('#querySelectorAll()', function () {
