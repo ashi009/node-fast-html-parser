@@ -93,7 +93,11 @@ const functionCache = {
 		const attrs = el.attributes;
 		return Object.keys(attrs).some((key) => {
 			const val = attrs[key];
-			return key === attr_key && val === value
+			return (key === attr_key && val === value) ||
+                (key === attr_key.slice(0, -1) &&
+					(attr_key.endsWith('^') && val.startsWith(value)) ||
+                    (attr_key.endsWith('$') && val.endsWith(value)) ||
+                    (attr_key.endsWith('*') && val.includes(value)));
 		});
 		// return true;
 	},
@@ -146,11 +150,11 @@ export default class Matcher {
 	private matchers: MatherFunction[];
 	private nextMatch = 0;
 	/**
-	 * Creates an instance of Matcher.
-	 * @param {string} selector
-	 *
-	 * @memberof Matcher
-	 */
+     * Creates an instance of Matcher.
+     * @param {string} selector
+     *
+     * @memberof Matcher
+     */
 	constructor(selector: string) {
 		functionCache.f5 = functionCache.f5;
 		this.matchers = selector.split(' ').map((matcher) => {
@@ -212,41 +216,41 @@ export default class Matcher {
 		});
 	}
 	/**
-	 * Trying to advance match pointer
-	 * @param  {HTMLElement} el element to make the match
-	 * @return {bool}           true when pointer advanced.
-	 */
+     * Trying to advance match pointer
+     * @param  {HTMLElement} el element to make the match
+     * @return {bool}           true when pointer advanced.
+     */
 	advance(el: HTMLElement) {
 		if (this.nextMatch < this.matchers.length &&
-			this.matchers[this.nextMatch].func(el, this.matchers[this.nextMatch].tagName, this.matchers[this.nextMatch].classes, this.matchers[this.nextMatch].attr_key, this.matchers[this.nextMatch].value)) {
+            this.matchers[this.nextMatch].func(el, this.matchers[this.nextMatch].tagName, this.matchers[this.nextMatch].classes, this.matchers[this.nextMatch].attr_key, this.matchers[this.nextMatch].value)) {
 			this.nextMatch++;
 			return true;
 		}
 		return false;
 	}
 	/**
-	 * Rewind the match pointer
-	 */
+     * Rewind the match pointer
+     */
 	rewind() {
 		this.nextMatch--;
 	}
 	/**
-	 * Trying to determine if match made.
-	 * @return {bool} true when the match is made
-	 */
+     * Trying to determine if match made.
+     * @return {bool} true when the match is made
+     */
 	get matched() {
 		return this.nextMatch === this.matchers.length;
 	}
 	/**
-	 * Rest match pointer.
-	 * @return {[type]} [description]
-	 */
+     * Rest match pointer.
+     * @return {[type]} [description]
+     */
 	reset() {
 		this.nextMatch = 0;
 	}
 	/**
-	 * flush cache to free memory
-	 */
+     * flush cache to free memory
+     */
 	flushCache() {
 		pMatchFunctionCache = {};
 	}
