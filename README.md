@@ -63,7 +63,7 @@ var HTMLParser = require('node-html-parser');
 var root = HTMLParser.parse('<ul id="list"><li>Hello World</li></ul>');
 ```
 
-## API
+## HTMLElement Methods
 
 ### parse(data[, options])
 
@@ -82,27 +82,9 @@ Parse given data, and return root of the generated DOM.
   }
   ```
 
-### HTMLElement#text
-
-Get unescaped text value of current node and its children. Like `innerText`.
-(slow for the first time)
-
-### HTMLElement#rawText
-
-Get escpaed (as-it) text value of current node and its children. May have
-`&amp;` in it. (fast)
-
-### HTMLElement#structuredText
-
-Get structured Text
-
 ### HTMLElement#trimRight()
 
 Trim element from right (in block) after seeing pattern in a TextNode.
-
-### HTMLElement#structure
-
-Get DOM structure
 
 ### HTMLElement#removeWhitespace()
 
@@ -128,14 +110,6 @@ Append a child node to childNodes
 
 parses the specified text as HTML and inserts the resulting nodes into the DOM tree at a specified position.
 
-### HTMLElement#firstChild
-
-Get first child node
-
-### HTMLElement#lastChild
-
-Get last child node
-
 ### HTMLElement#setAttribute(key: string, value: string)
 
 Set `value` to `key` attribute.
@@ -146,11 +120,52 @@ Remove `key` attribute.
 
 ### HTMLElement#getAttribute(key: string)
 
-Get `key` attrubte.
+Get `key` attribute.
+
+### HTMLElement#exchangeChild(oldNode: Node, newNode: Node)
+
+Exchanges given child with new child.
+
+### HTMLElement#removeChild(node: Node)
+
+Remove child node.
 
 ### HTMLElement#toString()
 
 Same as [outerHTML](#htmlelementouterhtml)
+
+### HTMLElement#set_content(content: string | Node | Node[])
+
+Set content. **Notice**: Do not set content of the **root** node.
+
+
+## HTMLElement Properties
+
+### HTMLElement#text
+
+Get unescaped text value of current node and its children. Like `innerText`.
+(slow for the first time)
+
+### HTMLElement#rawText
+
+Get escpaed (as-it) text value of current node and its children. May have
+`&amp;` in it. (fast)
+
+### HTMLElement#structuredText
+
+Get structured Text
+
+### HTMLElement#structure
+
+Get DOM structure
+
+### HTMLElement#firstChild
+
+Get first child node
+
+### HTMLElement#lastChild
+
+Get last child node
 
 ### HTMLElement#innerHTML
 
@@ -160,6 +175,3 @@ Get innerHTML.
 
 Get outerHTML.
 
-### HTMLElement#set_content(content: string | Node | Node[])
-
-Set content. **Notice**: Do not set content of the **root** node.
