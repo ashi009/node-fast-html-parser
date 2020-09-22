@@ -539,8 +539,14 @@ export default class HTMLElement extends Node {
 		}
 		const p = parse(html) as HTMLElement;
 		if (where === 'afterend') {
+			const idx = this.parentNode.childNodes.findIndex((child) => {
+				return child === this;
+			});
+			this.parentNode.childNodes.splice(idx + 1, 0, ...p.childNodes);
 			p.childNodes.forEach((n) => {
-				(this.parentNode as HTMLElement).appendChild(n);
+				if (n instanceof HTMLElement) {
+					n.parentNode = this.parentNode;
+				}
 			});
 		} else if (where === 'afterbegin') {
 			this.childNodes.unshift(...p.childNodes);
@@ -549,7 +555,15 @@ export default class HTMLElement extends Node {
 				this.appendChild(n);
 			});
 		} else if (where === 'beforebegin') {
-			(this.parentNode as HTMLElement).childNodes.unshift(...p.childNodes);
+			const idx = this.parentNode.childNodes.findIndex((child) => {
+				return child === this;
+			});
+			this.parentNode.childNodes.splice(idx, 0, ...p.childNodes);
+			p.childNodes.forEach((n) => {
+				if (n instanceof HTMLElement) {
+					n.parentNode = this.parentNode;
+				}
+			});
 		} else {
 			throw new Error(`The value provided ('${where as string}') is not one of 'beforebegin', 'afterbegin', 'beforeend', or 'afterend'`);
 		}

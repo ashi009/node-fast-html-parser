@@ -578,21 +578,20 @@ This content should be enclosed within an escaped p tag&lt;br /&gt;
 
 		describe('#insertAdjacentHTML() should parse and insert childrens', function () {
 			it('shoud insert children after current node', function () {
-				const html = '<a><b></b></a>';
+				const html = '<a><b></b><e></e></a>';
 				const root = parseHTML(html);
 				const a = root.firstChild;
 				const b = a.firstChild;
 				b.insertAdjacentHTML('afterend', '<c><d></d></c>');
-				a.toString().should.eql('<a><b></b><c><d></d></c></a>');
+				a.toString().should.eql('<a><b></b><c><d></d></c><e></e></a>');
 			});
 
 			it('shoud insert children before current node', function () {
-				const html = '<a><b></b></a>';
+				const html = '<a><e></e><b></b></a>';
 				const root = parseHTML(html);
-				const a = root.firstChild;
-				const b = a.firstChild;
+				const b = root.querySelector('b');
 				b.insertAdjacentHTML('beforebegin', '<c></c>');
-				a.toString().should.eql('<a><c></c><b></b></a>');
+				root.toString().should.eql('<a><e></e><c></c><b></b></a>');
 			});
 
 			it('shoud append children in current node', function () {
