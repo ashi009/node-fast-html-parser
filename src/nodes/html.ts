@@ -22,16 +22,16 @@ export interface RawAttributes {
 export type InsertPosition = 'beforebegin' | 'afterbegin' | 'beforeend' | 'afterend';
 
 const kBlockElements = {
-	div: true,
-	p: true,
+	DIV: true,
+	P: true,
 	// ul: true,
 	// ol: true,
-	li: true,
+	LI: true,
 	// table: true,
 	// tr: true,
-	td: true,
-	section: true,
-	br: true
+	TD: true,
+	SECTION: true,
+	BR: true
 };
 
 /**
@@ -46,6 +46,7 @@ const kBlockElements = {
 export default class HTMLElement extends Node {
 	private _attrs: Attributes;
 	private _rawAttrs: RawAttributes;
+	private _tag_name: string;
 	public id: string;
 	public classNames = [] as string[];
 	/**
@@ -59,8 +60,9 @@ export default class HTMLElement extends Node {
 	 *
 	 * @memberof HTMLElement
 	 */
-	public constructor(public tagName: string, keyAttrs: KeyAttributes, private rawAttrs = '', public parentNode = null as Node) {
+	public constructor(tagName: string, keyAttrs: KeyAttributes, private rawAttrs = '', public parentNode = null as Node) {
 		super();
+		this._tag_name = tagName;
 		this.rawAttrs = rawAttrs || '';
 		this.parentNode = parentNode || null;
 		this.childNodes = [];
@@ -105,6 +107,9 @@ export default class HTMLElement extends Node {
 			}
 		}
 		this.childNodes[idx] = newNode;
+	}
+	public get tagName() {
+		return this._tag_name ? this._tag_name.toUpperCase() : this._tag_name;
 	}
 	/**
 	 * Get escpaed (as-it) text value of current node and its children.
@@ -168,7 +173,7 @@ export default class HTMLElement extends Node {
 	}
 
 	public toString() {
-		const tag = this.tagName;
+		const tag = this._tag_name;
 		if (tag) {
 			const is_void = /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/i.test(tag);
 			const attrs = this.rawAttrs ? ` ${this.rawAttrs}` : '';
@@ -234,7 +239,7 @@ export default class HTMLElement extends Node {
 		function dfs(node: HTMLElement) {
 			const idStr = node.id ? (`#${node.id}`) : '';
 			const classStr = node.classNames.length ? (`.${node.classNames.join('.')}`) : '';
-			write(node.tagName + idStr + classStr);
+			write(node._tag_name + idStr + classStr);
 			indention++;
 			node.childNodes.forEach((childNode) => {
 				if (childNode.nodeType === NodeType.ELEMENT_NODE) {
@@ -559,43 +564,75 @@ const kMarkupPattern = /<!--[^]*?(?=-->)-->|<(\/?)([a-z][-.:0-9_a-z]*)\s*([^>]*?
 const kAttributePattern = /(^|\s)(id|class)\s*=\s*("([^"]+)"|'([^']+)'|(\S+))/ig;
 const kSelfClosingElements = {
 	area: true,
+	AREA: true,
 	base: true,
+	BASE: true,
 	br: true,
+	BR: true,
 	col: true,
+	COL: true,
 	hr: true,
+	HR: true,
 	img: true,
+	IMG: true,
 	input: true,
+	INPUT: true,
 	link: true,
+	LINK: true,
 	meta: true,
-	source: true
+	META: true,
+	source: true,
+	SOURCE: true
 };
 const kElementsClosedByOpening = {
-	li: { li: true },
-	p: { p: true, div: true },
-	b: { div: true },
-	td: { td: true, th: true },
-	th: { td: true, th: true },
-	h1: { h1: true },
-	h2: { h2: true },
-	h3: { h3: true },
-	h4: { h4: true },
-	h5: { h5: true },
-	h6: { h6: true }
+	li: { li: true, LI: true },
+	LI: { li: true, LI: true },
+	p: { p: true, div: true, P: true, DIV: true },
+	P: { p: true, div: true, P: true, DIV: true },
+	b: { div: true, DIV: true },
+	B: { div: true, DIV: true },
+	td: { td: true, th: true, TD: true, TH: true },
+	TD: { td: true, th: true, TD: true, TH: true },
+	th: { td: true, th: true, TD: true, TH: true },
+	TH: { td: true, th: true, TD: true, TH: true },
+	h1: { h1: true, H1: true },
+	H1: { h1: true, H1: true },
+	h2: { h2: true, H2: true },
+	H2: { h2: true, H2: true },
+	h3: { h3: true, H3: true },
+	H3: { h3: true, H3: true },
+	h4: { h4: true, H4: true },
+	H4: { h4: true, H4: true },
+	h5: { h5: true, H5: true },
+	H5: { h5: true, H5: true },
+	h6: { h6: true, H6: true },
+	H6: { h6: true, H6: true }
 };
 const kElementsClosedByClosing = {
-	li: { ul: true, ol: true },
-	a: { div: true },
-	b: { div: true },
-	i: { div: true },
-	p: { div: true },
-	td: { tr: true, table: true },
-	th: { tr: true, table: true }
+	li: { ul: true, ol: true, UL: true, OL: true },
+	LI: { ul: true, ol: true, UL: true, OL: true },
+	a: { div: true, DIV: true },
+	A: { div: true, DIV: true },
+	b: { div: true, DIV: true },
+	B: { div: true, DIV: true },
+	i: { div: true, DIV: true },
+	I: { div: true, DIV: true },
+	p: { div: true, DIV: true },
+	P: { div: true, DIV: true },
+	td: { tr: true, table: true, TR: true, TABLE: true },
+	TD: { tr: true, table: true, TR: true, TABLE: true },
+	th: { tr: true, table: true, TR: true, TABLE: true },
+	TH: { tr: true, table: true, TR: true, TABLE: true }
 };
 const kBlockTextElements = {
 	script: true,
+	SCRIPT: true,
 	noscript: true,
+	NOSCRIPT: true,
 	style: true,
-	pre: true
+	STYLE: true,
+	pre: true,
+	PRE: true
 };
 
 export interface Options {
@@ -656,7 +693,7 @@ export function parse(data: string, options = {} as Options & { noFix?: boolean 
 				attrs[attMatch[2]] = attMatch[4] || attMatch[5] || attMatch[6];
 			}
 
-			const tagName = currentParent.tagName as 'li' | 'p' | 'b' | 'td' | 'th' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+			const tagName = currentParent.tagName as 'LI' | 'P' | 'B' | 'TD' | 'TH' | 'H1' | 'H2' | 'H3' | 'H4' | 'H5' | 'H6';
 			if (!match[4] && kElementsClosedByOpening[tagName]) {
 				if (kElementsClosedByOpening[tagName][match[2]]) {
 					stack.pop();
@@ -700,12 +737,12 @@ export function parse(data: string, options = {} as Options & { noFix?: boolean 
 		if (match[1] || match[4] || kSelfClosingElements[match[2]]) {
 			// </ or /> or <br> etc.
 			while (true) {
-				if (currentParent.tagName === match[2]) {
+				if (currentParent.tagName === match[2].toUpperCase()) {
 					stack.pop();
 					currentParent = arr_back(stack);
 					break;
 				} else {
-					const tagName = currentParent.tagName as 'li' | 'a' | 'b' | 'i' | 'p' | 'td' | 'th';
+					const tagName = currentParent.tagName as 'LI' | 'A' | 'B' | 'I' | 'P' | 'TD' | 'TH';
 					// Trying to close current tag, and move on
 					if (kElementsClosedByClosing[tagName]) {
 						if (kElementsClosedByClosing[tagName][match[2]]) {

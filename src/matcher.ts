@@ -14,6 +14,16 @@ interface MatherFunction {
  */
 let pMatchFunctionCache = {} as { [name: string]: MatherFunction };
 
+function compare_tagname(tag1: string, tag2: string) {
+	if (!tag1) {
+		return !tag2;
+	}
+	if (!tag2) {
+		return !tag1;
+	}
+	return tag1.toLowerCase() === tag2.toLowerCase();
+}
+
 /**
  * Function cache
  */
@@ -113,7 +123,7 @@ const functionCache = {
 		'use strict';
 		tagName = tagName || '';
 		classes = classes || [];
-		if (el.tagName !== tagName) {
+		if (!compare_tagname(el.tagName, tagName)) {
 			return false;
 		}
 		for (let cls = classes, i = 0; i < cls.length; i++) {
@@ -126,14 +136,15 @@ const functionCache = {
 	f35(el: HTMLElement, tagName: string) {
 		'use strict';
 		tagName = tagName || '';
-		return el.tagName === tagName;
+		return compare_tagname(el.tagName, tagName);
 	},
 	f3(el: HTMLElement, tagName: string) {
 		'use strict';
 		tagName = tagName || '';
-		if (el.tagName !== tagName) {
-			return false;
-		}
+		// if (el.tagName !== tagName) {
+		// 	return false;
+		// }
+		return compare_tagname(el.tagName, tagName);
 	}
 };
 

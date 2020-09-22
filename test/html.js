@@ -64,7 +64,8 @@ describe('HTML Parser', function () {
 			ul.appendChild(new HTMLElement('li', {}, ''));
 			p.appendChild(new HTMLElement('span', {}, ''));
 
-			root.firstChild.should.eql(p);
+			root.firstChild.toString().should.eql(p.toString());
+			// root.firstChild.should.eql(p);
 		});
 
 		it('should parse "<DIV><a><img/></A><p></P></div>" and return root element', function () {
@@ -207,7 +208,7 @@ describe('HTML Parser', function () {
 			const root = parseHTML(fs.readFileSync(__dirname + '/html/incomplete-script').toString());
 		});
 
-		it('should parse talble currect', function () {
+		it('should parse table currect', function () {
 			const root = parseHTML(fs.readFileSync(__dirname + '/html/tables.html').toString(), {
 				script: true
 			});
@@ -693,7 +694,7 @@ This content should be enclosed within an escaped p tag&lt;br /&gt;
 
 			const root = parseHTML('<my-widget></my-widget>');
 
-			root.firstChild.tagName.should.eql('my-widget');
+			root.firstChild.tagName.should.eql('MY-WIDGET');
 		});
 	});
 
@@ -702,7 +703,7 @@ This content should be enclosed within an escaped p tag&lt;br /&gt;
 
 			const root = parseHTML('<my-new-widget></my-new-widget>');
 
-			root.firstChild.tagName.should.eql('my-new-widget');
+			root.firstChild.tagName.should.eql('MY-NEW-WIDGET');
 		});
 	});
 });
