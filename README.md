@@ -146,7 +146,7 @@ Remove `key` attribute.
 
 ### HTMLElement#getAttribute(key: string)
 
-Get `key` attrubte.
+Get `key` attribute.
 
 ### HTMLElement#toString()
 
