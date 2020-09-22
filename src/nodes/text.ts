@@ -6,22 +6,21 @@ import Node from './node';
  * @param {string} value [description]
  */
 export default class TextNode extends Node {
-	constructor(value: string) {
+	public constructor(public rawText: string) {
 		super();
-		this.rawText = value;
 	}
 
 	/**
 	 * Node Type declaration.
 	 * @type {Number}
 	 */
-	nodeType = NodeType.TEXT_NODE;
+	public nodeType = NodeType.TEXT_NODE;
 
 	/**
 	 * Get unescaped text value of current node and its children.
 	 * @return {string} text content
 	 */
-	get text() {
+	public get text() {
 		return this.rawText;
 	}
 
@@ -29,11 +28,11 @@ export default class TextNode extends Node {
 	 * Detect if the node contains only white space.
 	 * @return {bool}
 	 */
-	get isWhitespace() {
+	public get isWhitespace() {
 		return /^(\s|&nbsp;)*$/.test(this.rawText);
 	}
 
-	toString() {
+	public toString() {
 		return this.text;
 	}
 }

@@ -633,7 +633,7 @@ This content should be enclosed within an escaped p tag&lt;br /&gt;
 				a.removeChild(b);
 				a.childNodes.length.should.eql(0);
 			});
-			it.only('shoud not remove child node which does not exist', function () {
+			it('shoud not remove child node which does not exist', function () {
 				const html = '<a><b><c></c></b></a>';
 				const root = parseHTML(html);
 				const a = root.firstChild;

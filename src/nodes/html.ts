@@ -112,7 +112,7 @@ export default class HTMLElement extends Node {
 	 */
 	public get rawText() {
 		return this.childNodes.reduce((pre, cur) => {
-			return pre += cur.rawText;
+			return (pre += cur.rawText);
 		}, '');
 	}
 	/**
@@ -127,7 +127,10 @@ export default class HTMLElement extends Node {
 	 * @return {string} structured text
 	 */
 	public get structuredText() {
-		let currentBlock = [] as string[];
+		interface ICurrentBlock extends Array<string> {
+			prependWhitespace?: boolean;
+		}
+		let currentBlock = [] as ICurrentBlock;
 		const blocks = [currentBlock];
 		function dfs(node: Node) {
 			if (node.nodeType === NodeType.ELEMENT_NODE) {
@@ -145,23 +148,22 @@ export default class HTMLElement extends Node {
 			} else if (node.nodeType === NodeType.TEXT_NODE) {
 				if ((node as TextNode).isWhitespace) {
 					// Whitespace node, postponed output
-					(currentBlock as any).prependWhitespace = true;
+					currentBlock.prependWhitespace = true;
 				} else {
 					let text = node.text;
-					if ((currentBlock as any).prependWhitespace) {
-						text = ' ' + text;
-						(currentBlock as any).prependWhitespace = false;
+					if (currentBlock.prependWhitespace) {
+						text = ` ${text}`;
+						currentBlock.prependWhitespace = false;
 					}
 					currentBlock.push(text);
 				}
 			}
 		}
 		dfs(this);
-		return blocks
-			.map(function (block) {
-				// Normalize each line's whitespace
-				return block.join('').trim().replace(/\s{2,}/g, ' ');
-			})
+		return blocks.map((block) => {
+			// Normalize each line's whitespace
+			return block.join('').trim().replace(/\s{2,}/g, ' ');
+		})
 			.join('\n').replace(/\s+$/, '');	// trimRight;
 	}
 
@@ -169,15 +171,13 @@ export default class HTMLElement extends Node {
 		const tag = this.tagName;
 		if (tag) {
 			const is_void = /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/i.test(tag);
-			const attrs = this.rawAttrs ? ' ' + this.rawAttrs : '';
+			const attrs = this.rawAttrs ? ` ${this.rawAttrs}` : '';
 			if (is_void) {
 				return `<${tag}${attrs}>`;
-			} else {
-				return `<${tag}${attrs}>${this.innerHTML}</${tag}>`;
 			}
-		} else {
-			return this.innerHTML;
+			return `<${tag}${attrs}>${this.innerHTML}</${tag}>`;
 		}
+		return this.innerHTML;
 	}
 
 	public get innerHTML() {
@@ -232,16 +232,17 @@ export default class HTMLElement extends Node {
 			res.push('  '.repeat(indention) + str);
 		}
 		function dfs(node: HTMLElement) {
-			const idStr = node.id ? ('#' + node.id) : '';
-			const classStr = node.classNames.length ? ('.' + node.classNames.join('.')) : '';
+			const idStr = node.id ? (`#${node.id}`) : '';
+			const classStr = node.classNames.length ? (`.${node.classNames.join('.')}`) : '';
 			write(node.tagName + idStr + classStr);
 			indention++;
 			node.childNodes.forEach((childNode) => {
 				if (childNode.nodeType === NodeType.ELEMENT_NODE) {
 					dfs(childNode as HTMLElement);
 				} else if (childNode.nodeType === NodeType.TEXT_NODE) {
-					if (!(childNode as TextNode).isWhitespace)
+					if (!(childNode as TextNode).isWhitespace) {
 						write('#text');
+					}
 				}
 			});
 			indention--;
@@ -373,8 +374,9 @@ export default class HTMLElement extends Node {
 				if (state[1] < el.childNodes.length) {
 					stack.push([el.childNodes[state[1]++], 0, false]);
 				} else {
-					if (state[2])
+					if (state[2]) {
 						matcher.rewind();
+					}
 					stack.pop();
 				}
 			}
@@ -434,13 +436,14 @@ export default class HTMLElement extends Node {
 	 * @return {Object} parsed attributes
 	 */
 	public get rawAttributes() {
-		if (this._rawAttrs)
+		if (this._rawAttrs) {
 			return this._rawAttrs;
+		}
 		const attrs = {} as RawAttributes;
 		if (this.rawAttrs) {
-			const re = /\b([a-z][a-z0-9\-]*)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|(\S+)))?/ig;
+			const re = /\b([a-z][a-z0-9-]*)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|(\S+)))?/ig;
 			let match: RegExpExecArray;
-			while (match = re.exec(this.rawAttrs)) {
+			while ((match = re.exec(this.rawAttrs))) {
 				attrs[match[1]] = match[2] || match[3] || match[4] || null;
 			}
 		}
@@ -460,9 +463,8 @@ export default class HTMLElement extends Node {
 			const val = JSON.stringify(attrs[name]);
 			if (val === undefined || val === 'null') {
 				return name;
-			} else {
-				return name + '=' + val;
 			}
+			return `${name}=${val}`;
 		}).join(' ');
 	}
 
@@ -497,9 +499,8 @@ export default class HTMLElement extends Node {
 			const val = JSON.stringify(attrs[name]);
 			if (val === 'null' || val === '""') {
 				return name;
-			} else {
-				return name + '=' + val;
 			}
+			return `${name}=${val}`;
 		}).join(' ');
 	}
 
@@ -521,9 +522,9 @@ export default class HTMLElement extends Node {
 			const val = attributes[name];
 			if (val === 'null' || val === '""') {
 				return name;
-			} else {
-				return name + '=' + JSON.stringify(String(val));
 			}
+			return `${name}=${JSON.stringify(String(val))}`;
+
 		}).join(' ');
 	}
 
@@ -545,11 +546,11 @@ export default class HTMLElement extends Node {
 		} else if (where === 'beforebegin') {
 			(this.parentNode as HTMLElement).childNodes.unshift(...p.childNodes);
 		} else {
-			throw new Error(`The value provided ('${where}') is not one of 'beforebegin', 'afterbegin', 'beforeend', or 'afterend'`);
+			throw new Error(`The value provided ('${where as string}') is not one of 'beforebegin', 'afterbegin', 'beforeend', or 'afterend'`);
 		}
-		if (!where || html === undefined || html === null) {
-			return;
-		}
+		// if (!where || html === undefined || html === null) {
+		// 	return;
+		// }
 	}
 }
 
@@ -624,7 +625,7 @@ export function parse(data: string, options = {} as Options & { noFix?: boolean 
 	let match: RegExpExecArray;
 	// https://github.com/taoqf/node-html-parser/issues/38
 	data = `<${frameflag}>${data}</${frameflag}>`;
-	while (match = kMarkupPattern.exec(data)) {
+	while ((match = kMarkupPattern.exec(data))) {
 		if (lastTextPos > -1) {
 			if (lastTextPos + match[0].length < kMarkupPattern.lastIndex) {
 				// if has content
@@ -651,7 +652,7 @@ export function parse(data: string, options = {} as Options & { noFix?: boolean 
 		if (!match[1]) {
 			// not </ tags
 			const attrs = {};
-			for (let attMatch; attMatch = kAttributePattern.exec(match[3]);) {
+			for (let attMatch; (attMatch = kAttributePattern.exec(match[3]));) {
 				attrs[attMatch[2]] = attMatch[4] || attMatch[5] || attMatch[6];
 			}
 
@@ -668,13 +669,13 @@ export function parse(data: string, options = {} as Options & { noFix?: boolean 
 			stack.push(currentParent);
 			if (kBlockTextElements[match[2]]) {
 				// a little test to find next </script> or </style> ...
-				const closeMarkup = '</' + match[2] + '>';
+				const closeMarkup = `</${match[2]}>`;
 				const index = (() => {
 					if (options.lowerCaseTagName) {
 						return data.toLocaleLowerCase().indexOf(closeMarkup, kMarkupPattern.lastIndex);
-					} else {
-						return data.indexOf(closeMarkup, kMarkupPattern.lastIndex);
 					}
+					return data.indexOf(closeMarkup, kMarkupPattern.lastIndex);
+
 				})();
 				if (options[match[2]]) {
 					let text: string;
@@ -720,7 +721,7 @@ export function parse(data: string, options = {} as Options & { noFix?: boolean 
 		}
 	}
 	type Response = (HTMLElement | TextNode) & { valid: boolean };
-	const valid = !!(stack.length === 1);
+	const valid = Boolean(stack.length === 1);
 	if (!options.noFix) {
 		const response = root as Response;
 		response.valid = valid;
@@ -753,9 +754,9 @@ export function parse(data: string, options = {} as Options & { noFix?: boolean 
 			}
 		});
 		return response;
-	} else {
-		const response = new TextNode(data) as Response;
-		response.valid = valid;
-		return response;
 	}
+	const response = new TextNode(data) as Response;
+	response.valid = valid;
+	return response;
+
 }

@@ -79,7 +79,7 @@ const functionCache = {
 		const attrs = el.attributes;
 		return Object.keys(attrs).some((key) => {
 			const val = attrs[key];
-			return key === attr_key && val === value
+			return key === attr_key && val === value;
 		});
 		// for (let cls = classes, i = 0; i < cls.length; i++) {if (el.classNames.indexOf(cls[i]) === -1){ return false;}}
 		// return true;
@@ -93,7 +93,7 @@ const functionCache = {
 		const attrs = el.attributes;
 		return Object.keys(attrs).some((key) => {
 			const val = attrs[key];
-			return key === attr_key && val === value
+			return key === attr_key && val === value;
 		});
 		// return true;
 	},
@@ -106,7 +106,7 @@ const functionCache = {
 		const attrs = el.attributes;
 		return Object.keys(attrs).some((key) => {
 			const val = attrs[key];
-			return key === attr_key && val === value
+			return key === attr_key && val === value;
 		});
 	},
 	f345(el: HTMLElement, tagName: string, classes: string[]) {
@@ -135,7 +135,7 @@ const functionCache = {
 			return false;
 		}
 	}
-}
+};
 
 /**
  * Matcher class to make CSS match
@@ -151,11 +151,11 @@ export default class Matcher {
 	 *
 	 * @memberof Matcher
 	 */
-	constructor(selector: string) {
-		functionCache.f5 = functionCache.f5;
+	public constructor(selector: string) {
 		this.matchers = selector.split(' ').map((matcher) => {
-			if (pMatchFunctionCache[matcher])
+			if (pMatchFunctionCache[matcher]) {
 				return pMatchFunctionCache[matcher];
+			}
 			const parts = matcher.split('.');
 			const tagName = parts[0];
 			const classes = parts.slice(1).sort();
@@ -174,6 +174,7 @@ export default class Matcher {
 						attr_key = reg[1];
 						let method = reg[2];
 						if (method !== '=' && method !== '!=') {
+							// eslint-disable-next-line no-template-curly-in-string
 							throw new Error('Selector not supported, Expect [key${op}value].op must be =,!=');
 						}
 						if (method === '=') {
@@ -183,7 +184,7 @@ export default class Matcher {
 
 						// source += `let attrs = el.attributes;for (let key in attrs){const val = attrs[key]; if (key == "${attr_key}" && val == "${value}"){return true;}} return false;`;// 2
 						function_name += '2';
-					} else if (reg = /^\[(.*?)\]/.exec(tagName)) {
+					} else if ((reg = /^\[(.*?)\]/.exec(tagName))) {
 						attr_key = reg[1];
 
 						function_name += '5';
@@ -201,14 +202,14 @@ export default class Matcher {
 			// source += 'return true;';// 5
 			function_name += '5';
 			const obj = {
-				func: functionCache[function_name],
+				func: functionCache[function_name] as (el: HTMLElement, tagName: string, classes: string | string[], attr_key: string, value: string) => boolean,
 				tagName: tagName || '',
 				classes: classes || '',
 				attr_key: attr_key || '',
 				value: value || ''
-			}
+			} as MatherFunction;
 			// source = source || '';
-			return pMatchFunctionCache[matcher] = obj as MatherFunction;
+			return (pMatchFunctionCache[matcher] = obj);
 		});
 	}
 	/**
@@ -216,7 +217,7 @@ export default class Matcher {
 	 * @param  {HTMLElement} el element to make the match
 	 * @return {bool}           true when pointer advanced.
 	 */
-	advance(el: HTMLElement) {
+	public advance(el: HTMLElement) {
 		if (this.nextMatch < this.matchers.length &&
 			this.matchers[this.nextMatch].func(el, this.matchers[this.nextMatch].tagName, this.matchers[this.nextMatch].classes, this.matchers[this.nextMatch].attr_key, this.matchers[this.nextMatch].value)) {
 			this.nextMatch++;
@@ -227,27 +228,27 @@ export default class Matcher {
 	/**
 	 * Rewind the match pointer
 	 */
-	rewind() {
+	public rewind() {
 		this.nextMatch--;
 	}
 	/**
 	 * Trying to determine if match made.
 	 * @return {bool} true when the match is made
 	 */
-	get matched() {
+	public get matched() {
 		return this.nextMatch === this.matchers.length;
 	}
 	/**
 	 * Rest match pointer.
 	 * @return {[type]} [description]
 	 */
-	reset() {
+	public reset() {
 		this.nextMatch = 0;
 	}
 	/**
 	 * flush cache to free memory
 	 */
-	flushCache() {
+	public flushCache() {
 		pMatchFunctionCache = {};
 	}
 }
