@@ -21,18 +21,24 @@ export interface RawAttributes {
 
 export type InsertPosition = 'beforebegin' | 'afterbegin' | 'beforeend' | 'afterend';
 
-const kBlockElements = {
-	DIV: true,
-	P: true,
-	// ul: true,
-	// ol: true,
-	LI: true,
-	// table: true,
-	// tr: true,
-	TD: true,
-	SECTION: true,
-	BR: true
-};
+const kBlockElements = new Map<string, true>();
+
+kBlockElements.set('DIV', true);
+kBlockElements.set('div', true);
+kBlockElements.set('P', true);
+kBlockElements.set('p', true);
+// ul: true,
+// ol: true,
+kBlockElements.set('LI', true);
+kBlockElements.set('li', true);
+// table: true,
+// tr: true,
+kBlockElements.set('TD', true);
+kBlockElements.set('td', true);
+kBlockElements.set('SECTION', true);
+kBlockElements.set('section', true);
+kBlockElements.set('BR', true);
+kBlockElements.set('br', true);
 
 /**
  * HTMLElement, which contains a set of children.
@@ -46,7 +52,7 @@ const kBlockElements = {
 export default class HTMLElement extends Node {
 	private _attrs: Attributes;
 	private _rawAttrs: RawAttributes;
-	private _tag_name: string;
+	public rawTagName: string;	// there is not friend funciton in es
 	public id: string;
 	public classNames = [] as string[];
 	/**
@@ -62,7 +68,7 @@ export default class HTMLElement extends Node {
 	 */
 	public constructor(tagName: string, keyAttrs: KeyAttributes, private rawAttrs = '', public parentNode = null as Node) {
 		super();
-		this._tag_name = tagName;
+		this.rawTagName = tagName;
 		this.rawAttrs = rawAttrs || '';
 		this.parentNode = parentNode || null;
 		this.childNodes = [];
@@ -109,7 +115,7 @@ export default class HTMLElement extends Node {
 		this.childNodes[idx] = newNode;
 	}
 	public get tagName() {
-		return this._tag_name ? this._tag_name.toUpperCase() : this._tag_name;
+		return this.rawTagName?.toUpperCase();
 	}
 	/**
 	 * Get escpaed (as-it) text value of current node and its children.
@@ -139,7 +145,7 @@ export default class HTMLElement extends Node {
 		const blocks = [currentBlock];
 		function dfs(node: Node) {
 			if (node.nodeType === NodeType.ELEMENT_NODE) {
-				if (kBlockElements[(node as HTMLElement).tagName]) {
+				if (kBlockElements.get((node as HTMLElement).rawTagName)) {
 					if (currentBlock.length > 0) {
 						blocks.push(currentBlock = []);
 					}
@@ -173,7 +179,7 @@ export default class HTMLElement extends Node {
 	}
 
 	public toString() {
-		const tag = this._tag_name;
+		const tag = this.rawTagName;
 		if (tag) {
 			const is_void = /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/i.test(tag);
 			const attrs = this.rawAttrs ? ` ${this.rawAttrs}` : '';
@@ -239,7 +245,7 @@ export default class HTMLElement extends Node {
 		function dfs(node: HTMLElement) {
 			const idStr = node.id ? (`#${node.id}`) : '';
 			const classStr = node.classNames.length ? (`.${node.classNames.join('.')}`) : '';
-			write(node._tag_name + idStr + classStr);
+			write(node.rawTagName + idStr + classStr);
 			indention++;
 			node.childNodes.forEach((childNode) => {
 				if (childNode.nodeType === NodeType.ELEMENT_NODE) {
@@ -651,9 +657,6 @@ const kBlockTextElements = {
 
 export interface Options {
 	lowerCaseTagName?: boolean;
-	script?: boolean;
-	style?: boolean;
-	pre?: boolean;
 	comment?: boolean;
 }
 
@@ -707,7 +710,7 @@ export function parse(data: string, options = {} as Options & { noFix?: boolean 
 				attrs[attMatch[2]] = attMatch[4] || attMatch[5] || attMatch[6];
 			}
 
-			const tagName = currentParent.tagName as 'LI' | 'P' | 'B' | 'TD' | 'TH' | 'H1' | 'H2' | 'H3' | 'H4' | 'H5' | 'H6';
+			const tagName = currentParent.rawTagName as 'LI' | 'P' | 'B' | 'TD' | 'TH' | 'H1' | 'H2' | 'H3' | 'H4' | 'H5' | 'H6' | 'li' | 'p' | 'b' | 'td' | 'th' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 			if (!match[4] && kElementsClosedByOpening[tagName]) {
 				if (kElementsClosedByOpening[tagName][match[2]]) {
 					stack.pop();
@@ -726,19 +729,16 @@ export function parse(data: string, options = {} as Options & { noFix?: boolean 
 						return data.toLocaleLowerCase().indexOf(closeMarkup, kMarkupPattern.lastIndex);
 					}
 					return data.indexOf(closeMarkup, kMarkupPattern.lastIndex);
-
 				})();
-				if (options[match[2]]) {
-					let text: string;
-					if (index === -1) {
-						// there is no matching ending for the text element.
-						text = data.substr(kMarkupPattern.lastIndex);
-					} else {
-						text = data.substring(kMarkupPattern.lastIndex, index);
-					}
-					if (text.length > 0) {
-						currentParent.appendChild(new TextNode(text));
-					}
+				let text: string;
+				if (index === -1) {
+					// there is no matching ending for the text element.
+					text = data.substr(kMarkupPattern.lastIndex);
+				} else {
+					text = data.substring(kMarkupPattern.lastIndex, index);
+				}
+				if (text.length > 0) {
+					currentParent.appendChild(new TextNode(text));
 				}
 				if (index === -1) {
 					lastTextPos = kMarkupPattern.lastIndex = data.length + 1;
@@ -751,7 +751,7 @@ export function parse(data: string, options = {} as Options & { noFix?: boolean 
 		if (match[1] || match[4] || kSelfClosingElements[match[2]]) {
 			// </ or /> or <br> etc.
 			while (true) {
-				if (currentParent.tagName === match[2].toUpperCase()) {
+				if (currentParent.rawTagName === match[2]) {
 					stack.pop();
 					currentParent = arr_back(stack);
 					break;

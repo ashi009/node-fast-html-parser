@@ -19,12 +19,11 @@ npm install --save node-html-parser
 Faster than htmlparser2!
 
 ```shell
-node-html-parser:1.94548 ms/file ± 2.15709
-libxmljs        :5.28893 ms/file ± 3.69863
-htmlparser      :24.9625 ms/file ± 168.380
-htmlparser2     :3.34011 ms/file ± 4.76959
-parse5          :13.9589 ms/file ± 9.84068
-high5           :6.98078 ms/file ± 4.47575
+node-html-parser:2.02346 ms/file ± 2.21481
+htmlparser      :26.0810 ms/file ± 171.313
+htmlparser2     :4.49111 ms/file ± 6.85512
+parse5          :14.8590 ms/file ± 10.9427
+high5           :7.71818 ms/file ± 4.88375
 ```
 
 Tested with [htmlparser-benchmark](https://github.com/AndreasMadsen/htmlparser-benchmark).
@@ -75,9 +74,6 @@ Parse given data, and return root of the generated DOM.
   ```js
   {
     lowerCaseTagName: false,  // convert tag name to lower case (hurt performance heavily)
-    script: false,            // retrieve content in <script> (hurt performance slightly)
-    style: false,             // retrieve content in <style> (hurt performance slightly)
-    pre: false,               // retrieve content in <pre> (hurt performance slightly)
     comment: false            // retrieve comments (hurt performance slightly)
   }
   ```
@@ -138,7 +134,6 @@ Same as [outerHTML](#htmlelementouterhtml)
 
 Set content. **Notice**: Do not set content of the **root** node.
 
-
 ## HTMLElement Properties
 
 ### HTMLElement#text
@@ -174,4 +169,3 @@ Get innerHTML.
 ### HTMLElement#outerHTML
 
 Get outerHTML.
-
