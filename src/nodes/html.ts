@@ -581,6 +581,10 @@ export default class HTMLElement extends Node {
 
 // https://html.spec.whatwg.org/multipage/custom-elements.html#valid-custom-element-name
 const kMarkupPattern = /<!--[^]*?(?=-->)-->|<(\/?)([a-z][-.:0-9_a-z]*)\s*([^>]*?)(\/?)>/ig;
+// <(?<tag>[^\s]*)(.*)>(.*)</\k<tag>>
+// <([a-z][-.:0-9_a-z]*)\s*\/>
+// <(area|base|br|col|hr|img|input|link|meta|source)\s*(.*)\/?>
+// <(area|base|br|col|hr|img|input|link|meta|source)\s*(.*)\/?>|<(?<tag>[^\s]*)(.*)>(.*)</\k<tag>>
 const kAttributePattern = /(^|\s)(id|class)\s*=\s*("([^"]+)"|'([^']+)'|(\S+))/ig;
 const kSelfClosingElements = {
 	area: true,
