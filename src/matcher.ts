@@ -84,12 +84,12 @@ const functionCache = {
 		'use strict';
 		tagName = tagName || '';
 		classes = classes || [];
-		attr_key = attr_key || '';
+		attr_key = (attr_key || '').toLowerCase();
 		value = value || '';
 		const attrs = el.attributes;
 		return Object.keys(attrs).some((key) => {
 			const val = attrs[key];
-			return key === attr_key && val === value;
+			return key.toLowerCase() === attr_key && val === value;
 		});
 		// for (let cls = classes, i = 0; i < cls.length; i++) {if (el.classNames.indexOf(cls[i]) === -1){ return false;}}
 		// return true;
@@ -98,12 +98,12 @@ const functionCache = {
 		'use strict';
 		tagName = tagName || '';
 		classes = classes || [];
-		attr_key = attr_key || '';
+		attr_key = (attr_key || '').toLowerCase();
 		value = value || '';
 		const attrs = el.attributes;
 		return Object.keys(attrs).some((key) => {
 			const val = attrs[key];
-			return key === attr_key && val === value;
+			return key.toLowerCase() === attr_key && val === value;
 		});
 		// return true;
 	},
@@ -111,12 +111,12 @@ const functionCache = {
 		'use strict';
 		tagName = tagName || '';
 		classes = classes || [];
-		attr_key = attr_key || '';
+		attr_key = (attr_key || '').toLowerCase();
 		value = value || '';
 		const attrs = el.attributes;
 		return Object.keys(attrs).some((key) => {
 			const val = attrs[key];
-			return key === attr_key && val === value;
+			return key.toLowerCase() === attr_key && val === value;
 		});
 	},
 	f345(el: HTMLElement, tagName: string, classes: string[]) {

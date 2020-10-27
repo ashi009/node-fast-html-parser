@@ -711,7 +711,7 @@ export function parse(data: string, options = {} as Options & { noFix?: boolean 
 			// not </ tags
 			const attrs = {};
 			for (let attMatch; (attMatch = kAttributePattern.exec(match[3]));) {
-				attrs[attMatch[2]] = attMatch[4] || attMatch[5] || attMatch[6];
+				attrs[attMatch[2].toLowerCase()] = attMatch[4] || attMatch[5] || attMatch[6];
 			}
 
 			const tagName = currentParent.rawTagName as 'LI' | 'P' | 'B' | 'TD' | 'TH' | 'H1' | 'H2' | 'H3' | 'H4' | 'H5' | 'H6' | 'li' | 'p' | 'b' | 'td' | 'th' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
