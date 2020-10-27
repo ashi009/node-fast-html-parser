@@ -660,8 +660,11 @@ const kBlockTextElements = {
 };
 
 export interface Options {
-	lowerCaseTagName?: boolean;
-	comment?: boolean;
+	lowerCaseTagName: boolean;
+	script: boolean;
+	style: boolean;
+	pre: boolean;
+	comment: boolean;
 }
 
 const frameflag = 'documentfragmentcontainer';
@@ -675,7 +678,7 @@ const frameflag = 'documentfragmentcontainer';
 export function parse(data: string, options?: Options): HTMLElement & { valid: boolean };
 export function parse(data: string, options?: Options & { noFix: false }): HTMLElement & { valid: boolean };
 export function parse(data: string, options?: Options & { noFix: true }): (HTMLElement | TextNode) & { valid: boolean };
-export function parse(data: string, options = {} as Options & { noFix?: boolean }) {
+export function parse(data: string, options = { pre: true, style: true, script: true, lowerCaseTagName: false, comment: false } as Options & { noFix?: boolean }) {
 	const root = new HTMLElement(null, {});
 	let currentParent = root;
 	const stack = [root];
@@ -734,15 +737,17 @@ export function parse(data: string, options = {} as Options & { noFix?: boolean 
 					}
 					return data.indexOf(closeMarkup, kMarkupPattern.lastIndex);
 				})();
-				let text: string;
-				if (index === -1) {
-					// there is no matching ending for the text element.
-					text = data.substr(kMarkupPattern.lastIndex);
-				} else {
-					text = data.substring(kMarkupPattern.lastIndex, index);
-				}
-				if (text.length > 0) {
-					currentParent.appendChild(new TextNode(text));
+				if (options[match[2]]) {
+					let text: string;
+					if (index === -1) {
+						// there is no matching ending for the text element.
+						text = data.substr(kMarkupPattern.lastIndex);
+					} else {
+						text = data.substring(kMarkupPattern.lastIndex, index);
+					}
+					if (text.length > 0) {
+						currentParent.appendChild(new TextNode(text));
+					}
 				}
 				if (index === -1) {
 					lastTextPos = kMarkupPattern.lastIndex = data.length + 1;
