@@ -74,10 +74,13 @@ Parse given data, and return root of the generated DOM.
   ```js
   {
     lowerCaseTagName: false,  // convert tag name to lower case (hurt performance heavily)
-    script: true,            // retrieve content in <script> (hurt performance slightly)
-    style: true,             // retrieve content in <style> (hurt performance slightly)
-    pre: true,               // retrieve content in <pre> (hurt performance slightly)
     comment: false            // retrieve comments (hurt performance slightly)
+    blockTextElements: {
+      script: true,	// keep text content when parsing
+      noscript: true,	// keep text content when parsing
+      style: true,		// keep text content when parsing
+      pre: true			// keep text content when parsing
+    }
   }
   ```
 

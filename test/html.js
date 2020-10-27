@@ -539,7 +539,7 @@ describe('HTML Parser', function () {
 			it('set content pre', function () {
 				const root = parseHTML(`<html><head></head><body></body></html>`);
 				const body = root.querySelector("body");
-				body.set_content(`<pre>this    is some    preformatted    text</pre>`, { pre: true });
+				body.set_content(`<pre>this    is some    preformatted    text</pre>`);
 				root.toString().should.eql('<html><head></head><body><pre>this    is some    preformatted    text</pre></body></html>')
 			});
 		});

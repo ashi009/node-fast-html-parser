@@ -648,23 +648,13 @@ const kElementsClosedByClosing = {
 	th: { tr: true, table: true, TR: true, TABLE: true },
 	TH: { tr: true, table: true, TR: true, TABLE: true }
 };
-const kBlockTextElements = {
-	script: true,
-	SCRIPT: true,
-	noscript: true,
-	NOSCRIPT: true,
-	style: true,
-	STYLE: true,
-	pre: true,
-	PRE: true
-};
 
 export interface Options {
 	lowerCaseTagName: boolean;
-	script: boolean;
-	style: boolean;
-	pre: boolean;
 	comment: boolean;
+	blockTextElements: {
+		[tag: string]: boolean;
+	};
 }
 
 const frameflag = 'documentfragmentcontainer';
@@ -675,10 +665,35 @@ const frameflag = 'documentfragmentcontainer';
  * @param  {string} data      html
  * @return {HTMLElement}      root element
  */
-export function parse(data: string, options?: Options): HTMLElement & { valid: boolean };
-export function parse(data: string, options?: Options & { noFix: false }): HTMLElement & { valid: boolean };
-export function parse(data: string, options?: Options & { noFix: true }): (HTMLElement | TextNode) & { valid: boolean };
-export function parse(data: string, options = { pre: true, style: true, script: true, lowerCaseTagName: false, comment: false } as Options & { noFix?: boolean }) {
+export function parse(data: string, options?: Partial<Options>): HTMLElement & { valid: boolean };
+export function parse(data: string, options?: Partial<Options> & { noFix: false }): HTMLElement & { valid: boolean };
+export function parse(data: string, options?: Partial<Options> & { noFix: true }): (HTMLElement | TextNode) & { valid: boolean };
+export function parse(data: string, options = { lowerCaseTagName: false, comment: false } as Partial<Options & { noFix: boolean }>) {
+	const elements = options.blockTextElements || {
+		script: true,
+		noscript: true,
+		style: true,
+		pre: true
+	};
+	const element_names = Object.keys(elements);
+	const kBlockTextElements = element_names.map((it) => {
+		return new RegExp(it, 'i');
+	});
+	const kIgnoreElements = element_names.filter((it) => {
+		return elements[it];
+	}).map((it) => {
+		return new RegExp(it, 'i');
+	});
+	function element_should_be_ignore(tag: string) {
+		return kIgnoreElements.some((it) => {
+			return it.test(tag);
+		});
+	}
+	function is_block_text_element(tag: string) {
+		return kBlockTextElements.some((it) => {
+			return it.test(tag);
+		});
+	}
 	const root = new HTMLElement(null, {});
 	let currentParent = root;
 	const stack = [root];
@@ -728,7 +743,7 @@ export function parse(data: string, options = { pre: true, style: true, script: 
 			// https://github.com/taoqf/node-html-parser/issues/38
 			currentParent = currentParent.appendChild(new HTMLElement(match[2], attrs, match[3]));
 			stack.push(currentParent);
-			if (kBlockTextElements[match[2]]) {
+			if (is_block_text_element(match[2])) {
 				// a little test to find next </script> or </style> ...
 				const closeMarkup = `</${match[2]}>`;
 				const index = (() => {
@@ -737,7 +752,7 @@ export function parse(data: string, options = { pre: true, style: true, script: 
 					}
 					return data.indexOf(closeMarkup, kMarkupPattern.lastIndex);
 				})();
-				if (options[match[2]]) {
+				if (element_should_be_ignore(match[2])) {
 					let text: string;
 					if (index === -1) {
 						// there is no matching ending for the text element.
