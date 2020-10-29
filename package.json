@@ -4,16 +4,15 @@
 	"description": "A very fast HTML parser, generating a simplified DOM, with basic element query support.",
 	"main": "dist/index.js",
 	"module": "dist/esm/index.js",
-	"browser": "dist/main.js",
 	"types": "dist/index.d.ts",
 	"scripts": {
 		"test": "mocha",
 		"lint": "eslint ./src/*.ts ./src/**/*.ts",
 		"clean": "del-cli ./dist/",
 		"ts:cjs": "tsc -m commonjs",
-		"ts:umd": "tsc -t es5 -m amd -d false --outFile ./dist/main.js",
+		"ts:amd": "tsc -t es5 -m amd -d false --outFile ./dist/main.js",
 		"ts:esm": "tsc -t esnext -m esnext -d false --outDir ./dist/esm/",
-		"build": "npm run lint && npm run clean && npm run ts:cjs && npm run ts:umd && npm run ts:esm",
+		"build": "npm run lint && npm run clean && npm run ts:cjs && npm run ts:amd && npm run ts:esm",
 		"dev": "tsc -w",
 		"pretest": "tsc -m commonjs"
 	},
