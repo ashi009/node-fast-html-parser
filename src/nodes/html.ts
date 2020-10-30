@@ -115,7 +115,7 @@ export default class HTMLElement extends Node {
 		this.childNodes[idx] = newNode;
 	}
 	public get tagName() {
-		return this.rawTagName?.toUpperCase();
+		return this.rawTagName ? this.rawTagName.toUpperCase() : this.rawTagName;
 	}
 	/**
 	 * Get escpaed (as-it) text value of current node and its children.
