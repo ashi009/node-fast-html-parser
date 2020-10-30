@@ -606,7 +606,15 @@ const kSelfClosingElements = {
 	meta: true,
 	META: true,
 	source: true,
-	SOURCE: true
+	SOURCE: true,
+	embed: true,
+	EMBED: true,
+	param: true,
+	PARAM: true,
+	track: true,
+	TRACK: true,
+	wbr: true,
+	WBR: true
 };
 const kElementsClosedByOpening = {
 	li: { li: true, LI: true },
