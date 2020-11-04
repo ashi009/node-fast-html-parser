@@ -175,31 +175,17 @@ export default class Matcher {
 			let attr_key = '';
 			let value = '';
 			if (tagName && tagName !== '*') {
-				let reg: RegExpMatchArray;
 				if (tagName.startsWith('#')) {
 					// source += 'if (el.id != ' + JSON.stringify(tagName.substr(1)) + ') return false;';// 1
 					function_name += '1';
 				} else {
-					reg = /^\[\s*(\S+)\s*(=|!=)\s*((((["'])([^\6]*)\6))|(\S*?))\]\s*/.exec(tagName);
+					const reg = /\[\s*([\w-]+)(\s*=\s*(((?<quote>'|")\s*(.*)(\k<quote>))|(\S*)))?\s*\]/.exec(tagName);
 					if (reg) {
 						attr_key = reg[1];
-						let method = reg[2];
-						if (method !== '=' && method !== '!=') {
-							// eslint-disable-next-line no-template-curly-in-string
-							throw new Error('Selector not supported, Expect [key${op}value].op must be =,!=');
-						}
-						if (method === '=') {
-							method = '==';
-						}
-						value = reg[7] || reg[8];
+						value = reg[6] || reg[8];
 
 						// source += `let attrs = el.attributes;for (let key in attrs){const val = attrs[key]; if (key == "${attr_key}" && val == "${value}"){return true;}} return false;`;// 2
 						function_name += '2';
-					} else if ((reg = /^\[(.*?)\]/.exec(tagName))) {
-						attr_key = reg[1];
-
-						function_name += '5';
-
 					} else {
 						// source += 'if (el.tagName != ' + JSON.stringify(tagName) + ') return false;';// 3
 						function_name += '3';
