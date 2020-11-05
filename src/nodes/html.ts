@@ -96,7 +96,7 @@ export default class HTMLElement extends Node {
 	 */
 	public remove() {
 		if (this.parentNode) {
-			const children = this.childNodes;
+			const children = this.parentNode.childNodes;
 			this.parentNode.childNodes = children.filter((child) => {
 				return this !== child;
 			});
@@ -117,14 +117,13 @@ export default class HTMLElement extends Node {
 	 * @param {HTMLElement} newNode     new node
 	 */
 	public exchangeChild(oldNode: Node, newNode: Node) {
-		let idx = -1;
-		for (let i = 0; i < this.childNodes.length; i++) {
-			if (this.childNodes[i] === oldNode) {
-				idx = i;
-				break;
+		const children = this.childNodes;
+		this.childNodes = children.map((child) => {
+			if (child === oldNode) {
+				return newNode;
 			}
-		}
-		this.childNodes[idx] = newNode;
+			return child;
+		});
 	}
 	public get tagName() {
 		return this.rawTagName ? this.rawTagName.toUpperCase() : this.rawTagName;
@@ -588,6 +587,39 @@ export default class HTMLElement extends Node {
 		// if (!where || html === undefined || html === null) {
 		// 	return;
 		// }
+	}
+
+	public get nextSibling() {
+		if (this.parentNode) {
+			const children = this.parentNode.childNodes;
+			let i = 0;
+			while (i < children.length) {
+				const child = children[i++];
+				if (this === child) {
+					return children[i] || null;
+				}
+			}
+			return null;
+		}
+	}
+
+	public get nextElementSibling() {
+		if (this.parentNode) {
+			const children = this.parentNode.childNodes;
+			let i = 0;
+			let find = false;
+			while (i < children.length) {
+				const child = children[i++];
+				if (find) {
+					if (child instanceof HTMLElement) {
+						return child || null;
+					}
+				} else if (this === child) {
+					find = true;
+				}
+			}
+			return null;
+		}
 	}
 }
 

@@ -142,7 +142,7 @@ Same as [outerHTML](#htmlelementouterhtml)
 
 Set content. **Notice**: Do not set content of the **root** node.
 
-### HTMLElement#remove();
+### HTMLElement#remove()
 
 Remove current element.
 
@@ -181,3 +181,11 @@ Get innerHTML.
 ### HTMLElement#outerHTML
 
 Get outerHTML.
+
+### HTMLElement#nextSibling
+
+Returns a reference to the next child node of the current element's parent.
+
+### HTMLElement#nextElementSibling
+
+Returns a reference to the next child element of the current element's parent.

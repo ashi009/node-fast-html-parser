@@ -17,7 +17,10 @@
 		"pretest": "tsc -m commonjs"
 	},
 	"keywords": [
-		"fast html parser nodejs typescript"
+		"parser",
+		"html",
+		"nodejs",
+		"typescript"
 	],
 	"author": "Xiaoyi Shi <ashi009@gmail.com>",
 	"contributors": [
