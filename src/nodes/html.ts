@@ -90,6 +90,18 @@ export default class HTMLElement extends Node {
 			}
 		}
 	}
+
+	/**
+	 * Remove current element
+	 */
+	public remove() {
+		if (this.parentNode) {
+			const children = this.childNodes;
+			this.parentNode.childNodes = children.filter((child) => {
+				return this !== child;
+			});
+		}
+	}
 	/**
 	 * Remove Child element from childNodes array
 	 * @param {HTMLElement} node     node to remove

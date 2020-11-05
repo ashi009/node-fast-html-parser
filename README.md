@@ -62,7 +62,7 @@ var HTMLParser = require('node-html-parser');
 var root = HTMLParser.parse('<ul id="list"><li>Hello World</li></ul>');
 ```
 
-## HTMLElement Methods
+## global Methods
 
 ### parse(data[, options])
 
@@ -83,6 +83,8 @@ Parse given data, and return root of the generated DOM.
     }
   }
   ```
+
+## HTMLElement Methods
 
 ### HTMLElement#trimRight()
 
@@ -139,6 +141,10 @@ Same as [outerHTML](#htmlelementouterhtml)
 ### HTMLElement#set_content(content: string | Node | Node[])
 
 Set content. **Notice**: Do not set content of the **root** node.
+
+### HTMLElement#remove();
+
+Remove current element.
 
 ## HTMLElement Properties
 
