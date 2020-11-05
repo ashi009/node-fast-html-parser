@@ -62,7 +62,7 @@ var HTMLParser = require('node-html-parser');
 var root = HTMLParser.parse('<ul id="list"><li>Hello World</li></ul>');
 ```
 
-## global Methods
+## Global Methods
 
 ### parse(data[, options])
 
