@@ -9,6 +9,7 @@ describe('#remove()', function () {
 		div.childNodes.length.should.eql(1);
 		a.remove();
 		div.childNodes.length.should.eql(0);
+		root.toString().should.eql('<div></div>')
 	});
 
 	it('remove current element without method remove', function () {

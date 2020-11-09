@@ -179,10 +179,13 @@ export default class Matcher {
 					// source += 'if (el.id != ' + JSON.stringify(tagName.substr(1)) + ') return false;';// 1
 					function_name += '1';
 				} else {
-					const reg = /\[\s*([\w-]+)(\s*=\s*(((?<quote>'|")\s*(.*)(\k<quote>))|(\S*)))?\s*\]/.exec(tagName);
+					// https://github.com/taoqf/node-html-parser/issues/86
+					// const reg = /\[\s*([\w-]+)(\s*=\s*(((?<quote>'|")\s*(.*)(\k<quote>))|(\S*)))?\s*\]/.exec(tagName);
+					// `[a-b]`,`[ a-b ]`,`[a-b=c]`, `[a-b=c'd]`,`[a-b='c\' d"e ']`,`[ a-b = 'c\' d"e ' ]`,`[a-b="c' d\"e " ]`,`[ a-b = "c' d\"e " ]`
+					const reg = /\[\s*([\w-]+)(\s*=\s*(('\s*(.*)'|"\s*(.*)")|(\S*)))?\s*\]/.exec(tagName);
 					if (reg) {
 						attr_key = reg[1];
-						value = reg[6] || reg[8];
+						value = reg[5] || reg[6] || reg[7];
 
 						// source += `let attrs = el.attributes;for (let key in attrs){const val = attrs[key]; if (key == "${attr_key}" && val == "${value}"){return true;}} return false;`;// 2
 						function_name += '2';
