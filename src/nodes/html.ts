@@ -5,6 +5,7 @@ import TextNode from './text';
 import Matcher from '../matcher';
 import arr_back from '../back';
 import CommentNode from './comment';
+import parse from '../parse';
 
 export interface KeyAttributes {
 	id?: string;
@@ -66,7 +67,7 @@ export default class HTMLElement extends Node {
 	 *
 	 * @memberof HTMLElement
 	 */
-	public constructor(tagName: string, keyAttrs: KeyAttributes, private rawAttrs = '', public parentNode = null as Node) {
+	public constructor(tagName: string, keyAttrs: KeyAttributes, private rawAttrs = '', public parentNode = null as HTMLElement) {
 		super();
 		this.rawTagName = tagName;
 		this.rawAttrs = rawAttrs || '';
@@ -553,7 +554,7 @@ export default class HTMLElement extends Node {
 		if (arguments.length < 2) {
 			throw new Error('2 arguments required');
 		}
-		const p = parse(html) as HTMLElement;
+		const p = parse(html);
 		if (where === 'afterend') {
 			const idx = this.parentNode.childNodes.findIndex((child) => {
 				return child === this;
@@ -716,10 +717,7 @@ const frameflag = 'documentfragmentcontainer';
  * @param  {string} data      html
  * @return {HTMLElement}      root element
  */
-export function parse(data: string, options?: Partial<Options>): HTMLElement & { valid: boolean };
-export function parse(data: string, options?: Partial<Options> & { noFix: false }): HTMLElement & { valid: boolean };
-export function parse(data: string, options?: Partial<Options> & { noFix: true }): (HTMLElement | TextNode) & { valid: boolean };
-export function parse(data: string, options = { lowerCaseTagName: false, comment: false } as Partial<Options & { noFix: boolean }>) {
+export function base_parse(data: string, options = { lowerCaseTagName: false, comment: false } as Partial<Options>) {
 	const elements = options.blockTextElements || {
 		script: true,
 		noscript: true,
@@ -846,43 +844,5 @@ export function parse(data: string, options = { lowerCaseTagName: false, comment
 			}
 		}
 	}
-	type Response = (HTMLElement | TextNode) & { valid: boolean };
-	const valid = Boolean(stack.length === 1);
-	if (!options.noFix) {
-		const response = root as Response;
-		response.valid = valid;
-		while (stack.length > 1) {
-			// Handle each error elements.
-			const last = stack.pop();
-			const oneBefore = arr_back(stack);
-			if (last.parentNode && (last.parentNode as HTMLElement).parentNode) {
-				if (last.parentNode === oneBefore && last.tagName === oneBefore.tagName) {
-					// Pair error case <h3> <h3> handle : Fixes to <h3> </h3>
-					oneBefore.removeChild(last);
-					last.childNodes.forEach((child) => {
-						(oneBefore.parentNode as HTMLElement).appendChild(child);
-					});
-					stack.pop();
-				} else {
-					// Single error  <div> <h3> </div> handle: Just removes <h3>
-					oneBefore.removeChild(last);
-					last.childNodes.forEach((child) => {
-						oneBefore.appendChild(child);
-					});
-				}
-			} else {
-				// If it's final element just skip.
-			}
-		}
-		// response.childNodes.forEach((node) => {
-		// 	if (node instanceof HTMLElement) {
-		// 		node.parentNode = null;
-		// 	}
-		// });
-		return response;
-	}
-	const response = new TextNode(data) as Response;
-	response.valid = valid;
-	return response;
-
+	return stack;
 }
