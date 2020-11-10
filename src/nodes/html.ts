@@ -70,7 +70,6 @@ export default class HTMLElement extends Node {
 		super();
 		this.rawTagName = tagName;
 		this.rawAttrs = rawAttrs || '';
-		this.parentNode = parentNode || null;
 		this.childNodes = [];
 		if (keyAttrs.id) {
 			this.id = keyAttrs.id;
@@ -875,11 +874,11 @@ export function parse(data: string, options = { lowerCaseTagName: false, comment
 				// If it's final element just skip.
 			}
 		}
-		response.childNodes.forEach((node) => {
-			if (node instanceof HTMLElement) {
-				node.parentNode = null;
-			}
-		});
+		// response.childNodes.forEach((node) => {
+		// 	if (node instanceof HTMLElement) {
+		// 		node.parentNode = null;
+		// 	}
+		// });
 		return response;
 	}
 	const response = new TextNode(data) as Response;

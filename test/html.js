@@ -74,7 +74,7 @@ describe('HTML Parser', function () {
 				lowerCaseTagName: true
 			});
 
-			const div = new HTMLElement('div', {}, '');
+			const div = new HTMLElement('div', {}, '', root);
 			const a = div.appendChild(new HTMLElement('a', {}, ''));
 			const img = a.appendChild(new HTMLElement('img', {}, ''));
 			const p = div.appendChild(new HTMLElement('p', {}, ''));
@@ -99,7 +99,7 @@ describe('HTML Parser', function () {
 
 			const root = parseHTML('<div><a><img/></a><p></p></div>');
 
-			const div = new HTMLElement('div', {}, '');
+			const div = new HTMLElement('div', {}, '', root);
 			const a = div.appendChild(new HTMLElement('a', {}, ''));
 			const img = a.appendChild(new HTMLElement('img', {}, ''));
 			const p = div.appendChild(new HTMLElement('p', {}, ''));
@@ -111,7 +111,7 @@ describe('HTML Parser', function () {
 		it('should parse "<div><a><!-- my comment --></a></div>" and return root element without comments', function () {
 			const root = parseHTML('<div><a><!-- my comment --></a></div>');
 
-			const div = new HTMLElement('div', {}, '');
+			const div = new HTMLElement('div', {}, '', root);
 			const a = div.appendChild(new HTMLElement('a', {}, ''));
 
 			root.firstChild.should.eql(div);
@@ -120,7 +120,7 @@ describe('HTML Parser', function () {
 		it('should parse "<div><a><!-- my comment --></a></div>" and return root element with comments', function () {
 			const root = parseHTML('<div><a><!-- my comment --></a></div>', { comment: true });
 
-			const div = new HTMLElement('div', {}, '');
+			const div = new HTMLElement('div', {}, '', root);
 			const a = div.appendChild(new HTMLElement('a', {}, ''));
 			const comment = a.appendChild(new CommentNode(' my comment '));
 
@@ -130,7 +130,7 @@ describe('HTML Parser', function () {
 		it('should not parse HTML inside comments', function () {
 			const root = parseHTML('<div><!--<a></a>--></div>', { comment: true });
 
-			const div = new HTMLElement('div', {}, '');
+			const div = new HTMLElement('div', {}, '', root);
 			const comment = div.appendChild(new CommentNode('<a></a>'));
 
 			root.firstChild.should.eql(div);
@@ -140,7 +140,7 @@ describe('HTML Parser', function () {
 
 			const root = parseHTML('<picture><source srcset="/images/example-1.jpg 1200w, /images/example-2.jpg 1600w" sizes="100vw"><img src="/images/example.jpg" alt="Example"/></picture>');
 
-			const picture = new HTMLElement('picture', {}, '');
+			const picture = new HTMLElement('picture', {}, '', root);
 			const source = picture.appendChild(new HTMLElement('source', {}, 'srcset="/images/example-1.jpg 1200w, /images/example-2.jpg 1600w" sizes="100vw"'));
 			const img = picture.appendChild(new HTMLElement('img', {}, 'src="/images/example.jpg" alt="Example"'));
 
@@ -311,7 +311,7 @@ describe('HTML Parser', function () {
 			it('should remove whitespaces while preserving nodes with content', function () {
 				const root = parseHTML('<p> \r \n  \t <h5> 123 </h5></p>');
 
-				const p = new HTMLElement('p', {}, '');
+				const p = new HTMLElement('p', {}, '', root);
 				p.appendChild(new HTMLElement('h5', {}, ''))
 					.appendChild(new TextNode('123'));
 

@@ -12,6 +12,17 @@ describe('#remove()', function () {
 		root.toString().should.eql('<div></div>')
 	});
 
+	it('remove element not in html', function () {
+		const root = parse('<div></div><a id=el></a>');
+		const a = root.querySelector('#el');
+		// root.childNodes[0].should.eql('abc');
+		// root.childNodes[0].childNodes[0].should.eql('abc');
+		root.childNodes.length.should.eql(2);
+		a.remove();
+		root.childNodes.length.should.eql(1);
+		root.toString().should.eql('<div></div>')
+	});
+
 	it('remove current element without method remove', function () {
 		const root = parse('<div><a id=el></a></div>');
 		const div = root.firstChild;
