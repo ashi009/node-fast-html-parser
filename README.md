@@ -86,7 +86,7 @@ Parse given data, and return root of the generated DOM.
 
 ### valid(data[, options])
 
-Parse given data, return the root element if the givent data is valid, and return false if not valid.
+Parse given data, return true if the givent data is valid, and return false if not.
 
 ## HTMLElement Methods
 
