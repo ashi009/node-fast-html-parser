@@ -162,6 +162,10 @@ Get unescaped text value of current node and its children. Like `innerText`.
 Get escpaed (as-it) text value of current node and its children. May have
 `&amp;` in it. (fast)
 
+### HTMLElement#tagName
+
+Get tag name of HTMLElement. Notice: the returned value would be an uppercase string.
+
 ### HTMLElement#structuredText
 
 Get structured Text
