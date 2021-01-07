@@ -38,6 +38,7 @@
 		"@typescript-eslint/eslint-plugin-tslint": "latest",
 		"@typescript-eslint/parser": "latest",
 		"blanket": "latest",
+		"cheerio": "^1.0.0-rc.5",
 		"del-cli": "latest",
 		"eslint": "latest",
 		"eslint-config-prettier": "latest",
