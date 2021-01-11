@@ -1,4 +1,4 @@
-import { decode } from 'he';
+import he from 'he';
 import Node from './node';
 import NodeType from './type';
 import TextNode from './text';
@@ -6,6 +6,8 @@ import Matcher from '../matcher';
 import arr_back from '../back';
 import CommentNode from './comment';
 import parse from '../parse';
+
+const { decode } = he;
 
 export interface KeyAttributes {
 	id?: string;
