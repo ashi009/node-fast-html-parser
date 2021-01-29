@@ -258,7 +258,7 @@ export default class HTMLElement extends Node {
 		function dfs(node: HTMLElement) {
 			const idStr = node.id ? (`#${node.id}`) : '';
 			const classStr = node.classNames.length ? (`.${node.classNames.join('.')}`) : '';
-			write(node.rawTagName + idStr + classStr);
+			write(`${node.rawTagName}${idStr}${classStr}`);
 			indention++;
 			node.childNodes.forEach((childNode) => {
 				if (childNode.nodeType === NodeType.ELEMENT_NODE) {
