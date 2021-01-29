@@ -198,3 +198,7 @@ Returns a reference to the next child node of the current element's parent.
 ### HTMLElement#nextElementSibling
 
 Returns a reference to the next child element of the current element's parent.
+
+### HTMLElement#textContent
+
+Get or Set textContent of current element, more efficient than [set_content](#htmlelementset_contentcontent-string--node--node).

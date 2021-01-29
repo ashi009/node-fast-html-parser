@@ -13,4 +13,10 @@ export default abstract class Node {
 	public get innerText() {
 		return this.rawText;
 	}
+	public get textContent() {
+		return this.rawText;
+	}
+	public set textContent(val: string) {
+		this.rawText = val;
+	}
 }

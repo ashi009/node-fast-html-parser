@@ -139,6 +139,13 @@ export default class HTMLElement extends Node {
 			return (pre += cur.rawText);
 		}, '');
 	}
+	public get textContent() {
+		return this.rawText;
+	}
+	public set textContent(val: string) {
+		const content = [new TextNode(val)];
+		this.childNodes = content;
+	}
 	/**
 	 * Get unescaped text value of current node and its children.
 	 * @return {string} text content
