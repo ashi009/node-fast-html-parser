@@ -10,9 +10,12 @@ no closing `<li>`, `<td>` etc).
 
 ## Install
 
+
 ```shell
 npm install --save node-html-parser
 ```
+
+> Note: when using Fast HTML Parser in a Typescript project the minimum Typescript version supported is `^4.1.2`.
 
 ## Performance
 
