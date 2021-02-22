@@ -303,9 +303,13 @@ describe('HTML Parser', function () {
 		describe('#setAttribute', function () {
 			it('should edit the attributes of the element', function () {
 				const root = parseHTML('<p a=12></p>');
-				const attr = root.firstChild.attributes;
+				const attr1 = root.firstChild.attributes;
+				attr1.should.eql({
+					'a': '12',
+				});
 				root.firstChild.setAttribute('a', 13);
-				attr.should.eql({
+				const attr2 = root.firstChild.attributes;
+				attr2.should.eql({
 					'a': '13',
 				});
 				root.firstChild.getAttribute('a').should.eql('13');

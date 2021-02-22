@@ -447,9 +447,10 @@ export default class HTMLElement extends Node {
 
 	/**
 	 * Get attributes
+	 * @access private
 	 * @return {Object} parsed and unescaped attributes
 	 */
-	public get attributes() {
+	public get attrs() {
 		if (this._attrs) {
 			return this._attrs;
 		}
@@ -457,9 +458,19 @@ export default class HTMLElement extends Node {
 		const attrs = this.rawAttributes;
 		for (const key in attrs) {
 			const val = attrs[key] || '';
-			this._attrs[key] = decode(val);
+			this._attrs[key.toLowerCase()] = decode(val);
 		}
 		return this._attrs;
+	}
+
+	public get attributes() {
+		const ret_attrs = {} as Record<string, string>;
+		const attrs = this.rawAttributes;
+		for (const key in attrs) {
+			const val = attrs[key] || '';
+			ret_attrs[key] = decode(val);
+		}
+		return ret_attrs;
 	}
 
 	/**
@@ -500,7 +511,7 @@ export default class HTMLElement extends Node {
 	}
 
 	public hasAttribute(key: string) {
-		return key in this.attributes;
+		return key in this.attrs;
 	}
 
 	/**
@@ -508,7 +519,7 @@ export default class HTMLElement extends Node {
 	 * @return {string} value of the attribute
 	 */
 	public getAttribute(key: string): string | undefined {
-		return this.attributes[key];
+		return this.attrs[key.toLowerCase()];
 	}
 
 	/**
