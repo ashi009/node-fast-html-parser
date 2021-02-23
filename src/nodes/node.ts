@@ -10,6 +10,8 @@ export default abstract class Node {
 	abstract rawText: string;
 	// abstract get rawText(): string;
 	abstract toString(): string;
+	public constructor(public parentNode = null as Node) {
+	}
 	public get innerText() {
 		return this.rawText;
 	}

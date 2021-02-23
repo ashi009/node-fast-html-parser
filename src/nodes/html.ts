@@ -1,4 +1,5 @@
 import he from 'he';
+import { selectAll, selectOne } from 'css-select';
 import Node from './node';
 import NodeType from './type';
 import TextNode from './text';
@@ -69,8 +70,8 @@ export default class HTMLElement extends Node {
 	 *
 	 * @memberof HTMLElement
 	 */
-	public constructor(tagName: string, keyAttrs: KeyAttributes, private rawAttrs = '', public parentNode = null as HTMLElement) {
-		super();
+	public constructor(tagName: string, keyAttrs: KeyAttributes, private rawAttrs = '', public parentNode: HTMLElement | null) {
+		super(parentNode);
 		this.rawTagName = tagName;
 		this.rawAttrs = rawAttrs || '';
 		this.childNodes = [];
@@ -143,7 +144,7 @@ export default class HTMLElement extends Node {
 		return this.rawText;
 	}
 	public set textContent(val: string) {
-		const content = [new TextNode(val)];
+		const content = [new TextNode(val, this)];
 		this.childNodes = content;
 	}
 	/**
@@ -222,7 +223,7 @@ export default class HTMLElement extends Node {
 			content = [content];
 		} else if (typeof content == 'string') {
 			const r = parse(content, options);
-			content = r.childNodes.length ? r.childNodes : [new TextNode(content)];
+			content = r.childNodes.length ? r.childNodes : [new TextNode(content, this)];
 		}
 		this.childNodes = content;
 	}
@@ -306,113 +307,121 @@ export default class HTMLElement extends Node {
 	/**
 	 * Query CSS selector to find matching nodes.
 	 * @param  {string}         selector Simplified CSS selector
-	 * @param  {Matcher}        selector A Matcher instance
 	 * @return {HTMLElement[]}  matching elements
 	 */
-	public querySelectorAll(selector: string | Matcher): HTMLElement[] {
-		let matcher: Matcher;
-		if (selector instanceof Matcher) {
-			matcher = selector;
-			matcher.reset();
-		} else {
-			if (selector.includes(',')) {
-				const selectors = selector.split(',');
-				return Array.from(selectors.reduce((pre, cur) => {
-					const result = this.querySelectorAll(cur.trim());
-					return result.reduce((p, c) => {
-						return p.add(c);
-					}, pre);
-				}, new Set<HTMLElement>()));
-			}
-			matcher = new Matcher(selector);
-		}
-		interface IStack {
-			0: Node;	// node
-			1: number;	// children
-			2: boolean;	// found flag
-		}
-		const stack = [] as IStack[];
-		return this.childNodes.reduce((res, cur) => {
-			stack.push([cur, 0, false]);
-			while (stack.length) {
-				const state = arr_back(stack);	// get last element
-				const el = state[0];
-				if (state[1] === 0) {
-					// Seen for first time.
-					if (el.nodeType !== NodeType.ELEMENT_NODE) {
-						stack.pop();
-						continue;
-					}
-					const html_el = el as HTMLElement;
-					state[2] = matcher.advance(html_el);
-					if (state[2]) {
-						if (matcher.matched) {
-							res.push(html_el);
-							res.push(...(html_el.querySelectorAll(selector)));
-							// no need to go further.
-							matcher.rewind();
-							stack.pop();
-							continue;
-						}
-					}
-				}
-				if (state[1] < el.childNodes.length) {
-					stack.push([el.childNodes[state[1]++], 0, false]);
-				} else {
-					if (state[2]) {
-						matcher.rewind();
-					}
-					stack.pop();
-				}
-			}
-			return res;
-		}, [] as HTMLElement[]);
+	public querySelectorAll(selector: string): HTMLElement[] {
+
+		return selectAll(selector, this as HTMLElement, {
+			xmlMode: true,
+			adapter: Matcher
+		});
+
+		// let matcher: Matcher;
+		// if (selector instanceof Matcher) {
+		// 	matcher = selector;
+		// 	matcher.reset();
+		// } else {
+		// 	if (selector.includes(',')) {
+		// 		const selectors = selector.split(',');
+		// 		return Array.from(selectors.reduce((pre, cur) => {
+		// 			const result = this.querySelectorAll(cur.trim());
+		// 			return result.reduce((p, c) => {
+		// 				return p.add(c);
+		// 			}, pre);
+		// 		}, new Set<HTMLElement>()));
+		// 	}
+		// 	matcher = new Matcher(selector);
+		// }
+		// interface IStack {
+		// 	0: Node;	// node
+		// 	1: number;	// children
+		// 	2: boolean;	// found flag
+		// }
+		// const stack = [] as IStack[];
+		// return this.childNodes.reduce((res, cur) => {
+		// 	stack.push([cur, 0, false]);
+		// 	while (stack.length) {
+		// 		const state = arr_back(stack);	// get last element
+		// 		const el = state[0];
+		// 		if (state[1] === 0) {
+		// 			// Seen for first time.
+		// 			if (el.nodeType !== NodeType.ELEMENT_NODE) {
+		// 				stack.pop();
+		// 				continue;
+		// 			}
+		// 			const html_el = el as HTMLElement;
+		// 			state[2] = matcher.advance(html_el);
+		// 			if (state[2]) {
+		// 				if (matcher.matched) {
+		// 					res.push(html_el);
+		// 					res.push(...(html_el.querySelectorAll(selector)));
+		// 					// no need to go further.
+		// 					matcher.rewind();
+		// 					stack.pop();
+		// 					continue;
+		// 				}
+		// 			}
+		// 		}
+		// 		if (state[1] < el.childNodes.length) {
+		// 			stack.push([el.childNodes[state[1]++], 0, false]);
+		// 		} else {
+		// 			if (state[2]) {
+		// 				matcher.rewind();
+		// 			}
+		// 			stack.pop();
+		// 		}
+		// 	}
+		// 	return res;
+		// }, [] as HTMLElement[]);
 	}
 
 	/**
 	 * Query CSS Selector to find matching node.
 	 * @param  {string}         selector Simplified CSS selector
-	 * @param  {Matcher}        selector A Matcher instance
 	 * @return {HTMLElement}    matching node
 	 */
-	public querySelector(selector: string | Matcher) {
-		let matcher: Matcher;
-		if (selector instanceof Matcher) {
-			matcher = selector;
-			matcher.reset();
-		} else {
-			matcher = new Matcher(selector);
-		}
-		const stack = [] as { 0: Node; 1: 0 | 1; 2: boolean }[];
-		for (const node of this.childNodes) {
-			stack.push([node, 0, false]);
-			while (stack.length) {
-				const state = arr_back(stack);
-				const el = state[0];
-				if (state[1] === 0) {
-					// Seen for first time.
-					if (el.nodeType !== NodeType.ELEMENT_NODE) {
-						stack.pop();
-						continue;
-					}
-					state[2] = matcher.advance(el as HTMLElement);
-					if (state[2]) {
-						if (matcher.matched) {
-							return el as HTMLElement;
-						}
-					}
-				}
-				if (state[1] < el.childNodes.length) {
-					stack.push([el.childNodes[state[1]++], 0, false]);
-				} else {
-					if (state[2]) {
-						matcher.rewind();
-					}
-					stack.pop();
-				}
-			}
-		}
-		return null;
+	public querySelector(selector: string) {
+		return selectOne(selector, this as HTMLElement, {
+			xmlMode: true,
+			adapter: Matcher
+		});
+		// let matcher: Matcher;
+		// if (selector instanceof Matcher) {
+		// 	matcher = selector;
+		// 	matcher.reset();
+		// } else {
+		// 	matcher = new Matcher(selector);
+		// }
+		// const stack = [] as { 0: Node; 1: 0 | 1; 2: boolean }[];
+		// for (const node of this.childNodes) {
+		// 	stack.push([node, 0, false]);
+		// 	while (stack.length) {
+		// 		const state = arr_back(stack);
+		// 		const el = state[0];
+		// 		if (state[1] === 0) {
+		// 			// Seen for first time.
+		// 			if (el.nodeType !== NodeType.ELEMENT_NODE) {
+		// 				stack.pop();
+		// 				continue;
+		// 			}
+		// 			state[2] = matcher.advance(el as HTMLElement);
+		// 			if (state[2]) {
+		// 				if (matcher.matched) {
+		// 					return el as HTMLElement;
+		// 				}
+		// 			}
+		// 		}
+		// 		if (state[1] < el.childNodes.length) {
+		// 			stack.push([el.childNodes[state[1]++], 0, false]);
+		// 		} else {
+		// 			if (state[2]) {
+		// 				matcher.rewind();
+		// 			}
+		// 			stack.pop();
+		// 		}
+		// 	}
+		// }
+		// return null;
 	}
 
 	/**
@@ -423,9 +432,7 @@ export default class HTMLElement extends Node {
 	public appendChild<T extends Node = Node>(node: T) {
 		// node.parentNode = this;
 		this.childNodes.push(node);
-		if (node instanceof HTMLElement) {
-			node.parentNode = this;
-		}
+		node.parentNode = this;
 		return node;
 	}
 
@@ -771,7 +778,7 @@ export function base_parse(data: string, options = { lowerCaseTagName: false, co
 			return it.test(tag);
 		});
 	}
-	const root = new HTMLElement(null, {});
+	const root = new HTMLElement(null, {}, '', null);
 	let currentParent = root;
 	const stack = [root];
 	let lastTextPos = -1;
@@ -783,7 +790,7 @@ export function base_parse(data: string, options = { lowerCaseTagName: false, co
 			if (lastTextPos + match[0].length < kMarkupPattern.lastIndex) {
 				// if has content
 				const text = data.substring(lastTextPos, kMarkupPattern.lastIndex - match[0].length);
-				currentParent.appendChild(new TextNode(text));
+				currentParent.appendChild(new TextNode(text, currentParent));
 			}
 		}
 		lastTextPos = kMarkupPattern.lastIndex;
@@ -795,7 +802,7 @@ export function base_parse(data: string, options = { lowerCaseTagName: false, co
 			if (options.comment) {
 				// Only keep what is in between <!-- and -->
 				const text = data.substring(lastTextPos - 3, lastTextPos - match[0].length + 4);
-				currentParent.appendChild(new CommentNode(text));
+				currentParent.appendChild(new CommentNode(text, currentParent));
 			}
 			continue;
 		}
@@ -818,7 +825,7 @@ export function base_parse(data: string, options = { lowerCaseTagName: false, co
 			}
 			// ignore container tag we add above
 			// https://github.com/taoqf/node-html-parser/issues/38
-			currentParent = currentParent.appendChild(new HTMLElement(match[2], attrs, match[3]));
+			currentParent = currentParent.appendChild(new HTMLElement(match[2], attrs, match[3], null));
 			stack.push(currentParent);
 			if (is_block_text_element(match[2])) {
 				// a little test to find next </script> or </style> ...
@@ -838,7 +845,7 @@ export function base_parse(data: string, options = { lowerCaseTagName: false, co
 						text = data.substring(kMarkupPattern.lastIndex, index);
 					}
 					if (text.length > 0) {
-						currentParent.appendChild(new TextNode(text));
+						currentParent.appendChild(new TextNode(text, currentParent));
 					}
 				}
 				if (index === -1) {

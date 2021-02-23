@@ -6,8 +6,8 @@ import Node from './node';
  * @param {string} value [description]
  */
 export default class TextNode extends Node {
-	public constructor(public rawText: string) {
-		super();
+	public constructor(public rawText: string, parentNode: Node) {
+		super(parentNode);
 	}
 
 	/**

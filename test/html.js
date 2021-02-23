@@ -8,47 +8,6 @@ const TextNode = require('../dist/nodes/text').default;
 const CommentNode = require('../dist/nodes/comment').default;
 
 describe('HTML Parser', function () {
-	describe('Matcher', function () {
-		it('should match corrent elements', function () {
-			const matcher = new Matcher('#id .a a.b *.a.b .a.b * a');
-			const MatchesNothingButStarEl = new HTMLElement('_', {});
-			const withIdEl = new HTMLElement('p', { id: 'id' });
-			const withClassNameEl = new HTMLElement('a', { class: 'a b' });
-
-			matcher.advance(MatchesNothingButStarEl).should.not.be.ok; // #id
-			matcher.advance(withClassNameEl).should.not.be.ok; // #id
-			matcher.advance(withIdEl).should.be.ok; // #id
-
-			matcher.advance(MatchesNothingButStarEl).should.not.be.ok; // .a
-			matcher.advance(withIdEl).should.not.be.ok; // .a
-			matcher.advance(withClassNameEl).should.be.ok; // .a
-
-			matcher.advance(MatchesNothingButStarEl).should.not.be.ok; // a.b
-			matcher.advance(withIdEl).should.not.be.ok; // a.b
-			matcher.advance(withClassNameEl).should.be.ok; // a.b
-
-			matcher.advance(withIdEl).should.not.be.ok; // *.a.b
-			matcher.advance(MatchesNothingButStarEl).should.not.be.ok; // *.a.b
-			matcher.advance(withClassNameEl).should.be.ok; // *.a.b
-
-			matcher.advance(withIdEl).should.not.be.ok; // .a.b
-			matcher.advance(MatchesNothingButStarEl).should.not.be.ok; // .a.b
-			matcher.advance(withClassNameEl).should.be.ok; // .a.b
-
-			matcher.advance(withIdEl).should.be.ok; // *
-			matcher.rewind();
-			matcher.advance(MatchesNothingButStarEl).should.be.ok; // *
-			matcher.rewind();
-			matcher.advance(withClassNameEl).should.be.ok; // *
-
-			matcher.advance(withIdEl).should.not.be.ok; // a
-			matcher.advance(MatchesNothingButStarEl).should.not.be.ok; // a
-			matcher.advance(withClassNameEl).should.be.ok; // a
-
-			matcher.matched.should.be.ok;
-		});
-	});
-
 	const parseHTML = HTMLParser.parse;
 
 	describe('parse()', function () {
@@ -164,13 +123,15 @@ describe('HTML Parser', function () {
 				style: true
 			});
 
-			root.firstChild.childNodes.should.not.be.empty;
-			root.firstChild.childNodes.should.eql([new TextNode('1')]);
-			root.firstChild.text.should.eql('1');
-			root.lastChild.childNodes.should.not.be.empty;
-			root.lastChild.childNodes.should.eql([new TextNode('2&amp;')]);
-			root.lastChild.text.should.eql('2&');
-			root.lastChild.rawText.should.eql('2&amp;');
+			const script = root.firstChild;
+			const style = root.lastChild;
+			script.childNodes.should.not.be.empty;
+			script.childNodes.should.eql([new TextNode('1', script)]);
+			script.text.should.eql('1');
+			style.childNodes.should.not.be.empty;
+			style.childNodes.should.eql([new TextNode('2&amp;', style)]);
+			style.text.should.eql('2&');
+			style.rawText.should.eql('2&amp;');
 		});
 
 		it('should be able to parse "html/incomplete-script" file', function () {

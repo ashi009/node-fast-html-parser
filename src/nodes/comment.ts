@@ -2,8 +2,8 @@ import Node from './node';
 import NodeType from './type';
 
 export default class CommentNode extends Node {
-	public constructor(public rawText: string) {
-		super();
+	public constructor(public rawText: string, parentNode: Node) {
+		super(parentNode);
 	}
 
 	/**
