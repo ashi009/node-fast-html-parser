@@ -14,4 +14,20 @@ describe('getAttribute should be case insensitive', function () {
 		const root = parse('<a onClick="listener()"></a>');
 		root.firstChild.getAttribute('onclick').should.eql('listener()');
 	});
+	it('set attribute in lowercase', function () {
+		const root = parse('<a onClick="listener()"></a>');
+		const a = root.firstChild;
+		a.setAttribute('onclick', 'listener2');
+		a.getAttribute('onclick').should.eql('listener2');
+		root.toString().should.eql('<a onClick="listener2"></a>');
+	});
+	it('add attributes', function () {
+		const root = parse('<a onClick="listener()"></a>');
+		const a = root.firstChild;
+		a.setAttribute('onclick', 'listener2');
+		a.getAttribute('onclick').should.eql('listener2');
+		a.setAttribute('onDoubleClick', 'listener3');
+		a.getAttribute('onDoubleClick').should.eql('listener3');
+		root.toString().should.eql('<a onClick="listener2" onDoubleClick="listener3"></a>');
+	});
 });

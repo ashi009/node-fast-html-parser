@@ -511,7 +511,7 @@ export default class HTMLElement extends Node {
 	}
 
 	public hasAttribute(key: string) {
-		return key in this.attrs;
+		return key.toLowerCase() in this.attrs;
 	}
 
 	/**
@@ -531,10 +531,18 @@ export default class HTMLElement extends Node {
 		if (arguments.length < 2) {
 			throw new Error('Failed to execute \'setAttribute\' on \'Element\'');
 		}
+		const k2 = key.toLowerCase();
 		const attrs = this.rawAttributes;
+		for (const k in attrs) {
+			if (k.toLowerCase() === k2) {
+				key = k;
+				break;
+			}
+		}
 		attrs[key] = String(value);
+		// update this.attrs
 		if (this._attrs) {
-			this._attrs[key] = decode(attrs[key]);
+			this._attrs[k2] = decode(attrs[key]);
 		}
 		// Update rawString
 		this.rawAttrs = Object.keys(attrs).map((name) => {
