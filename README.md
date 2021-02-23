@@ -126,6 +126,10 @@ parses the specified text as HTML and inserts the resulting nodes into the DOM t
 
 Set `value` to `key` attribute.
 
+### HTMLElement#setAttributes(attrs: Record<string, string>)
+
+Set attributes of the element.
+
 ### HTMLElement#removeAttribute(key: string)
 
 Remove `key` attribute.
