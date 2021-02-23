@@ -209,3 +209,7 @@ Returns a reference to the next child element of the current element's parent.
 ### HTMLElement#textContent
 
 Get or Set textContent of current element, more efficient than [set_content](#htmlelementset_contentcontent-string--node--node).
+
+### HTMLElement#attributes
+
+Get all attributes of current element. **Notice: do not try to change the returned value.**
