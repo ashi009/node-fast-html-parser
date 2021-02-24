@@ -70,7 +70,7 @@ export default class HTMLElement extends Node {
 	 *
 	 * @memberof HTMLElement
 	 */
-	public constructor(tagName: string, keyAttrs: KeyAttributes, private rawAttrs = '', public parentNode: HTMLElement | null) {
+	public constructor(tagName: string, keyAttrs: KeyAttributes, private rawAttrs = '', parentNode: HTMLElement | null) {
 		super(parentNode);
 		this.rawTagName = tagName;
 		this.rawAttrs = rawAttrs || '';

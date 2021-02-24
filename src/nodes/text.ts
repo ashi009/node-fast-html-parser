@@ -1,12 +1,13 @@
 import NodeType from './type';
 import Node from './node';
+import HTMLElement from './html';
 
 /**
  * TextNode to contain a text element in DOM tree.
  * @param {string} value [description]
  */
 export default class TextNode extends Node {
-	public constructor(public rawText: string, parentNode: Node) {
+	public constructor(public rawText: string, parentNode: HTMLElement) {
 		super(parentNode);
 	}
 
