@@ -10,7 +10,7 @@ function isTag(node: Node): node is HTMLElement {
 }
 
 function getAttributeValue(elem: HTMLElement, name: string) {
-	return elem ? elem.getAttribute(name) : undefined;
+	return isTag(elem) ? elem.getAttribute(name) : undefined;
 }
 
 function getName(elem: HTMLElement) {

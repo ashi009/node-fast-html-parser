@@ -2,7 +2,7 @@ const { parse } = require('../dist');
 
 describe('#querySelectorAll', function () {
 	it('nothing mached', function () {
-		const root = parse('<div class="a b" id="a"></div>');
+		const root = parse('<div>foo<div class="a b" id="a">bar</div></div>');
 		root.querySelectorAll('a').length.should.eql(0);
 		should.equal(root.querySelector('a'), null);
 		should.equal(root.querySelector('#b'), null);
