@@ -6,23 +6,23 @@ import NodeType from './nodes/type';
 export declare type Predicate = (node: Node) => node is HTMLElement;
 
 function isTag(node: Node): node is HTMLElement {
-	return node.nodeType === NodeType.ELEMENT_NODE;
+	return node && node.nodeType === NodeType.ELEMENT_NODE;
 }
 
 function getAttributeValue(elem: HTMLElement, name: string) {
-	return elem.getAttribute(name);
+	return elem ? elem.getAttribute(name) : undefined;
 }
 
 function getName(elem: HTMLElement) {
-	return (elem.rawTagName || '').toLowerCase();
+	return ((elem && elem.rawTagName) || '').toLowerCase();
 }
 
 function getChildren(node: Node) {
-	return node.childNodes;
+	return node && node.childNodes;
 }
 
 function getParent(node: Node) {
-	return node.parentNode;
+	return node ? node.parentNode : null;
 }
 
 function getText(node: Node) {
