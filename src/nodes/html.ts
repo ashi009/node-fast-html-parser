@@ -664,7 +664,7 @@ const kMarkupPattern = /<!--[^]*?(?=-->)-->|<(\/?)([a-z][-.:0-9_a-z]*)\s*([^>]*?
 // <([a-z][-.:0-9_a-z]*)\s*\/>
 // <(area|base|br|col|hr|img|input|link|meta|source)\s*(.*)\/?>
 // <(area|base|br|col|hr|img|input|link|meta|source)\s*(.*)\/?>|<(?<tag>[^\s]*)(.*)>(.*)</\k<tag>>
-const kAttributePattern = /(^|\s)(id|class)\s*=\s*("([^"]+)"|'([^']+)'|(\S+))/ig;
+const kAttributePattern = /(^|\s)(id|class)\s*=\s*("([^"]*)"|'([^']*)'|(\S+))/ig;
 const kSelfClosingElements = {
 	area: true,
 	AREA: true,
