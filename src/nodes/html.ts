@@ -218,6 +218,12 @@ export default class HTMLElement extends Node {
 		}).join('');
 	}
 
+	public set innerHTML(content: string) {
+		//const r = parse(content, global.options); // TODO global.options ?
+		const r = parse(content);
+		this.childNodes = r.childNodes.length ? r.childNodes : [new TextNode(content, this)];
+	}
+
 	public set_content(content: string | Node | Node[], options = {} as Options) {
 		if (content instanceof Node) {
 			content = [content];
@@ -226,6 +232,24 @@ export default class HTMLElement extends Node {
 			content = r.childNodes.length ? r.childNodes : [new TextNode(content, this)];
 		}
 		this.childNodes = content;
+	}
+
+	public replaceWith(content: string | Node | Node[]) {
+		if (content instanceof Node) {
+			content = [content];
+		} else if (typeof content == 'string') {
+			//const r = parse(content, global.options); // TODO global.options ?
+			const r = parse(content);
+			content = r.childNodes.length ? r.childNodes : [new TextNode(content, this)];
+		}
+		const idx = this.parentNode.childNodes.findIndex((child) => {
+			return child === this;
+		});
+		this.parentNode.childNodes = [
+			...this.parentNode.childNodes.slice(0, idx),
+			...content,
+			...this.parentNode.childNodes.slice(idx + 1),
+		];
 	}
 
 	public get outerHTML() {
@@ -638,7 +662,7 @@ export default class HTMLElement extends Node {
 		}
 	}
 
-	public get nextElementSibling() {
+	public get nextElementSibling(): Node {
 		if (this.parentNode) {
 			const children = this.parentNode.childNodes;
 			let i = 0;
