@@ -18,14 +18,14 @@ describe('empty attribute', function () {
 		const root = parse('<div class=""></div>');
 		const div = root.firstChild;
 		div.getAttribute('class').should.eql('');
-		div.classNames.length.should.eql(0);
+		div.classList.length.should.eql(0);
 		div.toString().should.eql('<div class=""></div>');
 	});
 	it('attribute name is not exist', function () {
 		const root = parse('<div class=""></div>');
 		const div = root.firstChild;
 		should.equal(div.getAttribute('foo'), undefined);
-		div.classNames.length.should.eql(0);
+		div.classList.length.should.eql(0);
 		div.toString().should.eql('<div class=""></div>');
 	});
 });

@@ -44,6 +44,54 @@ kBlockElements.set('section', true);
 kBlockElements.set('BR', true);
 kBlockElements.set('br', true);
 
+class DOMTokenList {
+	private _set: Set<string>;
+	private _afterUpdate: ((t: DOMTokenList) => void);
+	private _validate(c: string) {
+		if (/\s/.test(c)) {
+			throw new Error(`DOMException in DOMTokenList.add: The token '${c}' contains HTML space characters, which are not valid in tokens.`);
+		}
+	}
+	public constructor(valuesInit: string[] = [], afterUpdate: ((t: DOMTokenList) => void) = (() => null)) {
+		this._set = new Set(valuesInit);
+		this._afterUpdate = afterUpdate;
+	}
+	public add(c: string) {
+		this._validate(c);
+		this._set.add(c);
+		this._afterUpdate(this); // eslint-disable-line @typescript-eslint/no-unsafe-call
+	}
+	public replace(c1: string, c2: string) {
+		this._validate(c2);
+		this._set.delete(c1);
+		this._set.add(c2);
+		this._afterUpdate(this); // eslint-disable-line @typescript-eslint/no-unsafe-call
+	}
+	public remove(c: string) {
+		this._set.delete(c) &&
+		this._afterUpdate(this); // eslint-disable-line @typescript-eslint/no-unsafe-call
+	}
+	public toggle(c: string) {
+		this._validate(c);
+		if (this._set.has(c)) this._set.delete(c);
+		else this._set.add(c);
+		this._afterUpdate(this); // eslint-disable-line @typescript-eslint/no-unsafe-call
+	}
+	public contains(c: string): boolean {
+		return this._set.has(c);
+	}
+	public get length(): number {
+		return this._set.size;
+	}
+	public values(): string[] {
+		return Array.from(this._set.values());
+	}
+	public toString() {
+		return Array.from(this._set.values()).join(' ');
+	}
+};
+
+
 /**
  * HTMLElement, which contains a set of children.
  *
@@ -58,7 +106,8 @@ export default class HTMLElement extends Node {
 	private _rawAttrs: RawAttributes;
 	public rawTagName: string;	// there is not friend funciton in es
 	public id: string;
-	public classNames = [] as string[];
+	public classList : DOMTokenList;
+
 	/**
 	 * Node Type declaration.
 	 */
@@ -75,6 +124,12 @@ export default class HTMLElement extends Node {
 		this.rawTagName = tagName;
 		this.rawAttrs = rawAttrs || '';
 		this.childNodes = [];
+		this.classList = new DOMTokenList(
+			keyAttrs.class ? keyAttrs.class.split(/\s+/) : [],
+			classList => (
+				this.setAttribute('class', classList.toString()) // eslint-disable-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+			)
+		);
 		if (keyAttrs.id) {
 			this.id = keyAttrs.id;
 			if (!rawAttrs) {
@@ -82,9 +137,8 @@ export default class HTMLElement extends Node {
 			}
 		}
 		if (keyAttrs.class) {
-			this.classNames = keyAttrs.class.split(/\s+/);
 			if (!rawAttrs) {
-				const cls = `class="${this.classNames.join(' ')}"`;
+				const cls = `class="${this.classList.toString()}"`;
 				if (this.rawAttrs) {
 					this.rawAttrs += ` ${cls}`;
 				} else {
@@ -130,6 +184,9 @@ export default class HTMLElement extends Node {
 	}
 	public get tagName() {
 		return this.rawTagName ? this.rawTagName.toUpperCase() : this.rawTagName;
+	}
+	public get localName() {
+		return this.rawTagName.toLowerCase();
 	}
 	/**
 	 * Get escpaed (as-it) text value of current node and its children.
@@ -202,7 +259,8 @@ export default class HTMLElement extends Node {
 	public toString() {
 		const tag = this.rawTagName;
 		if (tag) {
-			const is_void = /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/i.test(tag);
+			const void_tags = new Set('area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr'.split('|'));
+			const is_void = void_tags.has(tag);
 			const attrs = this.rawAttrs ? ` ${this.rawAttrs}` : '';
 			if (is_void) {
 				return `<${tag}${attrs}>`;
@@ -289,7 +347,7 @@ export default class HTMLElement extends Node {
 		}
 		function dfs(node: HTMLElement) {
 			const idStr = node.id ? (`#${node.id}`) : '';
-			const classStr = node.classNames.length ? (`.${node.classNames.join('.')}`) : '';
+			const classStr = node.classList.length ? (`.${node.classList.values().join('.')}`) : ''; // eslint-disable-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/restrict-template-expressions, @typescript-eslint/no-unsafe-call
 			write(`${node.rawTagName}${idStr}${classStr}`);
 			indention++;
 			node.childNodes.forEach((childNode) => {
