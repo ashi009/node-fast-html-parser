@@ -156,6 +156,36 @@ Set content. **Notice**: Do not set content of the **root** node.
 
 Remove current element.
 
+### HTMLElement#replaceWith(...nodes: (string | Node)[])
+
+Replace current element with other node(s).
+
+### HTMLElement#classList
+
+#### HTMLElement#classList.add
+
+Add class name.
+
+#### HTMLElement#classList.replace(old: string, new: string)
+
+Replace class name with another one.
+
+#### HTMLElement#classList.remove()
+
+Remove class name.
+
+#### HTMLElement#classList.toggle(className: string):void
+
+Toggle class.
+
+#### HTMLElement#classList.contains(className: string): boolean
+
+Get if contains
+
+#### HTMLElement#classList.values()
+
+get class names
+
 ## HTMLElement Properties
 
 ### HTMLElement#text
@@ -190,7 +220,7 @@ Get last child node
 
 ### HTMLElement#innerHTML
 
-Get innerHTML.
+Set or Get innerHTML.
 
 ### HTMLElement#outerHTML
 
@@ -209,5 +239,9 @@ Returns a reference to the next child element of the current element's parent.
 Get or Set textContent of current element, more efficient than [set_content](#htmlelementset_contentcontent-string--node--node).
 
 ### HTMLElement#attributes
+
+Get all attributes of current element. **Notice: do not try to change the returned value.**
+
+### HTMLElement#classList
 
 Get all attributes of current element. **Notice: do not try to change the returned value.**

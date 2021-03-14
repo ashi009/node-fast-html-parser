@@ -69,7 +69,7 @@ class DOMTokenList {
 	}
 	public remove(c: string) {
 		this._set.delete(c) &&
-		this._afterUpdate(this); // eslint-disable-line @typescript-eslint/no-unsafe-call
+			this._afterUpdate(this); // eslint-disable-line @typescript-eslint/no-unsafe-call
 	}
 	public toggle(c: string) {
 		this._validate(c);
@@ -89,7 +89,7 @@ class DOMTokenList {
 	public toString() {
 		return Array.from(this._set.values()).join(' ');
 	}
-};
+}
 
 
 /**
@@ -106,7 +106,7 @@ export default class HTMLElement extends Node {
 	private _rawAttrs: RawAttributes;
 	public rawTagName: string;	// there is not friend funciton in es
 	public id: string;
-	public classList : DOMTokenList;
+	public classList: DOMTokenList;
 
 	/**
 	 * Node Type declaration.
@@ -126,7 +126,7 @@ export default class HTMLElement extends Node {
 		this.childNodes = [];
 		this.classList = new DOMTokenList(
 			keyAttrs.class ? keyAttrs.class.split(/\s+/) : [],
-			classList => (
+			(classList) => (
 				this.setAttribute('class', classList.toString()) // eslint-disable-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
 			)
 		);
@@ -259,8 +259,9 @@ export default class HTMLElement extends Node {
 	public toString() {
 		const tag = this.rawTagName;
 		if (tag) {
-			const void_tags = new Set('area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr'.split('|'));
-			const is_void = void_tags.has(tag);
+			// const void_tags = new Set('area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr'.split('|'));
+			// const is_void = void_tags.has(tag);
+			const is_void = /area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr/i.test(tag);
 			const attrs = this.rawAttrs ? ` ${this.rawAttrs}` : '';
 			if (is_void) {
 				return `<${tag}${attrs}>`;
@@ -292,14 +293,17 @@ export default class HTMLElement extends Node {
 		this.childNodes = content;
 	}
 
-	public replaceWith(content: string | Node | Node[]) {
-		if (content instanceof Node) {
-			content = [content];
-		} else if (typeof content == 'string') {
-			//const r = parse(content, global.options); // TODO global.options ?
-			const r = parse(content);
-			content = r.childNodes.length ? r.childNodes : [new TextNode(content, this)];
-		}
+	public replaceWith(...nodes: (string | Node)[]) {
+		const content = nodes.map((node) => {
+			if (node instanceof Node) {
+				return [node];
+			} else if (typeof node == 'string') {
+				// const r = parse(content, global.options); // TODO global.options ?
+				const r = parse(node);
+				return r.childNodes.length ? r.childNodes : [new TextNode(node, this)];
+			}
+			return [];
+		}).flat();
 		const idx = this.parentNode.childNodes.findIndex((child) => {
 			return child === this;
 		});
@@ -737,6 +741,10 @@ export default class HTMLElement extends Node {
 			}
 			return null;
 		}
+	}
+
+	public get classNames() {
+		return this.classList.toString();
 	}
 }
 
