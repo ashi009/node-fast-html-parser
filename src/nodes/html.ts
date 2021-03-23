@@ -8,7 +8,12 @@ import arr_back from '../back';
 import CommentNode from './comment';
 import parse from '../parse';
 
-const { decode } = he;
+// const { decode } = he;
+
+function decode(val: string) {
+	// clone string
+	return JSON.parse(JSON.stringify(he.decode(val))) as string;
+}
 
 export interface KeyAttributes {
 	id?: string;
