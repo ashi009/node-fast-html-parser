@@ -88,7 +88,10 @@ class DOMTokenList {
 	public get length(): number {
 		return this._set.size;
 	}
-	public values(): string[] {
+	public values() {
+		return this._set.values();
+	}
+	public get value(): string[] {
 		return Array.from(this._set.values());
 	}
 	public toString() {
@@ -356,7 +359,7 @@ export default class HTMLElement extends Node {
 		}
 		function dfs(node: HTMLElement) {
 			const idStr = node.id ? (`#${node.id}`) : '';
-			const classStr = node.classList.length ? (`.${node.classList.values().join('.')}`) : ''; // eslint-disable-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/restrict-template-expressions, @typescript-eslint/no-unsafe-call
+			const classStr = node.classList.length ? (`.${node.classList.value.join('.')}`) : ''; // eslint-disable-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/restrict-template-expressions, @typescript-eslint/no-unsafe-call
 			write(`${node.rawTagName}${idStr}${classStr}`);
 			indention++;
 			node.childNodes.forEach((childNode) => {
