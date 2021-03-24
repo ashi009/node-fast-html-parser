@@ -86,7 +86,7 @@ describe('should parse tag correct', function () {
 		const div = root.firstChild;
 
 		div.classList.length.should.eql(2);
-		div.classList.values().should.eql(['foo', 'bar']);
+		div.classList.value.should.eql(['foo', 'bar']);
 		div.classNames.should.eql('foo bar');
 
 		div.classList.remove('bar');
