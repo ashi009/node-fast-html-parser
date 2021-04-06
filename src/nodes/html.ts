@@ -269,7 +269,7 @@ export default class HTMLElement extends Node {
 		if (tag) {
 			// const void_tags = new Set('area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr'.split('|'));
 			// const is_void = void_tags.has(tag);
-			const is_void = /area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr/i.test(tag);
+			const is_void = /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/i.test(tag);
 			const attrs = this.rawAttrs ? ` ${this.rawAttrs}` : '';
 			if (is_void) {
 				return `<${tag}${attrs}>`;
