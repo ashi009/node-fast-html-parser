@@ -609,6 +609,10 @@ export default class HTMLElement extends Node {
 			}
 			return `${name}=${val}`;
 		}).join(' ');
+		// Update this.id
+		if (key === 'id') {
+			this.id = '';
+		}
 	}
 
 	public hasAttribute(key: string) {
@@ -653,6 +657,10 @@ export default class HTMLElement extends Node {
 			}
 			return `${name}=${val}`;
 		}).join(' ');
+		// Update this.id
+		if (key === 'id') {
+			this.id = value;
+		}
 	}
 
 	/**

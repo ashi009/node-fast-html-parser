@@ -14,4 +14,26 @@ describe('pull/112', function () {
 		el.getAttribute('id').should.eql('id')
 		el.toString().should.eql('<div id="id"></div>');
 	});
+	it('#removeAttribute()', async function () {
+		const html = '<div id="id"></div>';
+		const root = parse(html);
+		const el = root.firstChild;
+		el.id.should.eql('id')
+		el.getAttribute('id').should.eql('id')
+		el.removeAttribute('id')
+		el.id.should.eql('')
+		should.equal(el.getAttribute('id'), undefined);
+		el.toString().should.eql('<div></div>');
+	});
+	it('#setAttribute()', async function () {
+		const html = '<div></div>';
+		const root = parse(html);
+		const el = root.firstChild;
+		el.id.should.eql('')
+		should.equal(el.getAttribute('id'), undefined);
+		el.setAttribute('id', 'id')
+		el.id.should.eql('id')
+		el.getAttribute('id').should.eql('id')
+		el.toString().should.eql('<div id="id"></div>');
+	});
 });
