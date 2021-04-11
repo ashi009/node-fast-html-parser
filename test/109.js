@@ -6,7 +6,7 @@ describe('self-close tag', function () {
 		const root = parse(html);
 		root.toString().should.eql(html);
 	});
-	it('inptu is self-closing', async function () {
+	it('input is self-closing', async function () {
 		const html = '<input value="foo" />';
 		const root = parse(html);
 		root.toString().should.eql('<input value="foo" >');
