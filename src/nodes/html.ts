@@ -131,6 +131,7 @@ export default class HTMLElement extends Node {
 		super(parentNode);
 		this.rawTagName = tagName;
 		this.rawAttrs = rawAttrs || '';
+		this.id = keyAttrs.id || '';
 		this.childNodes = [];
 		this.classList = new DOMTokenList(
 			keyAttrs.class ? keyAttrs.class.split(/\s+/) : [],
@@ -139,7 +140,6 @@ export default class HTMLElement extends Node {
 			)
 		);
 		if (keyAttrs.id) {
-			this.id = keyAttrs.id;
 			if (!rawAttrs) {
 				this.rawAttrs = `id="${keyAttrs.id}"`;
 			}
@@ -609,6 +609,10 @@ export default class HTMLElement extends Node {
 			}
 			return `${name}=${val}`;
 		}).join(' ');
+		// Update this.id
+		if (key === 'id') {
+			this.id = '';
+		}
 	}
 
 	public hasAttribute(key: string) {
@@ -653,6 +657,10 @@ export default class HTMLElement extends Node {
 			}
 			return `${name}=${val}`;
 		}).join(' ');
+		// Update this.id
+		if (key === 'id') {
+			this.id = value;
+		}
 	}
 
 	/**
