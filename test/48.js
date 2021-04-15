@@ -1,6 +1,6 @@
 const { parse } = require('../dist');
 
-describe.only('issue 48', function () {
+describe('issue 48', function () {
 	it('get decoded text', function () {
 		const root = parse('<div>The king&#39;s hat is on fire!</div>');
 		const div = root.querySelector('div');
