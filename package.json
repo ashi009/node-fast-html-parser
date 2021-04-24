@@ -81,5 +81,6 @@
 	"bugs": {
 		"url": "https://github.com/taoqf/node-fast-html-parser/issues"
 	},
-	"homepage": "https://github.com/taoqf/node-fast-html-parser"
+	"homepage": "https://github.com/taoqf/node-fast-html-parser",
+	"sideEffects": false
 }
