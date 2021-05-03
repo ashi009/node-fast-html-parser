@@ -332,6 +332,22 @@ $inherit(HTMLElement, Node, {
   },
 
   /**
+   * Get first child node
+   * @return {Node} first child node
+   */
+   get firstChild() {
+    return this.childNodes.front;
+  },
+
+  /**
+   * Get last child node
+   * @return {Node} last child node
+   */
+  get lastChild() {
+    return this.childNodes.back;
+  },
+
+  /**
    * Get an arbitrary childNode
    * @param  {int}  nodeIndex the index of the childNode you get
    * @return {Node}       the childNode you get
