@@ -116,9 +116,11 @@ Query CSS Selector to find matching node.
 Append a child node to childNodes
 
 ### HTMLElement#firstChild
+
 Get first child node
 
 ### HTMLElement#lastChild
+
 Get last child node
 
 ### HTMLElement#getChild(nodeIndex)

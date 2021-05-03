@@ -352,7 +352,7 @@ $inherit(HTMLElement, Node, {
    * @param  {int}  nodeIndex the index of the childNode you get
    * @return {Node}       the childNode you get
    */
-   getChild: function(nodeIndex) {
+  getChild: function(nodeIndex) {
     return this.childNodes[nodeIndex];
   },
 
