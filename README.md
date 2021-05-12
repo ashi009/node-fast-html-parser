@@ -1,7 +1,7 @@
 # Fast HTML Parser [![NPM version](https://badge.fury.io/js/node-html-parser.png)](http://badge.fury.io/js/node-html-parser) [![Build Status](https://travis-ci.org/taoqf/node-html-parser.svg?branch=master)](https://travis-ci.org/taoqf/node-html-parser)
 
 Fast HTML Parser is a _very fast_ HTML parser. Which will generate a simplified
-DOM tree, with basic element query support.
+DOM tree, with element query support.
 
 Per the design, it intends to parse massive HTML files in lowest price, thus the
 performance is the top priority.  For this reason, some malformatted HTML may not
@@ -111,6 +111,10 @@ Note: Full css3 selector supported since v3.0.0.
 ### HTMLElement#querySelector(selector)
 
 Query CSS Selector to find matching node.
+
+### HTMLElement#closest(selector)
+
+Query closest element by css selector.
 
 ### HTMLElement#appendChild(node)
 

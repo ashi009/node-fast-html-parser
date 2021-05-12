@@ -518,6 +518,64 @@ export default class HTMLElement extends Node {
 	}
 
 	/**
+	 * traverses the Element and its parents (heading toward the document root) until it finds a node that matches the provided selector string. Will return itself or the matching ancestor. If no such element exists, it returns null.
+	 * @param selector a DOMString containing a selector list
+	 */
+	public closest(selector: string) {
+		type Predicate = (node: Node) => node is HTMLElement;
+
+		const mapChild = new Map<Node, Node>();
+		let el = this as Node;
+		let old = null as Node;
+		function findOne(test: Predicate, elems: Node[]) {
+			let elem = null as HTMLElement | null;
+
+			for (let i = 0, l = elems.length; i < l && !elem; i++) {
+				const el = elems[i];
+				if (test(el)) {
+					elem = el;
+				} else {
+					const child = mapChild.get(el);
+					if (child) {
+						elem = findOne(test, [child]);
+					}
+				}
+			}
+			return elem;
+		}
+		while (el) {
+			mapChild.set(el, old);
+			old = el;
+			el = el.parentNode;
+		}
+		el = this;
+		while (el) {
+			const e = selectOne(selector, el, {
+				xmlMode: true,
+				adapter: {
+					...Matcher,
+					getChildren(node: Node) {
+						const child = mapChild.get(node);
+						return child && [child];
+					},
+					getSiblings(node: Node) {
+						return [node];
+					},
+					findOne,
+					findAll(): Node[] {
+						return [];
+					}
+				}
+			});
+			if (e) {
+				return e;
+			}
+			el = el.parentNode;
+		}
+		return null;
+	}
+
+	/**
 	 * Append a child node to childNodes
 	 * @param  {Node} node node to append
 	 * @return {Node}      node appended
