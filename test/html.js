@@ -208,10 +208,10 @@ describe('HTML Parser', function () {
 			});
 
 			it('should preserve legitimate leading/trailing whitespace in TextNode', function () {
-			  parseHTML('<p>Hello  <em>World</em>!</p>').removeWhitespace().firstChild.text.should.eql('Hello World!');
-			  parseHTML('<p>\t\nHello\n\t<em>World</em>!</p>').removeWhitespace().firstChild.text.should.eql('HelloWorld!');
-			  parseHTML('<p>\t\n  Hello \n\t<em>World</em>!</p>').removeWhitespace().firstChild.text.should.eql(' Hello World!');
-      });
+				parseHTML('<p>Hello  <em>World</em>!</p>').removeWhitespace().firstChild.text.should.eql('Hello World!');
+				parseHTML('<p>\t\nHello\n\t<em>World</em>!</p>').removeWhitespace().firstChild.text.should.eql('HelloWorld!');
+				parseHTML('<p>\t\n  Hello \n\t<em>World</em>!</p>').removeWhitespace().firstChild.text.should.eql(' Hello World!');
+			});
 		});
 
 		describe('#rawAttributes', function () {
