@@ -119,6 +119,20 @@ export default class HTMLElement extends Node {
 	 * Node Type declaration.
 	 */
 	public nodeType = NodeType.ELEMENT_NODE;
+
+	/**
+	 * Quote attribute values
+	 * @param attr attribute value
+	 * @returns {string} quoted value
+	 */
+
+	private quoteAttribute(attr: string) {
+		if (attr === null) {
+			return "null";
+		}
+
+		return JSON.stringify(attr.replace(/"/g, '&quot;'));
+	}
 	/**
 	 * Creates an instance of HTMLElement.
 	 * @param keyAttrs	id and class attribute
@@ -708,7 +722,7 @@ export default class HTMLElement extends Node {
 		}
 		// Update rawString
 		this.rawAttrs = Object.keys(attrs).map((name) => {
-			const val = JSON.stringify(attrs[name]);
+			const val = this.quoteAttribute(attrs[name]);
 			if (val === 'null' || val === '""') {
 				return name;
 			}
@@ -739,7 +753,7 @@ export default class HTMLElement extends Node {
 			if (val === 'null' || val === '""') {
 				return name;
 			}
-			return `${name}=${JSON.stringify(String(val))}`;
+			return `${name}=${this.quoteAttribute(String(val))}`;
 
 		}).join(' ');
 	}
