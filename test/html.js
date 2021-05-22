@@ -198,7 +198,7 @@ describe('HTML Parser', function () {
 
 		describe('#removeWhitespace()', function () {
 			it('should remove whitespaces while preserving nodes with content', function () {
-				const root = parseHTML('<p> \r \n  \t <h5> 123 </h5></p>');
+				const root = parseHTML('<p> \r \n  \t <h5>123</h5></p>');
 
 				const p = new HTMLElement('p', {}, '', root);
 				p.appendChild(new HTMLElement('h5', {}, ''))
@@ -206,6 +206,12 @@ describe('HTML Parser', function () {
 
 				root.firstChild.removeWhitespace().should.eql(p);
 			});
+
+			it('should preserve legitimate leading/trailing whitespace in TextNode', function () {
+			  parseHTML('<p>Hello  <em>World</em>!</p>').removeWhitespace().firstChild.text.should.eql('Hello World!');
+			  parseHTML('<p>\t\nHello\n\t<em>World</em>!</p>').removeWhitespace().firstChild.text.should.eql('HelloWorld!');
+			  parseHTML('<p>\t\n  Hello \n\t<em>World</em>!</p>').removeWhitespace().firstChild.text.should.eql(' Hello World!');
+      });
 		});
 
 		describe('#rawAttributes', function () {
