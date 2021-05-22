@@ -272,7 +272,7 @@ export default class HTMLElement extends Node {
 		dfs(this);
 		return blocks.map((block) => {
 			// Normalize each line's whitespace
-			return block.join('').trim().replace(/\s{2,}/g, ' ');
+			return block.join('').replace(/\s{2,}/g, ' ');
 		})
 			.join('\n').replace(/\s+$/, '');	// trimRight;
 	}
