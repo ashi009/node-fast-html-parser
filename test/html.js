@@ -202,7 +202,7 @@ describe('HTML Parser', function () {
 
 				const p = new HTMLElement('p', {}, '', root);
 				p.appendChild(new HTMLElement('h5', {}, ''))
-					.appendChild(new TextNode('123'));
+					.appendChild(Object.assign(new TextNode('123'), { _trimmedText: '123' }));
 
 				root.firstChild.removeWhitespace().should.eql(p);
 			});
