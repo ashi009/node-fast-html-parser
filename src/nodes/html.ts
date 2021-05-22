@@ -811,7 +811,7 @@ export default class HTMLElement extends Node {
 		}
 	}
 
-	public get nextElementSibling(): Node {
+	public get nextElementSibling(): HTMLElement {
 		if (this.parentNode) {
 			const children = this.parentNode.childNodes;
 			let i = 0;
