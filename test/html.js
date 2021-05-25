@@ -126,10 +126,10 @@ describe('HTML Parser', function () {
 			const script = root.firstChild;
 			const style = root.lastChild;
 			script.childNodes.should.not.be.empty;
-			script.childNodes.should.eql([new TextNode('1', script)]);
+			script.childNodes.should.eql([ new TextNode('1', script) ]);
 			script.text.should.eql('1');
 			style.childNodes.should.not.be.empty;
-			style.childNodes.should.eql([new TextNode('2&amp;', style)]);
+			style.childNodes.should.eql([ new TextNode('2&amp;', style) ]);
 			style.text.should.eql('2&');
 			style.rawText.should.eql('2&amp;');
 		});
@@ -198,13 +198,24 @@ describe('HTML Parser', function () {
 
 		describe('#removeWhitespace()', function () {
 			it('should remove whitespaces while preserving nodes with content', function () {
-				const root = parseHTML('<p> \r \n  \t <h5> 123 </h5></p>');
+				const root = parseHTML('<p> \r \n  \t <h5>  123  </h5></p>');
+
+				const textNode = new TextNode('  123  ');
+				textNode.rawText = textNode.trimmedText;
+				textNode.rawText.should.eql(' 123 ');
 
 				const p = new HTMLElement('p', {}, '', root);
-				p.appendChild(new HTMLElement('h5', {}, ''))
-					.appendChild(new TextNode('123'));
+				p
+					.appendChild(new HTMLElement('h5', {}, ''))
+					.appendChild(textNode);
 
 				root.firstChild.removeWhitespace().should.eql(p);
+			});
+
+			it('should preserve legitimate leading/trailing whitespace in TextNode', function () {
+				parseHTML('<p>Hello  <em>World</em>!</p>').removeWhitespace().firstChild.text.should.eql('Hello World!');
+				parseHTML('<p>\t\nHello\n\t<em>World</em>!</p>').removeWhitespace().firstChild.text.should.eql('HelloWorld!');
+				parseHTML('<p>\t\n  Hello \n\t<em>World</em>!</p>').removeWhitespace().firstChild.text.should.eql(' Hello World!');
 			});
 		});
 

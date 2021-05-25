@@ -133,6 +133,7 @@ export default class HTMLElement extends Node {
 
 		return JSON.stringify(attr.replace(/"/g, '&quot;'));
 	}
+
 	/**
 	 * Creates an instance of HTMLElement.
 	 * @param keyAttrs	id and class attribute
@@ -260,7 +261,7 @@ export default class HTMLElement extends Node {
 					// Whitespace node, postponed output
 					currentBlock.prependWhitespace = true;
 				} else {
-					let text = node.text;
+					let text = (<TextNode>node).trimmedText;
 					if (currentBlock.prependWhitespace) {
 						text = ` ${text}`;
 						currentBlock.prependWhitespace = false;
@@ -401,7 +402,7 @@ export default class HTMLElement extends Node {
 				if ((node as TextNode).isWhitespace) {
 					return;
 				}
-				node.rawText = node.rawText.trim();
+				node.rawText = (<TextNode>node).trimmedText;
 			} else if (node.nodeType === NodeType.ELEMENT_NODE) {
 				(node as HTMLElement).removeWhitespace();
 			}
