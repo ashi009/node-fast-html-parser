@@ -29,6 +29,7 @@ export interface RawAttributes {
 
 export type InsertPosition = 'beforebegin' | 'afterbegin' | 'beforeend' | 'afterend';
 
+// https://developer.mozilla.org/en-US/docs/Web/HTML/Block-level_elements
 const kBlockElements = {
 	address: true,
 	article: true,
