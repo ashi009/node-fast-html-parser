@@ -29,24 +29,52 @@ export interface RawAttributes {
 
 export type InsertPosition = 'beforebegin' | 'afterbegin' | 'beforeend' | 'afterend';
 
-const kBlockElements = new Map<string, true>();
+const kBlockElements = {
+	address: true,
+	article: true,
+	aside: true,
+	blockquote: true,
+	br: true,
+	details: true,
+	dialog: true,
+	dd: true,
+	div: true,
+	dl: true,
+	dt: true,
+	fieldset: true,
+	figcaption: true,
+	figure: true,
+	footer: true,
+	form: true,
+	h1: true,
+	h2: true,
+	h3: true,
+	h4: true,
+	h5: true,
+	h6: true,
+	header: true,
+	hgroup: true,
+	hr: true,
+	li: true,
+	main: true,
+	nav: true,
+	ol: true,
+	p: true,
+	pre: true,
+	section: true,
+	table: true,
+	td: true,
+	tr: true,
+	ul: true
+};
 
-kBlockElements.set('DIV', true);
-kBlockElements.set('div', true);
-kBlockElements.set('P', true);
-kBlockElements.set('p', true);
-// ul: true,
-// ol: true,
-kBlockElements.set('LI', true);
-kBlockElements.set('li', true);
-// table: true,
-// tr: true,
-kBlockElements.set('TD', true);
-kBlockElements.set('td', true);
-kBlockElements.set('SECTION', true);
-kBlockElements.set('section', true);
-kBlockElements.set('BR', true);
-kBlockElements.set('br', true);
+function isBlockElement(node: HTMLElement) {
+	if (node && node.tagName) {
+		return Boolean(kBlockElements[node.tagName.toLowerCase()]);
+	}
+	return false;
+}
+
 
 class DOMTokenList {
 	private _set: Set<string>;
@@ -245,7 +273,7 @@ export default class HTMLElement extends Node {
 		const blocks = [currentBlock];
 		function dfs(node: Node) {
 			if (node.nodeType === NodeType.ELEMENT_NODE) {
-				if (kBlockElements.get((node as HTMLElement).rawTagName)) {
+				if (isBlockElement(node as HTMLElement)) {
 					if (currentBlock.length > 0) {
 						blocks.push(currentBlock = []);
 					}

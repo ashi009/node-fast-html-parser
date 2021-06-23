@@ -371,6 +371,11 @@ describe('HTML Parser', function () {
 				const root = parseHTML('<span>o<p>a</p><!-- my comment --></span>', { comment: true });
 				root.structuredText.should.eql('o\na');
 			});
+
+			it('should return correct structured text (block level elements)', function () {
+				const root = parseHTML('<p>content</p><span><u><h1>inside</h1><i>htm<u>l</u></i></u></span>');
+				root.structuredText.should.eql('content\ninside\nhtml');
+			});
 		});
 		describe('#set_content', function () {
 			it('set content string', function () {
