@@ -12,7 +12,7 @@ describe('HTML Parser', function() {
 
   describe('Matcher', function() {
 
-    it('should match corrent elements', function() {
+    it('should match current elements', function() {
 
       var matcher = new Matcher('#id .a a.b *.a.b .a.b * a');
       var MatchesNothingButStarEl = new HTMLElement('_', {});
@@ -245,6 +245,13 @@ describe('HTML Parser', function() {
 
         var root = parseHTML('<span>o<p>a</p><p>b</p>c</span>');
         root.structuredText.should.eql('o\na\nb\nc');
+
+      });
+
+      it('should return correct structured text (block level)', function() {
+
+        var root = parseHTML('<p>content</p><span><u><h1>inside</h1><i>htm<u>l</u></i></u></span>');
+        root.structuredText.should.eql('content\ninside\nhtml');
 
       });
 

@@ -49,17 +49,46 @@ $inherit(TextNode, Node, {
 
 });
 
+/**
+ * https://developer.mozilla.org/en-US/docs/Web/HTML/Block-level_elements
+ */
 var kBlockElements = {
+  address: true,
+  article: true,
+  aside: true,
+  blockquote: true,
+  br: true,
+  details: true,
+  dialog: true,
+  dd: true,
   div: true,
-  p: true,
-  // ul: true,
-  // ol: true,
+  dl: true,
+  dt: true,
+  fieldset: true,
+  figcaption: true,
+  figure: true,
+  footer: true,
+  form: true,
+  h1: true,
+  h2: true,
+  h3: true,
+  h4: true,
+  h5: true,
+  h6: true,
+  header: true,
+  hgroup: true,
+  hr: true,
   li: true,
-  // table: true,
-  // tr: true,
-  td: true,
+  main: true,
+  nav: true,
+  ol: true,
+  p: true,
+  pre: true,
   section: true,
-  br: true
+  table: true,
+  td: true,
+  tr: true,
+  ul: true,
 };
 
 /**
