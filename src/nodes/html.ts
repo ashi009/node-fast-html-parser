@@ -30,52 +30,79 @@ export interface RawAttributes {
 export type InsertPosition = 'beforebegin' | 'afterbegin' | 'beforeend' | 'afterend';
 
 // https://developer.mozilla.org/en-US/docs/Web/HTML/Block-level_elements
-const kBlockElements = {
-	address: true,
-	article: true,
-	aside: true,
-	blockquote: true,
-	br: true,
-	details: true,
-	dialog: true,
-	dd: true,
-	div: true,
-	dl: true,
-	dt: true,
-	fieldset: true,
-	figcaption: true,
-	figure: true,
-	footer: true,
-	form: true,
-	h1: true,
-	h2: true,
-	h3: true,
-	h4: true,
-	h5: true,
-	h6: true,
-	header: true,
-	hgroup: true,
-	hr: true,
-	li: true,
-	main: true,
-	nav: true,
-	ol: true,
-	p: true,
-	pre: true,
-	section: true,
-	table: true,
-	td: true,
-	tr: true,
-	ul: true
-};
-
-function isBlockElement(node: HTMLElement) {
-	if (node && node.tagName) {
-		return Boolean(kBlockElements[node.tagName.toLowerCase()]);
-	}
-	return false;
-}
-
+const kBlockElements = new Set<string>();
+kBlockElements.add('address');
+kBlockElements.add('ADDRESS');
+kBlockElements.add('article');
+kBlockElements.add('ARTICLE');
+kBlockElements.add('aside');
+kBlockElements.add('ASIDE');
+kBlockElements.add('blockquote');
+kBlockElements.add('BLOCKQUOTE');
+kBlockElements.add('br');
+kBlockElements.add('BR');
+kBlockElements.add('details');
+kBlockElements.add('DETAILS');
+kBlockElements.add('dialog');
+kBlockElements.add('DIALOG');
+kBlockElements.add('dd');
+kBlockElements.add('DD');
+kBlockElements.add('div');
+kBlockElements.add('DIV');
+kBlockElements.add('dl');
+kBlockElements.add('DL');
+kBlockElements.add('dt');
+kBlockElements.add('DT');
+kBlockElements.add('fieldset');
+kBlockElements.add('FIELDSET');
+kBlockElements.add('figcaption');
+kBlockElements.add('FIGCAPTION');
+kBlockElements.add('figure');
+kBlockElements.add('FIGURE');
+kBlockElements.add('footer');
+kBlockElements.add('FOOTER');
+kBlockElements.add('form');
+kBlockElements.add('FORM');
+kBlockElements.add('h1');
+kBlockElements.add('H1');
+kBlockElements.add('h2');
+kBlockElements.add('H2');
+kBlockElements.add('h3');
+kBlockElements.add('H3');
+kBlockElements.add('h4');
+kBlockElements.add('H4');
+kBlockElements.add('h5');
+kBlockElements.add('H5');
+kBlockElements.add('h6');
+kBlockElements.add('H6');
+kBlockElements.add('header');
+kBlockElements.add('HEADER');
+kBlockElements.add('hgroup');
+kBlockElements.add('HGROUP');
+kBlockElements.add('hr');
+kBlockElements.add('HR');
+kBlockElements.add('li');
+kBlockElements.add('LI');
+kBlockElements.add('main');
+kBlockElements.add('MAIN');
+kBlockElements.add('nav');
+kBlockElements.add('NAV');
+kBlockElements.add('ol');
+kBlockElements.add('OL');
+kBlockElements.add('p');
+kBlockElements.add('P');
+kBlockElements.add('pre');
+kBlockElements.add('PRE');
+kBlockElements.add('section');
+kBlockElements.add('SECTION');
+kBlockElements.add('table');
+kBlockElements.add('TABLE');
+kBlockElements.add('td');
+kBlockElements.add('TD');
+kBlockElements.add('tr');
+kBlockElements.add('TR');
+kBlockElements.add('ul');
+kBlockElements.add('UL');
 
 class DOMTokenList {
 	private _set: Set<string>;
@@ -274,7 +301,7 @@ export default class HTMLElement extends Node {
 		const blocks = [currentBlock];
 		function dfs(node: Node) {
 			if (node.nodeType === NodeType.ELEMENT_NODE) {
-				if (isBlockElement(node as HTMLElement)) {
+				if (kBlockElements.has((node as HTMLElement).rawTagName)) {
 					if (currentBlock.length > 0) {
 						blocks.push(currentBlock = []);
 					}
