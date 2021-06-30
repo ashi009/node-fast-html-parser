@@ -26,17 +26,17 @@ export default class TextNode extends Node {
 	private _trimmedText?: string;
 
 	public get rawText() {
-	  return this._rawText;
-  }
+		return this._rawText;
+	}
 
-  /**
-   * Set rawText and invalidate trimmed caches
-   */
+	/**
+	 * Set rawText and invalidate trimmed caches
+	 */
 	public set rawText(text: string) {
-	  this._rawText = text;
-	  this._trimmedRawText = void 0;
-	  this._trimmedText = void 0;
-  }
+		this._rawText = text;
+		this._trimmedRawText = void 0;
+		this._trimmedText = void 0;
+	}
 
 	/**
 	 * Returns raw text with all whitespace trimmed except single leading/trailing non-breaking space

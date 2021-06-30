@@ -418,9 +418,9 @@ describe('HTML Parser', function () {
 
 			it('should not decode text from parseHTML()', function () {
 				// https://github.com/taoqf/node-html-parser/issues/33
-        const content = `&lt;p&gt; Not a p tag &lt;br /&gt; at all`;
+				const content = `&lt;p&gt; Not a p tag &lt;br /&gt; at all`;
 				const root = parseHTML(`<div>${content}</div>`);
-        root.childNodes.should.have.length(1);
+				root.childNodes.should.have.length(1);
 
 				const divNode = root.firstChild;
 				divNode.childNodes.should.have.length(1);
@@ -430,18 +430,18 @@ describe('HTML Parser', function () {
 			});
 
 			it(`should decode for node text property`, function () {
-			  const encodedText = `My&gt;text`;
-			  const decodedText = `My>text`;
-        const root = parseHTML(`<p>${encodedText}</p>`);
+				const encodedText = `My&gt;text`;
+				const decodedText = `My>text`;
+				const root = parseHTML(`<p>${encodedText}</p>`);
 
-        const pNode = root.firstChild;
-        pNode.text.should.eql(decodedText);
-        pNode.rawText.should.eql(encodedText);
+				const pNode = root.firstChild;
+				pNode.text.should.eql(decodedText);
+				pNode.rawText.should.eql(encodedText);
 
-        const textNode = pNode.firstChild;
-        textNode.text.should.eql(decodedText);
-        textNode.rawText.should.eql(encodedText);
-      });
+				const textNode = pNode.firstChild;
+				textNode.text.should.eql(decodedText);
+				textNode.rawText.should.eql(encodedText);
+			});
 		});
 
 		describe('#insertAdjacentHTML() should parse and insert childrens', function () {
