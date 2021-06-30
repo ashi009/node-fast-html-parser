@@ -1,8 +1,8 @@
+import { decode } from 'he';
 import NodeType from './type';
 import Node from './node';
 import HTMLElement from './html';
 import { trimText } from '../utils';
-import { decode } from 'he';
 
 
 /**
@@ -66,7 +66,7 @@ export default class TextNode extends Node {
 
 	/**
 	 * Detect if the node contains only white space.
-	 * @return {bool}
+	 * @return {boolean}
 	 */
 	public get isWhitespace() {
 		return /^(\s|&nbsp;)*$/.test(this.rawText);
