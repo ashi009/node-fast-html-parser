@@ -73,6 +73,6 @@ export default class TextNode extends Node {
 	}
 
 	public toString() {
-		return this.text;
+		return this.rawText;
 	}
 }
