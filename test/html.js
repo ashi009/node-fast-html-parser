@@ -198,11 +198,11 @@ describe('HTML Parser', function () {
 
 		describe('#removeWhitespace()', function () {
 			it('should remove whitespaces while preserving nodes with content', function () {
-				const root = parseHTML('<p> \r \n  \t <h5>  123  </h5></p>');
+				const root = parseHTML('<p> \r \n  \t <h5>  123&nbsp;  </h5></p>');
 
-				const textNode = new TextNode('  123  ');
-				textNode.rawText = textNode.trimmedText;
-				textNode.rawText.should.eql(' 123 ');
+				const textNode = new TextNode('  123&nbsp;  ');
+				textNode.rawText = textNode.trimmedRawText;
+				textNode.rawText.should.eql(' 123&nbsp; ');
 
 				const p = new HTMLElement('p', {}, '', root);
 				p
@@ -415,27 +415,33 @@ describe('HTML Parser', function () {
 				root.firstChild.getAttribute('alt').should.eql('«Sogno');
 				root.firstChild.rawAttributes.alt.should.eql('&laquo;Sogno');
 			});
-			it('shoud not decode text', function () {
+
+			it('should not decode text from parseHTML()', function () {
 				// https://github.com/taoqf/node-html-parser/issues/33
-				const root = parseHTML(`<html>
-<body>
-<div id='source'>
-&lt;p&gt;
-This content should be enclosed within an escaped p tag&lt;br /&gt;
-&lt;/p&gt;
-</div>
-</body>
-</html>`)
-				root.toString().should.eql(`<html>
-<body>
-<div id='source'>
-&lt;p&gt;
-This content should be enclosed within an escaped p tag&lt;br /&gt;
-&lt;/p&gt;
-</div>
-</body>
-</html>`);
+        const content = `&lt;p&gt; Not a p tag &lt;br /&gt; at all`;
+				const root = parseHTML(`<div>${content}</div>`);
+        root.childNodes.should.have.length(1);
+
+				const divNode = root.firstChild;
+				divNode.childNodes.should.have.length(1);
+
+				const textNode = divNode.firstChild;
+				textNode.rawText.should.eql(content);
 			});
+
+			it(`should decode for node text property`, function () {
+			  const encodedText = `My&gt;text`;
+			  const decodedText = `My>text`;
+        const root = parseHTML(`<p>${encodedText}</p>`);
+
+        const pNode = root.firstChild;
+        pNode.text.should.eql(decodedText);
+        pNode.rawText.should.eql(encodedText);
+
+        const textNode = pNode.firstChild;
+        textNode.text.should.eql(decodedText);
+        textNode.rawText.should.eql(encodedText);
+      });
 		});
 
 		describe('#insertAdjacentHTML() should parse and insert childrens', function () {
