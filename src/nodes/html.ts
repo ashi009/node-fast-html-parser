@@ -458,7 +458,7 @@ export default class HTMLElement extends Node {
 				if ((node as TextNode).isWhitespace) {
 					return;
 				}
-				node.rawText = (<TextNode>node).trimmedText;
+				node.rawText = (<TextNode>node).trimmedRawText;
 			} else if (node.nodeType === NodeType.ELEMENT_NODE) {
 				(node as HTMLElement).removeWhitespace();
 			}
