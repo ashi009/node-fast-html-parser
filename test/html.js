@@ -2,7 +2,6 @@ const should = require('should');
 const fs = require('fs');
 
 const HTMLParser = require('../dist');
-const Matcher = require('../dist/matcher').default;
 const HTMLElement = require('../dist/nodes/html').default;
 const TextNode = require('../dist/nodes/text').default;
 const CommentNode = require('../dist/nodes/comment').default;
@@ -126,10 +125,10 @@ describe('HTML Parser', function () {
 			const script = root.firstChild;
 			const style = root.lastChild;
 			script.childNodes.should.not.be.empty;
-			script.childNodes.should.eql([ new TextNode('1', script) ]);
+			script.childNodes.should.eql([new TextNode('1', script)]);
 			script.text.should.eql('1');
 			style.childNodes.should.not.be.empty;
-			style.childNodes.should.eql([ new TextNode('2&amp;', style) ]);
+			style.childNodes.should.eql([new TextNode('2&amp;', style)]);
 			style.text.should.eql('2&');
 			style.rawText.should.eql('2&amp;');
 		});

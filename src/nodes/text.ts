@@ -48,8 +48,8 @@ export default class TextNode extends Node {
 		if (startPos === undefined) startPos = 0;
 		if (endPos === undefined) endPos = text.length - 1;
 
-		const hasLeadingSpace = startPos > 0 && /[^\S\r\n]/.test(text[startPos-1]);
-		const hasTrailingSpace = endPos < (text.length - 1) && /[^\S\r\n]/.test(text[endPos+1]);
+		const hasLeadingSpace = startPos > 0 && /[^\S\r\n]/.test(text[startPos - 1]);
+		const hasTrailingSpace = endPos < (text.length - 1) && /[^\S\r\n]/.test(text[endPos + 1]);
 
 		this._trimmedText = (hasLeadingSpace ? ' ' : '') + text.slice(startPos, endPos + 1) + (hasTrailingSpace ? ' ' : '');
 

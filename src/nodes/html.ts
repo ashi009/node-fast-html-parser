@@ -276,7 +276,7 @@ export default class HTMLElement extends Node {
 		}, '');
 	}
 	public get textContent() {
-		return this.rawText;
+		return decode(this.rawText);
 	}
 	public set textContent(val: string) {
 		const content = [new TextNode(val, this)];
