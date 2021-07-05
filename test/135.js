@@ -38,21 +38,4 @@ describe('pr 135', function () {
 		const textNode = pNode.firstChild;
 		textNode.textContent.should.eql(decodedText);
 	});
-
-	it('should remove whitespaces while preserving nodes with content', function () {
-		const root = parse('<p> \r \n  \t <h5>  123&nbsp;  </h5></p>');
-
-		const textNode = new TextNode('  123&nbsp;  ');
-		textNode.rawText = textNode.trimmedText;
-		textNode.rawText.should.eql(' 123&nbsp; ');
-
-		const p = new HTMLElement('p', {}, '', root);
-		p
-			.appendChild(new HTMLElement('h5', {}, ''))
-			.appendChild(textNode);
-
-		p.toString().should.eql('<p><h5> 123&nbsp; </h5></p>');
-		root.firstChild.removeWhitespace().toString().should.eql('<p><h5> 123&nbsp; </h5></p>');
-		root.firstChild.removeWhitespace().should.eql(p);
-	})
 });
