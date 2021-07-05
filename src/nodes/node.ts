@@ -1,4 +1,4 @@
-import { decode } from 'he';
+import { decode, encode } from 'he';
 import NodeType from './type';
 import HTMLElement from './html';
 
@@ -21,7 +21,6 @@ export default abstract class Node {
 		return decode(this.rawText);
 	}
 	public set textContent(val: string) {
-		console.error('ssssssssssssssss', val);
-		this.rawText = val;
+		this.rawText = encode(val);
 	}
 }
