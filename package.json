@@ -54,6 +54,7 @@
 		"htmlparser-benchmark": "^1.1.3",
 		"htmlparser2": "^6.0.0",
 		"mocha": "latest",
+		"mocha-each": "^2.0.1",
 		"np": "latest",
 		"parse5": "^6.0.1",
 		"should": "latest",

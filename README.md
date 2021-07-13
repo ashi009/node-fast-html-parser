@@ -249,3 +249,7 @@ Get all attributes of current element. **Notice: do not try to change the return
 ### HTMLElement#classList
 
 Get all attributes of current element. **Notice: do not try to change the returned value.**
+
+### HTMLElement#range
+
+Corresponding source code start and end indexes (ie [ 0, 40 ])

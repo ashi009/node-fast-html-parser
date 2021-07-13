@@ -197,8 +197,14 @@ export default class HTMLElement extends Node {
 	 *
 	 * @memberof HTMLElement
 	 */
-	public constructor(tagName: string, keyAttrs: KeyAttributes, private rawAttrs = '', parentNode: HTMLElement | null) {
-		super(parentNode);
+	public constructor(
+		tagName: string,
+		keyAttrs: KeyAttributes,
+		private rawAttrs = '',
+		parentNode: HTMLElement | null,
+		range?: [ number, number ]
+	) {
+		super(parentNode, range);
 		this.rawTagName = tagName;
 		this.rawAttrs = rawAttrs || '';
 		this.id = keyAttrs.id || '';
@@ -1012,88 +1018,109 @@ export function base_parse(data: string, options = { lowerCaseTagName: false, co
 			return it.test(tag);
 		});
 	}
-	const root = new HTMLElement(null, {}, '', null);
+	const createRange = (startPos: number, endPos: number): [ number, number ] =>
+		[ startPos - frameFlagOffset, endPos - frameFlagOffset ];
+
+	const root = new HTMLElement(null, {}, '', null, [ 0, data.length ]);
 	let currentParent = root;
 	const stack = [root];
 	let lastTextPos = -1;
 	let match: RegExpExecArray;
 	// https://github.com/taoqf/node-html-parser/issues/38
 	data = `<${frameflag}>${data}</${frameflag}>`;
+
+	const dataEndPos = data.length - (frameflag.length + 2);
+	const frameFlagOffset = frameflag.length + 2;
+
 	while ((match = kMarkupPattern.exec(data))) {
+		const tagStartPos = kMarkupPattern.lastIndex - match[0].length;
+		const tagEndPos = kMarkupPattern.lastIndex;
+
+		// Add TextNode if content
 		if (lastTextPos > -1) {
-			if (lastTextPos + match[0].length < kMarkupPattern.lastIndex) {
-				// if has content
-				const text = data.substring(lastTextPos, kMarkupPattern.lastIndex - match[0].length);
-				currentParent.appendChild(new TextNode(text, currentParent));
+			if (lastTextPos + match[0].length < tagEndPos) {
+				const text = data.substring(lastTextPos, tagStartPos);
+				currentParent.appendChild(new TextNode(text, currentParent, createRange(lastTextPos, tagStartPos)));
 			}
 		}
+
 		lastTextPos = kMarkupPattern.lastIndex;
-		if (match[2] === frameflag) {
-			continue;
-		}
+
+		// https://github.com/taoqf/node-html-parser/issues/38
+		// Skip frameflag node
+		if (match[2] === frameflag) continue;
+
+		// Handle comments
 		if (match[0][1] === '!') {
-			// this is a comment
 			if (options.comment) {
 				// Only keep what is in between <!-- and -->
-				const text = data.substring(lastTextPos - 3, lastTextPos - match[0].length + 4);
-				currentParent.appendChild(new CommentNode(text, currentParent));
+				const text = data.substring(tagStartPos + 4, tagEndPos - 3);
+				currentParent.appendChild(new CommentNode(text, currentParent, createRange(tagStartPos, tagEndPos)));
 			}
 			continue;
 		}
-		if (options.lowerCaseTagName) {
-			match[2] = match[2].toLowerCase();
-		}
+
+		/* -- Handle tag matching -- */
+		// Fix tag casing if necessary
+		if (options.lowerCaseTagName) match[2] = match[2].toLowerCase();
+
+		// Handle opening tags (ie. <this> not </that>)
 		if (!match[1]) {
-			// not </ tags
+			/* Populate attributes */
 			const attrs = {};
 			for (let attMatch; (attMatch = kAttributePattern.exec(match[3]));) {
 				attrs[attMatch[2].toLowerCase()] = attMatch[4] || attMatch[5] || attMatch[6];
 			}
 
 			const tagName = currentParent.rawTagName as 'LI' | 'P' | 'B' | 'TD' | 'TH' | 'H1' | 'H2' | 'H3' | 'H4' | 'H5' | 'H6' | 'li' | 'p' | 'b' | 'td' | 'th' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+
 			if (!match[4] && kElementsClosedByOpening[tagName]) {
 				if (kElementsClosedByOpening[tagName][match[2]]) {
 					stack.pop();
 					currentParent = arr_back(stack);
 				}
 			}
-			// ignore container tag we add above
-			// https://github.com/taoqf/node-html-parser/issues/38
-			currentParent = currentParent.appendChild(new HTMLElement(match[2], attrs, match[3], null));
+
+			const tagEndPos = kMarkupPattern.lastIndex;
+			const tagStartPos = tagEndPos - match[0].length;
+
+			currentParent = currentParent.appendChild(
+				// Initialize range (end position updated later for closed tags)
+				new HTMLElement(match[2], attrs, match[3], null, createRange(tagStartPos, tagEndPos))
+			);
 			stack.push(currentParent);
+
 			if (is_block_text_element(match[2])) {
-				// a little test to find next </script> or </style> ...
+				// Find closing tag
 				const closeMarkup = `</${match[2]}>`;
-				const index = (() => {
-					if (options.lowerCaseTagName) {
-						return data.toLocaleLowerCase().indexOf(closeMarkup, kMarkupPattern.lastIndex);
-					}
-					return data.indexOf(closeMarkup, kMarkupPattern.lastIndex);
-				})();
+				const closeIndex = options.lowerCaseTagName
+													 ? data.toLocaleLowerCase().indexOf(closeMarkup, kMarkupPattern.lastIndex)
+													 : data.indexOf(closeMarkup, kMarkupPattern.lastIndex);
+				const textEndPos = closeIndex === -1 ? dataEndPos : closeIndex;
+
 				if (element_should_be_ignore(match[2])) {
-					let text: string;
-					if (index === -1) {
-						// there is no matching ending for the text element.
-						text = data.substr(kMarkupPattern.lastIndex);
-					} else {
-						text = data.substring(kMarkupPattern.lastIndex, index);
-					}
-					if (text.length > 0) {
-						currentParent.appendChild(new TextNode(text, currentParent));
+					const text = data.substring(tagEndPos, textEndPos);
+					if (text.length > 0 && /\S/.test(text)) {
+						currentParent.appendChild(new TextNode(text, currentParent, createRange(tagEndPos, textEndPos)));
 					}
 				}
-				if (index === -1) {
+
+				if (closeIndex === -1) {
 					lastTextPos = kMarkupPattern.lastIndex = data.length + 1;
 				} else {
-					lastTextPos = kMarkupPattern.lastIndex = index + closeMarkup.length;
+					lastTextPos = kMarkupPattern.lastIndex = closeIndex + closeMarkup.length;
+					// Cause to be treated as self-closing, because no close found
 					match[1] = 'true';
 				}
 			}
 		}
+
+		// Handle closing tags or self-closed elements (ie </tag> or <br>)
 		if (match[1] || match[4] || kSelfClosingElements[match[2]]) {
-			// </ or /> or <br> etc.
 			while (true) {
 				if (currentParent.rawTagName === match[2]) {
+					// Update range end for closed tag
+					(<[ number, number ]>currentParent.range)[1] = createRange(-1, Math.max(lastTextPos, tagEndPos))[1];
 					stack.pop();
 					currentParent = arr_back(stack);
 					break;
