@@ -11,7 +11,7 @@
 		"clean": "del-cli ./dist/",
 		"ts:cjs": "tsc -m commonjs",
 		"ts:amd": "tsc -t es5 -m amd -d false --outFile ./dist/main.js",
-		"ts:esm": "tsc -t esnext -m es2019 -d false --outDir ./dist/esm/",
+		"ts:esm": "tsc -t esnext -m es2015 -d false --outDir ./dist/esm/",
 		"build": "npm run lint && npm run clean && npm run ts:cjs && npm run ts:amd && npm run ts:esm",
 		"dev": "tsc -w & mocha -w ./test/*.js",
 		"pretest": "tsc -m commonjs",
