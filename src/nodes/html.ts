@@ -202,7 +202,7 @@ export default class HTMLElement extends Node {
 		keyAttrs: KeyAttributes,
 		private rawAttrs = '',
 		parentNode: HTMLElement | null,
-		range?: [ number, number ]
+		range?: [number, number]
 	) {
 		super(parentNode, range);
 		this.rawTagName = tagName;
@@ -1018,10 +1018,10 @@ export function base_parse(data: string, options = { lowerCaseTagName: false, co
 			return it.test(tag);
 		});
 	}
-	const createRange = (startPos: number, endPos: number): [ number, number ] =>
-		[ startPos - frameFlagOffset, endPos - frameFlagOffset ];
+	const createRange = (startPos: number, endPos: number): [number, number] =>
+		[startPos - frameFlagOffset, endPos - frameFlagOffset];
 
-	const root = new HTMLElement(null, {}, '', null, [ 0, data.length ]);
+	const root = new HTMLElement(null, {}, '', null, [0, data.length]);
 	let currentParent = root;
 	const stack = [root];
 	let lastTextPos = -1;
@@ -1081,13 +1081,11 @@ export function base_parse(data: string, options = { lowerCaseTagName: false, co
 				}
 			}
 
-				// console.error('111111111111111111', currentParent.rawTagName);
-				// console.error('22222222222222222222', match);
-				if (currentParent.rawTagName === 'a' && match[2] === 'a') {
-							stack.pop();
-							currentParent = arr_back(stack);
-				}
-			
+			if (currentParent.rawTagName === 'a' && match[2] === 'a') {
+				stack.pop();
+				currentParent = arr_back(stack);
+			}
+
 			const tagEndPos = kMarkupPattern.lastIndex;
 			const tagStartPos = tagEndPos - match[0].length;
 
@@ -1101,8 +1099,8 @@ export function base_parse(data: string, options = { lowerCaseTagName: false, co
 				// Find closing tag
 				const closeMarkup = `</${match[2]}>`;
 				const closeIndex = options.lowerCaseTagName
-													 ? data.toLocaleLowerCase().indexOf(closeMarkup, kMarkupPattern.lastIndex)
-													 : data.indexOf(closeMarkup, kMarkupPattern.lastIndex);
+					? data.toLocaleLowerCase().indexOf(closeMarkup, kMarkupPattern.lastIndex)
+					: data.indexOf(closeMarkup, kMarkupPattern.lastIndex);
 				const textEndPos = closeIndex === -1 ? dataEndPos : closeIndex;
 
 				if (element_should_be_ignore(match[2])) {
@@ -1127,7 +1125,7 @@ export function base_parse(data: string, options = { lowerCaseTagName: false, co
 			while (true) {
 				if (currentParent.rawTagName === match[2]) {
 					// Update range end for closed tag
-					(<[ number, number ]>currentParent.range)[1] = createRange(-1, Math.max(lastTextPos, tagEndPos))[1];
+					(<[number, number]>currentParent.range)[1] = createRange(-1, Math.max(lastTextPos, tagEndPos))[1];
 					stack.pop();
 					currentParent = arr_back(stack);
 					break;
