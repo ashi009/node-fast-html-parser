@@ -1,4 +1,4 @@
-const { parse, TextNode, HTMLElement } = require('../dist');
+const { parse } = require('../dist');
 
 describe('pr 135', function () {
 	it('shoud not decode text', function () {
