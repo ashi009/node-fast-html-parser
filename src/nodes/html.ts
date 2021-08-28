@@ -1081,6 +1081,13 @@ export function base_parse(data: string, options = { lowerCaseTagName: false, co
 				}
 			}
 
+				// console.error('111111111111111111', currentParent.rawTagName);
+				// console.error('22222222222222222222', match);
+				if (currentParent.rawTagName === 'a' && match[2] === 'a') {
+							stack.pop();
+							currentParent = arr_back(stack);
+				}
+			
 			const tagEndPos = kMarkupPattern.lastIndex;
 			const tagStartPos = tagEndPos - match[0].length;
 
