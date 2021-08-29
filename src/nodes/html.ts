@@ -9,6 +9,30 @@ import CommentNode from './comment';
 
 // const { decode } = he;
 
+type IRawTagName =
+	| 'LI'
+	| 'P'
+	| 'B'
+	| 'TD'
+	| 'TH'
+	| 'H1'
+	| 'H2'
+	| 'H3'
+	| 'H4'
+	| 'H5'
+	| 'H6'
+	| 'li'
+	| 'p'
+	| 'b'
+	| 'td'
+	| 'th'
+	| 'h1'
+	| 'h2'
+	| 'h3'
+	| 'h4'
+	| 'h5'
+	| 'h6';
+
 function decode(val: string) {
 	// clone string
 	return JSON.parse(JSON.stringify(he.decode(val))) as string;
@@ -30,89 +54,38 @@ export interface RawAttributes {
 export type InsertPosition = 'beforebegin' | 'afterbegin' | 'beforeend' | 'afterend';
 
 // https://developer.mozilla.org/en-US/docs/Web/HTML/Block-level_elements
+const Htags = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'header', 'hgroup'];
+const Dtags = ['details', 'dialog', 'dd', 'div', 'dt'];
+const Ftags = ['fieldset', 'figcaption', 'figure', 'footer', 'form'];
+const tableTags = ['table', 'td', 'tr'];
+const htmlTags = ['address', 'article', 'aside', 'blockquote', 'br', 'hr', 'li', 'main', 'nav', 'ol', 'p', 'pre', 'section', 'ul'];
 const kBlockElements = new Set<string>();
-kBlockElements.add('address');
-kBlockElements.add('ADDRESS');
-kBlockElements.add('article');
-kBlockElements.add('ARTICLE');
-kBlockElements.add('aside');
-kBlockElements.add('ASIDE');
-kBlockElements.add('blockquote');
-kBlockElements.add('BLOCKQUOTE');
-kBlockElements.add('br');
-kBlockElements.add('BR');
-kBlockElements.add('details');
-kBlockElements.add('DETAILS');
-kBlockElements.add('dialog');
-kBlockElements.add('DIALOG');
-kBlockElements.add('dd');
-kBlockElements.add('DD');
-kBlockElements.add('div');
-kBlockElements.add('DIV');
-kBlockElements.add('dl');
-kBlockElements.add('DL');
-kBlockElements.add('dt');
-kBlockElements.add('DT');
-kBlockElements.add('fieldset');
-kBlockElements.add('FIELDSET');
-kBlockElements.add('figcaption');
-kBlockElements.add('FIGCAPTION');
-kBlockElements.add('figure');
-kBlockElements.add('FIGURE');
-kBlockElements.add('footer');
-kBlockElements.add('FOOTER');
-kBlockElements.add('form');
-kBlockElements.add('FORM');
-kBlockElements.add('h1');
-kBlockElements.add('H1');
-kBlockElements.add('h2');
-kBlockElements.add('H2');
-kBlockElements.add('h3');
-kBlockElements.add('H3');
-kBlockElements.add('h4');
-kBlockElements.add('H4');
-kBlockElements.add('h5');
-kBlockElements.add('H5');
-kBlockElements.add('h6');
-kBlockElements.add('H6');
-kBlockElements.add('header');
-kBlockElements.add('HEADER');
-kBlockElements.add('hgroup');
-kBlockElements.add('HGROUP');
-kBlockElements.add('hr');
-kBlockElements.add('HR');
-kBlockElements.add('li');
-kBlockElements.add('LI');
-kBlockElements.add('main');
-kBlockElements.add('MAIN');
-kBlockElements.add('nav');
-kBlockElements.add('NAV');
-kBlockElements.add('ol');
-kBlockElements.add('OL');
-kBlockElements.add('p');
-kBlockElements.add('P');
-kBlockElements.add('pre');
-kBlockElements.add('PRE');
-kBlockElements.add('section');
-kBlockElements.add('SECTION');
-kBlockElements.add('table');
-kBlockElements.add('TABLE');
-kBlockElements.add('td');
-kBlockElements.add('TD');
-kBlockElements.add('tr');
-kBlockElements.add('TR');
-kBlockElements.add('ul');
-kBlockElements.add('UL');
+
+function addToKBlockElement(...args: string[][]) {
+	const addToSet = (array: string[]) => {
+		for (let index = 0; index < array.length; index++) {
+			const element = array[index];
+			kBlockElements.add(element);
+			kBlockElements.add(element.toUpperCase());
+		}
+	};
+
+	for (const arg of args) addToSet(arg);
+}
+
+addToKBlockElement(Htags, Dtags, Ftags, tableTags, htmlTags);
 
 class DOMTokenList {
 	private _set: Set<string>;
-	private _afterUpdate: ((t: DOMTokenList) => void);
+	private _afterUpdate: (t: DOMTokenList) => void;
 	private _validate(c: string) {
 		if (/\s/.test(c)) {
-			throw new Error(`DOMException in DOMTokenList.add: The token '${c}' contains HTML space characters, which are not valid in tokens.`);
+			throw new Error(
+				`DOMException in DOMTokenList.add: The token '${c}' contains HTML space characters, which are not valid in tokens.`
+			);
 		}
 	}
-	public constructor(valuesInit: string[] = [], afterUpdate: ((t: DOMTokenList) => void) = (() => null)) {
+	public constructor(valuesInit: string[] = [], afterUpdate: (t: DOMTokenList) => void = () => null) {
 		this._set = new Set(valuesInit);
 		this._afterUpdate = afterUpdate;
 	}
@@ -128,8 +101,7 @@ class DOMTokenList {
 		this._afterUpdate(this); // eslint-disable-line @typescript-eslint/no-unsafe-call
 	}
 	public remove(c: string) {
-		this._set.delete(c) &&
-			this._afterUpdate(this); // eslint-disable-line @typescript-eslint/no-unsafe-call
+		this._set.delete(c) && this._afterUpdate(this); // eslint-disable-line @typescript-eslint/no-unsafe-call
 	}
 	public toggle(c: string) {
 		this._validate(c);
@@ -154,7 +126,6 @@ class DOMTokenList {
 	}
 }
 
-
 /**
  * HTMLElement, which contains a set of children.
  *
@@ -167,7 +138,7 @@ class DOMTokenList {
 export default class HTMLElement extends Node {
 	private _attrs: Attributes;
 	private _rawAttrs: RawAttributes;
-	public rawTagName: string;	// there is not friend funciton in es
+	public rawTagName: string; // there is not friend funciton in es
 	public id: string;
 	public classList: DOMTokenList;
 
@@ -184,7 +155,7 @@ export default class HTMLElement extends Node {
 
 	private quoteAttribute(attr: string) {
 		if (attr === null) {
-			return "null";
+			return 'null';
 		}
 
 		return JSON.stringify(attr.replace(/"/g, '&quot;'));
@@ -211,9 +182,7 @@ export default class HTMLElement extends Node {
 		this.childNodes = [];
 		this.classList = new DOMTokenList(
 			keyAttrs.class ? keyAttrs.class.split(/\s+/) : [],
-			(classList) => (
-				this.setAttribute('class', classList.toString()) // eslint-disable-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-			)
+			(classList) => this.setAttribute('class', classList.toString()) // eslint-disable-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
 		);
 		if (keyAttrs.id) {
 			if (!rawAttrs) {
@@ -249,7 +218,7 @@ export default class HTMLElement extends Node {
 	 */
 	public removeChild(node: Node) {
 		this.childNodes = this.childNodes.filter((child) => {
-			return (child !== node);
+			return child !== node;
 		});
 	}
 	/**
@@ -309,11 +278,11 @@ export default class HTMLElement extends Node {
 			if (node.nodeType === NodeType.ELEMENT_NODE) {
 				if (kBlockElements.has((node as HTMLElement).rawTagName)) {
 					if (currentBlock.length > 0) {
-						blocks.push(currentBlock = []);
+						blocks.push((currentBlock = []));
 					}
 					node.childNodes.forEach(dfs);
 					if (currentBlock.length > 0) {
-						blocks.push(currentBlock = []);
+						blocks.push((currentBlock = []));
 					}
 				} else {
 					node.childNodes.forEach(dfs);
@@ -333,11 +302,12 @@ export default class HTMLElement extends Node {
 			}
 		}
 		dfs(this);
-		return blocks.map((block) => {
-			// Normalize each line's whitespace
-			return block.join('').replace(/\s{2,}/g, ' ');
-		})
-			.join('\n').replace(/\s+$/, '');	// trimRight;
+		return blocks
+			.map((block) => {
+				return block.join('').replace(/\s{2,}/g, ' '); // Normalize each line's whitespace
+			})
+			.join('\n')
+			.replace(/\s+$/, ''); // trimRight;
 	}
 
 	public toString() {
@@ -356,9 +326,11 @@ export default class HTMLElement extends Node {
 	}
 
 	public get innerHTML() {
-		return this.childNodes.map((child) => {
-			return child.toString();
-		}).join('');
+		return this.childNodes
+			.map((child) => {
+				return child.toString();
+			})
+			.join('');
 	}
 
 	public set innerHTML(content: string) {
@@ -378,16 +350,18 @@ export default class HTMLElement extends Node {
 	}
 
 	public replaceWith(...nodes: (string | Node)[]) {
-		const content = nodes.map((node) => {
-			if (node instanceof Node) {
-				return [node];
-			} else if (typeof node == 'string') {
-				// const r = parse(content, global.options); // TODO global.options ?
-				const r = parse(node);
-				return r.childNodes.length ? r.childNodes : [new TextNode(node, this)];
-			}
-			return [];
-		}).flat();
+		const content = nodes
+			.map((node) => {
+				if (node instanceof Node) {
+					return [node];
+				} else if (typeof node == 'string') {
+					// const r = parse(content, global.options); // TODO global.options ?
+					const r = parse(node);
+					return r.childNodes.length ? r.childNodes : [new TextNode(node, this)];
+				}
+				return [];
+			})
+			.flat();
 		const idx = this.parentNode.childNodes.findIndex((child) => {
 			return child === this;
 		});
@@ -434,8 +408,8 @@ export default class HTMLElement extends Node {
 			res.push('  '.repeat(indention) + str);
 		}
 		function dfs(node: HTMLElement) {
-			const idStr = node.id ? (`#${node.id}`) : '';
-			const classStr = node.classList.length ? (`.${node.classList.value.join('.')}`) : ''; // eslint-disable-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/restrict-template-expressions, @typescript-eslint/no-unsafe-call
+			const idStr = node.id ? `#${node.id}` : '';
+			const classStr = node.classList.length ? `.${node.classList.value.join('.')}` : ''; // eslint-disable-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/restrict-template-expressions, @typescript-eslint/no-unsafe-call
 			write(`${node.rawTagName}${idStr}${classStr}`);
 			indention++;
 			node.childNodes.forEach((childNode) => {
@@ -480,10 +454,9 @@ export default class HTMLElement extends Node {
 	 * @return {HTMLElement[]}  matching elements
 	 */
 	public querySelectorAll(selector: string): HTMLElement[] {
-
 		return selectAll(selector, this as HTMLElement, {
 			xmlMode: true,
-			adapter: Matcher
+			adapter: Matcher,
 		});
 
 		// let matcher: Matcher;
@@ -553,7 +526,7 @@ export default class HTMLElement extends Node {
 	public querySelector(selector: string) {
 		return selectOne(selector, this as HTMLElement, {
 			xmlMode: true,
-			adapter: Matcher
+			adapter: Matcher,
 		});
 		// let matcher: Matcher;
 		// if (selector instanceof Matcher) {
@@ -641,8 +614,8 @@ export default class HTMLElement extends Node {
 					findOne,
 					findAll(): Node[] {
 						return [];
-					}
-				}
+					},
+				},
 			});
 			if (e) {
 				return e;
@@ -718,7 +691,7 @@ export default class HTMLElement extends Node {
 		}
 		const attrs = {} as RawAttributes;
 		if (this.rawAttrs) {
-			const re = /([a-z()#][a-z0-9-_:()#]*)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|(\S+)))?/ig;
+			const re = /([a-z()#][a-z0-9-_:()#]*)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|(\S+)))?/gi;
 			let match: RegExpExecArray;
 			while ((match = re.exec(this.rawAttrs))) {
 				attrs[match[1]] = match[2] || match[3] || match[4] || null;
@@ -736,13 +709,15 @@ export default class HTMLElement extends Node {
 			delete this._attrs[key];
 		}
 		// Update rawString
-		this.rawAttrs = Object.keys(attrs).map((name) => {
-			const val = JSON.stringify(attrs[name]);
-			if (val === undefined || val === 'null') {
-				return name;
-			}
-			return `${name}=${val}`;
-		}).join(' ');
+		this.rawAttrs = Object.keys(attrs)
+			.map((name) => {
+				const val = JSON.stringify(attrs[name]);
+				if (val === undefined || val === 'null') {
+					return name;
+				}
+				return `${name}=${val}`;
+			})
+			.join(' ');
 		// Update this.id
 		if (key === 'id') {
 			this.id = '';
@@ -768,7 +743,7 @@ export default class HTMLElement extends Node {
 	 */
 	public setAttribute(key: string, value: string) {
 		if (arguments.length < 2) {
-			throw new Error('Failed to execute \'setAttribute\' on \'Element\'');
+			throw new Error("Failed to execute 'setAttribute' on 'Element'");
 		}
 		const k2 = key.toLowerCase();
 		const attrs = this.rawAttributes;
@@ -784,13 +759,13 @@ export default class HTMLElement extends Node {
 			this._attrs[k2] = decode(attrs[key]);
 		}
 		// Update rawString
-		this.rawAttrs = Object.keys(attrs).map((name) => {
-			const val = this.quoteAttribute(attrs[name]);
-			if (val === 'null' || val === '""') {
-				return name;
-			}
-			return `${name}=${val}`;
-		}).join(' ');
+		this.rawAttrs = Object.keys(attrs)
+			.map((name) => {
+				const val = this.quoteAttribute(attrs[name]);
+				if (val === 'null' || val === '""') return name;
+				return `${name}=${val}`;
+			})
+			.join(' ');
 		// Update this.id
 		if (key === 'id') {
 			this.id = value;
@@ -811,14 +786,13 @@ export default class HTMLElement extends Node {
 			delete this._rawAttrs;
 		}
 		// Update rawString
-		this.rawAttrs = Object.keys(attributes).map((name) => {
-			const val = attributes[name];
-			if (val === 'null' || val === '""') {
-				return name;
-			}
-			return `${name}=${this.quoteAttribute(String(val))}`;
-
-		}).join(' ');
+		this.rawAttrs = Object.keys(attributes)
+			.map((name) => {
+				const val = attributes[name];
+				if (val === 'null' || val === '""') return name;
+				return `${name}=${this.quoteAttribute(String(val))}`;
+			})
+			.join(' ');
 	}
 
 	public insertAdjacentHTML(where: InsertPosition, html: string) {
@@ -853,7 +827,9 @@ export default class HTMLElement extends Node {
 				}
 			});
 		} else {
-			throw new Error(`The value provided ('${where as string}') is not one of 'beforebegin', 'afterbegin', 'beforeend', or 'afterend'`);
+			throw new Error(
+				`The value provided ('${where as string}') is not one of 'beforebegin', 'afterbegin', 'beforeend', or 'afterend'`
+			);
 		}
 		// if (!where || html === undefined || html === null) {
 		// 	return;
@@ -866,9 +842,7 @@ export default class HTMLElement extends Node {
 			let i = 0;
 			while (i < children.length) {
 				const child = children[i++];
-				if (this === child) {
-					return children[i] || null;
-				}
+				if (this === child) return children[i] || null;
 			}
 			return null;
 		}
@@ -899,12 +873,12 @@ export default class HTMLElement extends Node {
 }
 
 // https://html.spec.whatwg.org/multipage/custom-elements.html#valid-custom-element-name
-const kMarkupPattern = /<!--[^]*?(?=-->)-->|<(\/?)([a-z][-.:0-9_a-z]*)\s*([^>]*?)(\/?)>/ig;
+const kMarkupPattern = /<!--[^]*?(?=-->)-->|<(\/?)([a-z][-.:0-9_a-z]*)\s*((?=[/>]*?)|(?:.*?[\s\d/'"])|(?:.*?[\w]))(\/?)>/gi;
 // <(?<tag>[^\s]*)(.*)>(.*)</\k<tag>>
 // <([a-z][-.:0-9_a-z]*)\s*\/>
 // <(area|base|br|col|hr|img|input|link|meta|source)\s*(.*)\/?>
 // <(area|base|br|col|hr|img|input|link|meta|source)\s*(.*)\/?>|<(?<tag>[^\s]*)(.*)>(.*)</\k<tag>>
-const kAttributePattern = /(^|\s)(id|class)\s*=\s*("([^"]*)"|'([^']*)'|(\S+))/ig;
+const kAttributePattern = /(^|\s)(id|class)\s*=\s*("([^"]*)"|'([^']*)'|(\S+))/gi;
 const kSelfClosingElements = {
 	area: true,
 	AREA: true,
@@ -933,7 +907,7 @@ const kSelfClosingElements = {
 	track: true,
 	TRACK: true,
 	wbr: true,
-	WBR: true
+	WBR: true,
 };
 const kElementsClosedByOpening = {
 	li: { li: true, LI: true },
@@ -957,7 +931,7 @@ const kElementsClosedByOpening = {
 	h5: { h5: true, H5: true },
 	H5: { h5: true, H5: true },
 	h6: { h6: true, H6: true },
-	H6: { h6: true, H6: true }
+	H6: { h6: true, H6: true },
 };
 const kElementsClosedByClosing = {
 	li: { ul: true, ol: true, UL: true, OL: true },
@@ -973,7 +947,7 @@ const kElementsClosedByClosing = {
 	td: { tr: true, table: true, TR: true, TABLE: true },
 	TD: { tr: true, table: true, TR: true, TABLE: true },
 	th: { tr: true, table: true, TR: true, TABLE: true },
-	TH: { tr: true, table: true, TR: true, TABLE: true }
+	TH: { tr: true, table: true, TR: true, TABLE: true },
 };
 
 export interface Options {
@@ -997,31 +971,23 @@ export function base_parse(data: string, options = { lowerCaseTagName: false, co
 		script: true,
 		noscript: true,
 		style: true,
-		pre: true
+		pre: true,
 	};
 	const element_names = Object.keys(elements);
-	const kBlockTextElements = element_names.map((it) => {
-		return new RegExp(it, 'i');
-	});
-	const kIgnoreElements = element_names.filter((it) => {
-		return elements[it];
-	}).map((it) => {
-		return new RegExp(it, 'i');
-	});
-	function element_should_be_ignore(tag: string) {
-		return kIgnoreElements.some((it) => {
-			return it.test(tag);
-		});
-	}
-	function is_block_text_element(tag: string) {
-		return kBlockTextElements.some((it) => {
-			return it.test(tag);
-		});
-	}
-	const createRange = (startPos: number, endPos: number): [number, number] =>
-		[startPos - frameFlagOffset, endPos - frameFlagOffset];
+	const kBlockTextElements = element_names.map((it) => new RegExp(it, 'i'));
+	const kIgnoreElements = element_names.filter((it) => elements[it]).map((it) => new RegExp(it, 'i'));
 
+	function element_should_be_ignore(tag: string) {
+		return kIgnoreElements.some((it) => it.test(tag));
+	}
+
+	function is_block_text_element(tag: string) {
+		return kBlockTextElements.some((it) => it.test(tag));
+	}
+
+	const createRange = (startPos: number, endPos: number): [number, number] => [startPos - frameFlagOffset, endPos - frameFlagOffset];
 	const root = new HTMLElement(null, {}, '', null, [0, data.length]);
+
 	let currentParent = root;
 	const stack = [root];
 	let lastTextPos = -1;
@@ -1068,11 +1034,11 @@ export function base_parse(data: string, options = { lowerCaseTagName: false, co
 		if (!match[1]) {
 			/* Populate attributes */
 			const attrs = {};
-			for (let attMatch; (attMatch = kAttributePattern.exec(match[3]));) {
+			for (let attMatch; (attMatch = kAttributePattern.exec(match[3])); ) {
 				attrs[attMatch[2].toLowerCase()] = attMatch[4] || attMatch[5] || attMatch[6];
 			}
 
-			const tagName = currentParent.rawTagName as 'LI' | 'P' | 'B' | 'TD' | 'TH' | 'H1' | 'H2' | 'H3' | 'H4' | 'H5' | 'H6' | 'li' | 'p' | 'b' | 'td' | 'th' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+			const tagName = currentParent.rawTagName as IRawTagName;
 
 			if (!match[4] && kElementsClosedByOpening[tagName]) {
 				if (kElementsClosedByOpening[tagName][match[2]]) {
@@ -1154,6 +1120,7 @@ export function base_parse(data: string, options = { lowerCaseTagName: false, co
  */
 export function parse(data: string, options = { lowerCaseTagName: false, comment: false } as Partial<Options>) {
 	const stack = base_parse(data, options);
+
 	const [root] = stack;
 	while (stack.length > 1) {
 		// Handle each error elements.
