@@ -19,15 +19,15 @@ describe('issue 144', function () {
 		b.childNodes.length.should.eql(1);
 		b.text.should.eql('link ');
 
-    const a2 = root.childNodes[1];
-    a2.tagName.should.eql('A');
-    a2.nodeType.should.eql(NodeType.ELEMENT_NODE);
-    a2.childNodes.length.should.eql(1);
-    a2.childNodes[0].nodeType.should.eql(NodeType.TEXT_NODE);
-    a2.text.should.eql('nested link');
+		const a2 = root.childNodes[1];
+		a2.tagName.should.eql('A');
+		a2.nodeType.should.eql(NodeType.ELEMENT_NODE);
+		a2.childNodes.length.should.eql(1);
+		a2.childNodes[0].nodeType.should.eql(NodeType.TEXT_NODE);
+		a2.text.should.eql('nested link');
 
 		const endText = root.childNodes[2];
-    endText.nodeType.should.eql(NodeType.TEXT_NODE);
-    endText.textContent.should.eql(' end');
+		endText.nodeType.should.eql(NodeType.TEXT_NODE);
+		endText.textContent.should.eql(' end');
 	});
 });
