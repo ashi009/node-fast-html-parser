@@ -1083,7 +1083,7 @@ export function base_parse(data: string, options = { lowerCaseTagName: false, co
 			}
 
 			// Prevent nested A tags by terminating the last A and starting a new one : see issue #144
-			if (match[2] === 'a') {
+			if (match[2] === 'a' || match[2] === 'A') {
 				if (noNestedTagIndex !== undefined) {
 					stack.splice(noNestedTagIndex);
 					currentParent = arr_back(stack);
@@ -1128,7 +1128,7 @@ export function base_parse(data: string, options = { lowerCaseTagName: false, co
 		// Handle closing tags or self-closed elements (ie </tag> or <br>)
 		if (match[1] || match[4] || kSelfClosingElements[match[2]]) {
 			while (true) {
-				if (match[2] === 'a') noNestedTagIndex = undefined;
+				if (match[2] === 'a' || match[2] === 'A') noNestedTagIndex = undefined;
 				if (currentParent.rawTagName === match[2]) {
 					// Update range end for closed tag
 					(<[number, number]>currentParent.range)[1] = createRange(-1, Math.max(lastTextPos, tagEndPos))[1];

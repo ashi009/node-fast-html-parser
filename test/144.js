@@ -1,12 +1,13 @@
 const { parse, NodeType } = require('../dist');
 
+// Also see comments on https://github.com/taoqf/node-html-parser/pull/148 for additional issues corrected
 describe('issue 144', function () {
 	it('Nested A tags parsed improperly', function () {
-		const html = `<a href="#"><b>link <a href="#">nested link</a> end</b></a>`;
+		const html = `<A href="#"><b>link <a href="#">nested link</a> end</b></A>`;
 
 		const root = parse(html);
 
-		root.innerHTML.should.eql(`<a href="#"><b>link </b></a><a href="#">nested link</a> end`);
+		root.innerHTML.should.eql(`<A href="#"><b>link </b></A><a href="#">nested link</a> end`);
 		root.childNodes.length.should.eql(3);
 
 		const a1 = root.childNodes[0];
