@@ -1,1 +1,1 @@
-require: blanket,should,spec,"ts-node/register"
+require: blanket,should,spec,ts-node/register
