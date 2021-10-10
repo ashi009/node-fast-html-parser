@@ -11,7 +11,7 @@
 		"compile:amd": "tsc -t es5 -m amd -d false --outFile ./dist/main.js",
 		"lint": "eslint ./src/*.ts ./src/**/*.ts",
 		"---------------": "",
-		"test": "mocha ./test/tests/**/*.js",
+		"test": "yarn run test:target",
 		"test:src": "cross-env TEST_TARGET=src yarn run test",
 		"test:dist": "cross-env TEST_TARGET=dist yarn run test",
 		"benchmark": "node ./test/benchmark/compare.mjs",
@@ -20,6 +20,8 @@
 		"clean:global": "yarn run clean && npx rimraf yarn.lock test/yarn.lock test/node_modules node_modules",
 		"reset": "yarn run clean:global && yarn install && yarn build",
 		"--------------- ": "",
+        "test:target": "mocha --recursive \"./test/tests\"",
+        "test:ci": "cross-env TEST_TARGET=dist yarn run test:target",
 		"posttest": "yarn run benchmark",
 		"prepare": "cd test && yarn install"
 	},
