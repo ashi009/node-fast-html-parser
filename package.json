@@ -1,26 +1,26 @@
 {
 	"name": "node-html-parser",
-	"version": "4.1.5",
+	"version": "5.0.0",
 	"description": "A very fast HTML parser, generating a simplified DOM, with basic element query support.",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"scripts": {
-        "compile": "tsc",
-        "build": "npm run lint && npm run clean && npm run compile:cjs && npm run compile:amd",
-        "compile:cjs": "tsc -m commonjs",
-        "compile:amd": "tsc -t es5 -m amd -d false --outFile ./dist/main.js",
-        "lint": "eslint ./src/*.ts ./src/**/*.ts",
-        "---------------": "",
+		"compile": "tsc",
+		"build": "npm run lint && npm run clean && npm run compile:cjs && npm run compile:amd",
+		"compile:cjs": "tsc -m commonjs",
+		"compile:amd": "tsc -t es5 -m amd -d false --outFile ./dist/main.js",
+		"lint": "eslint ./src/*.ts ./src/**/*.ts",
+		"---------------": "",
 		"test": "mocha ./test/tests/**/*.js",
 		"test:src": "cross-env TEST_TARGET=src mocha ./test/tests",
 		"test:dist": "cross-env TEST_TARGET=dist mocha ./test/tests",
-        "benchmark": "node ./test/benchmark/compare.mjs",
-        "---------------  ": "",
+		"benchmark": "node ./test/benchmark/compare.mjs",
+		"---------------  ": "",
 		"clean": "npx rimraf ./dist/",
 		"clean:global": "yarn run clean && npx rimraf yarn.lock test/yarn.lock test/node_modules node_modules",
-        "reset": "yarn run clean:global && yarn install && yarn build",
-        "--------------- ": "",
-        "posttest": "yarn run benchmark",
+		"reset": "yarn run clean:global && yarn install && yarn build",
+		"--------------- ": "",
+		"posttest": "yarn run benchmark",
 		"prepare": "cd test && yarn install"
 	},
 	"keywords": [
@@ -29,9 +29,17 @@
 		"nodejs",
 		"typescript"
 	],
+	"files": [
+		"dist",
+		"esm",
+		"README.md",
+		"LICENSE",
+		"CHANGELOG.md"
+	],
 	"author": "Xiaoyi Shi <ashi009@gmail.com>",
 	"contributors": [
-		"taoqf<tao_qiufeng@126.com>"
+		"taoqf <tao_qiufeng@126.com>",
+		"Ron S. <ron@nonara.com>"
 	],
 	"license": "MIT",
 	"publishConfig": {
@@ -50,7 +58,7 @@
 		"@typescript-eslint/parser": "latest",
 		"blanket": "latest",
 		"cheerio": "^1.0.0-rc.5",
-        "rimraf": "^3.0.2",
+		"rimraf": "^3.0.2",
 		"eslint": "^7.32.0",
 		"eslint-config-prettier": "latest",
 		"eslint-plugin-import": "latest",
@@ -68,7 +76,7 @@
 		"travis-cov": "latest",
 		"ts-node": "^10.2.1",
 		"typescript": "latest",
-        "cross-env": "^7.0.3"
+		"cross-env": "^7.0.3"
 	},
 	"config": {
 		"blanket": {
