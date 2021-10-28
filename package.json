@@ -1,6 +1,6 @@
 {
 	"name": "node-html-parser",
-	"version": "5.0.0",
+	"version": "5.1.0",
 	"description": "A very fast HTML parser, generating a simplified DOM, with basic element query support.",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
@@ -20,8 +20,8 @@
 		"clean:global": "yarn run clean && npx rimraf yarn.lock test/yarn.lock test/node_modules node_modules",
 		"reset": "yarn run clean:global && yarn install && yarn build",
 		"--------------- ": "",
-        "test:target": "mocha --recursive \"./test/tests\"",
-        "test:ci": "cross-env TEST_TARGET=dist yarn run test:target",
+		"test:target": "mocha --recursive \"./test/tests\"",
+		"test:ci": "cross-env TEST_TARGET=dist yarn run test:target",
 		"posttest": "yarn run benchmark",
 		"prepare": "cd test && yarn install"
 	},

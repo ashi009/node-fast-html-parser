@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.1.0](https://github.com/taoqf/node-fast-html-parser/compare/v4.1.5...v5.1.0) (2021-10-28)
+
+### Features
+
+* Exposed `HTMLElement#rawAttrs` (made public) ([34f1595](https://github.com/taoqf/node-fast-html-parser/commit/34f1595756c0974b6ae7ef5755a615f09e421f32))
+
 ## [5.0.0](https://github.com/taoqf/node-fast-html-parser/compare/v4.1.5...v5.0.0) (2021-10-10)
 
 
