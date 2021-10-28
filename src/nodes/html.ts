@@ -171,7 +171,7 @@ export default class HTMLElement extends Node {
 	public constructor(
 		tagName: string,
 		keyAttrs: KeyAttributes,
-		private rawAttrs = '',
+		public rawAttrs = '',
 		parentNode: HTMLElement | null,
 		range?: [number, number]
 	) {
