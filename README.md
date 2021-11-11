@@ -19,7 +19,8 @@ npm install --save node-html-parser
 
 ## Performance
 
-```shellhtmlparser2        : 2.63714 ms/file ± 4.30057
+```shell
+htmlparser2        : 2.63714 ms/file ± 4.30057
 html5parser        : 2.84375 ms/file ± 3.54394
 neutron-html5parser: 3.04575 ms/file ± 1.89848
 node-html-parser   : 3.10731 ms/file ± 2.12570
