@@ -238,6 +238,9 @@ export default class HTMLElement extends Node {
 	public get tagName() {
 		return this.rawTagName ? this.rawTagName.toUpperCase() : this.rawTagName;
 	}
+	public set tagName(newname: string) {
+		this.rawTagName = newname.toLowerCase();
+	}
 	public get localName() {
 		return this.rawTagName.toLowerCase();
 	}
