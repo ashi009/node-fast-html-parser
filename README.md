@@ -213,7 +213,7 @@ Get escaped (as-is) text value of current node and its children. May have
 
 ### HTMLElement#tagName
 
-Get tag name of HTMLElement. Notice: the returned value would be an uppercase string.
+Get or Set tag name of HTMLElement. Notice: the returned value would be an uppercase string.
 
 ### HTMLElement#structuredText
 
