@@ -4,6 +4,11 @@
 	"description": "A very fast HTML parser, generating a simplified DOM, with basic element query support.",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
+	"exports": {
+		"require": "./dist/index.js",
+		"import": "./esm/index.js",
+		"types": "./dist/index.d.ts"
+	},
 	"scripts": {
 		"compile": "tsc",
 		"build": "npm run lint && npm run clean && npm run compile:cjs && npm run compile:amd",
@@ -109,9 +114,5 @@
 		"url": "https://github.com/taoqf/node-fast-html-parser/issues"
 	},
 	"homepage": "https://github.com/taoqf/node-fast-html-parser",
-	"sideEffects": false,
-	"exports": {
-		"require": "./dist/index.js",
-		"import": "./esm/index.js"
-	}
+	"sideEffects": false
 }
