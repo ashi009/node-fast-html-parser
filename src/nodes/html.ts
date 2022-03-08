@@ -341,7 +341,7 @@ export default class HTMLElement extends Node {
 		this.childNodes = r.childNodes.length ? r.childNodes : [new TextNode(content, this)];
 	}
 
-	public set_content(content: string | Node | Node[], options = {} as Options) {
+	public set_content(content: string | Node | Node[], options = {} as Partial<Options>) {
 		if (content instanceof Node) {
 			content = [content];
 		} else if (typeof content == 'string') {
