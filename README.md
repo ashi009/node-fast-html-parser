@@ -203,6 +203,10 @@ Get class names.
 
 Clone a node.
 
+#### Node#getElementById(id: string): HTMLElement;
+
+Get element by it's ID.
+
 ## HTMLElement Properties
 
 ### HTMLElement#text
