@@ -199,6 +199,10 @@ Returns true if the classname is already in the classList.
 
 Get class names.
 
+#### Node#clone()
+
+Clone a node.
+
 ## HTMLElement Properties
 
 ### HTMLElement#text

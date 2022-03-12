@@ -8,20 +8,21 @@ import HTMLElement from './html';
 export default abstract class Node {
 	abstract nodeType: NodeType;
 	public childNodes = [] as Node[];
-	public range: readonly [ number, number ];
+	public range: readonly [number, number];
 	abstract text: string;
 	abstract rawText: string;
 	// abstract get rawText(): string;
 	abstract toString(): string;
+	abstract clone(): Node;
 	public constructor(
 		public parentNode = null as HTMLElement | null,
-		range?: [ number, number ]
+		range?: [number, number]
 	) {
 		Object.defineProperty(this, 'range', {
 			enumerable: false,
 			writable: true,
 			configurable: true,
-			value: range ?? [ -1, -1 ]
+			value: range ?? [-1, -1]
 		});
 	}
 	public get innerText() {

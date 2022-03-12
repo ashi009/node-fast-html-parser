@@ -856,6 +856,13 @@ export default class HTMLElement extends Node {
 	public get classNames() {
 		return this.classList.toString();
 	}
+
+	/**
+	 * Clone this Node
+	 */
+	public clone() {
+		return parse(this.toString()).firstChild;
+	}
 }
 
 // https://html.spec.whatwg.org/multipage/custom-elements.html#valid-custom-element-name

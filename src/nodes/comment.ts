@@ -1,9 +1,12 @@
+import HTMLElement from './html';
 import Node from './node';
 import NodeType from './type';
-import HTMLElement from './html';
 
 export default class CommentNode extends Node {
-	public constructor(public rawText: string, parentNode: HTMLElement, range?: [ number, number ]) {
+	public clone(): CommentNode {
+		return new CommentNode(this.rawText, null);
+	}
+	public constructor(public rawText: string, parentNode: HTMLElement, range?: [number, number]) {
 		super(parentNode, range);
 	}
 
