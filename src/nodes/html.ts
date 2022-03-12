@@ -210,7 +210,9 @@ export default class HTMLElement extends Node {
 			this.parentNode.childNodes = children.filter((child) => {
 				return this !== child;
 			});
+			this.parentNode = null;
 		}
+		return this;
 	}
 	/**
 	 * Remove Child element from childNodes array
@@ -220,6 +222,7 @@ export default class HTMLElement extends Node {
 		this.childNodes = this.childNodes.filter((child) => {
 			return child !== node;
 		});
+		return this;
 	}
 	/**
 	 * Exchanges given child with new child
@@ -234,6 +237,7 @@ export default class HTMLElement extends Node {
 			}
 			return child;
 		});
+		return this;
 	}
 	public get tagName() {
 		return this.rawTagName ? this.rawTagName.toUpperCase() : this.rawTagName;
@@ -338,7 +342,10 @@ export default class HTMLElement extends Node {
 	public set innerHTML(content: string) {
 		//const r = parse(content, global.options); // TODO global.options ?
 		const r = parse(content);
-		this.childNodes = r.childNodes.length ? r.childNodes : [new TextNode(content, this)];
+		const nodes = r.childNodes.length ? r.childNodes : [new TextNode(content, this)];
+		resetParent(nodes, this);
+		resetParent(this.childNodes, null);
+		this.childNodes = nodes;
 	}
 
 	public set_content(content: string | Node | Node[], options = {} as Options) {
@@ -348,10 +355,14 @@ export default class HTMLElement extends Node {
 			const r = parse(content, options);
 			content = r.childNodes.length ? r.childNodes : [new TextNode(content, this)];
 		}
+		resetParent(this.childNodes, null);
+		resetParent(content, this);
 		this.childNodes = content;
+		return this;
 	}
 
 	public replaceWith(...nodes: (string | Node)[]) {
+		const parent = this.parentNode;
 		const content = nodes
 			.map((node) => {
 				if (node instanceof Node) {
@@ -364,13 +375,14 @@ export default class HTMLElement extends Node {
 				return [];
 			})
 			.flat();
-		const idx = this.parentNode.childNodes.findIndex((child) => {
+		const idx = parent.childNodes.findIndex((child) => {
 			return child === this;
 		});
-		this.parentNode.childNodes = [
-			...this.parentNode.childNodes.slice(0, idx),
-			...content,
-			...this.parentNode.childNodes.slice(idx + 1),
+		resetParent([this], null);
+		parent.childNodes = [
+			...parent.childNodes.slice(0, idx),
+			...resetParent(content, parent),
+			...parent.childNodes.slice(idx + 1),
 		];
 	}
 
@@ -721,6 +733,7 @@ export default class HTMLElement extends Node {
 		if (key === 'id') {
 			this.id = '';
 		}
+		return this;
 	}
 
 	public hasAttribute(key: string) {
@@ -792,6 +805,7 @@ export default class HTMLElement extends Node {
 				return `${name}=${this.quoteAttribute(String(val))}`;
 			})
 			.join(' ');
+		return this;
 	}
 
 	public insertAdjacentHTML(where: InsertPosition, html: string) {
@@ -803,13 +817,10 @@ export default class HTMLElement extends Node {
 			const idx = this.parentNode.childNodes.findIndex((child) => {
 				return child === this;
 			});
+			resetParent(p.childNodes, this.parentNode);
 			this.parentNode.childNodes.splice(idx + 1, 0, ...p.childNodes);
-			p.childNodes.forEach((n) => {
-				if (n instanceof HTMLElement) {
-					n.parentNode = this.parentNode;
-				}
-			});
 		} else if (where === 'afterbegin') {
+			resetParent(p.childNodes, this);
 			this.childNodes.unshift(...p.childNodes);
 		} else if (where === 'beforeend') {
 			p.childNodes.forEach((n) => {
@@ -819,17 +830,14 @@ export default class HTMLElement extends Node {
 			const idx = this.parentNode.childNodes.findIndex((child) => {
 				return child === this;
 			});
+			resetParent(p.childNodes, this.parentNode);
 			this.parentNode.childNodes.splice(idx, 0, ...p.childNodes);
-			p.childNodes.forEach((n) => {
-				if (n instanceof HTMLElement) {
-					n.parentNode = this.parentNode;
-				}
-			});
 		} else {
 			throw new Error(
 				`The value provided ('${where as string}') is not one of 'beforebegin', 'afterbegin', 'beforeend', or 'afterend'`
 			);
 		}
+		return this;
 		// if (!where || html === undefined || html === null) {
 		// 	return;
 		// }
@@ -1205,4 +1213,11 @@ export function parse(data: string, options = { lowerCaseTagName: false, comment
 	// 	}
 	// });
 	return root;
+}
+
+function resetParent(nodes: Node[], parent: HTMLElement) {
+	return nodes.map((node) => {
+		node.parentNode = parent;
+		return node;
+	});
 }
