@@ -202,19 +202,6 @@ export default class HTMLElement extends Node {
 	}
 
 	/**
-	 * Remove current element
-	 */
-	public remove() {
-		if (this.parentNode) {
-			const children = this.parentNode.childNodes;
-			this.parentNode.childNodes = children.filter((child) => {
-				return this !== child;
-			});
-			this.parentNode = null;
-		}
-		return this;
-	}
-	/**
 	 * Remove Child element from childNodes array
 	 * @param {HTMLElement} node     node to remove
 	 */
@@ -639,7 +626,8 @@ export default class HTMLElement extends Node {
 	 * @return {Node}      node appended
 	 */
 	public appendChild<T extends Node = Node>(node: T) {
-		// node.parentNode = this;
+		// remove the node from it's parent
+		node.remove();
 		this.childNodes.push(node);
 		node.parentNode = this;
 		return node;

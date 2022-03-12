@@ -25,6 +25,19 @@ export default abstract class Node {
 			value: range ?? [-1, -1]
 		});
 	}
+	/**
+	 * Remove current node
+	 */
+	public remove() {
+		if (this.parentNode) {
+			const children = this.parentNode.childNodes;
+			this.parentNode.childNodes = children.filter((child) => {
+				return this !== child;
+			});
+			this.parentNode = null;
+		}
+		return this;
+	}
 	public get innerText() {
 		return this.rawText;
 	}
