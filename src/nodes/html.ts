@@ -7,7 +7,7 @@ import Matcher from '../matcher';
 import arr_back from '../back';
 import CommentNode from './comment';
 
-const voidTags = new Set([ 'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr' ]);
+const voidTags = new Set(['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr']);
 
 type IRawTagName =
 	| 'LI'
@@ -246,8 +246,8 @@ export default class HTMLElement extends Node {
 	}
 
 	public get isVoidElement() {
-	  return voidTags.has(this.localName);
-  }
+		return voidTags.has(this.localName);
+	}
 
 	/**
 	 * Get escpaed (as-it) text value of current node and its children.
@@ -646,9 +646,9 @@ export default class HTMLElement extends Node {
 			const re = /([a-zA-Z()#][a-zA-Z0-9-_:()#]*)(?:\s*=\s*((?:'[^']*')|(?:"[^"]*")|\S+))?/g;
 			let match: RegExpExecArray;
 			while ((match = re.exec(this.rawAttrs))) {
-			  const key = match[1];
-			  let val = match[2] || null;
-			  if (val && (val[0] === `'` || val[0] === `"`)) val = val.slice(1, val.length - 1);
+				const key = match[1];
+				let val = match[2] || null;
+				if (val && (val[0] === `'` || val[0] === `"`)) val = val.slice(1, val.length - 1);
 				attrs[key] = val;
 			}
 		}
@@ -904,6 +904,7 @@ const kElementsClosedByClosing = {
 export interface Options {
 	lowerCaseTagName: boolean;
 	comment: boolean;
+	parseNoneClosedTags?: boolean;
 	blockTextElements: {
 		[tag: string]: boolean;
 	};
@@ -952,10 +953,10 @@ export function base_parse(data: string, options = { lowerCaseTagName: false, co
 	const frameFlagOffset = frameflag.length + 2;
 
 	while ((match = kMarkupPattern.exec(data))) {
-	  // Note: Object destructuring here consistently tests as higher performance than array destructuring
-    // eslint-disable-next-line prefer-const
-	  let { 0: matchText, 1: leadingSlash, 2: tagName, 3: attributes, 4: closingSlash } = match;
-	  const matchLength = matchText.length;
+		// Note: Object destructuring here consistently tests as higher performance than array destructuring
+		// eslint-disable-next-line prefer-const
+		let { 0: matchText, 1: leadingSlash, 2: tagName, 3: attributes, 4: closingSlash } = match;
+		const matchLength = matchText.length;
 		const tagStartPos = kMarkupPattern.lastIndex - matchLength;
 		const tagEndPos = kMarkupPattern.lastIndex;
 
@@ -991,9 +992,9 @@ export function base_parse(data: string, options = { lowerCaseTagName: false, co
 		if (!leadingSlash) {
 			/* Populate attributes */
 			const attrs = {};
-			for (let attMatch; (attMatch = kAttributePattern.exec(attributes)); ) {
-			  const { 1: key, 2: val } = attMatch;
-			  const isQuoted = val[0] === `'` || val[0] === `"`;
+			for (let attMatch; (attMatch = kAttributePattern.exec(attributes));) {
+				const { 1: key, 2: val } = attMatch;
+				const isQuoted = val[0] === `'` || val[0] === `"`;
 				attrs[key.toLowerCase()] = isQuoted ? val.slice(1, val.length - 1) : val;
 			}
 
@@ -1093,17 +1094,24 @@ export function parse(data: string, options = { lowerCaseTagName: false, comment
 		if (last.parentNode && last.parentNode.parentNode) {
 			if (last.parentNode === oneBefore && last.tagName === oneBefore.tagName) {
 				// Pair error case <h3> <h3> handle : Fixes to <h3> </h3>
-				oneBefore.removeChild(last);
-				last.childNodes.forEach((child) => {
-					oneBefore.parentNode.appendChild(child);
-				});
-				stack.pop();
+				// this is wrong, becouse this will put the H3 outside the current right position which should be inside the current Html Element, see issue 152 for more info
+				if (options.parseNoneClosedTags !== true) {
+					oneBefore.removeChild(last);
+					last.childNodes.forEach((child) => {
+						oneBefore.parentNode.appendChild(child);
+					});
+					stack.pop();
+				}
 			} else {
 				// Single error  <div> <h3> </div> handle: Just removes <h3>
-				oneBefore.removeChild(last);
-				last.childNodes.forEach((child) => {
-					oneBefore.appendChild(child);
-				});
+				// Why remove? this is already a HtmlElement and the missing <H3> is already added in this case. see issue 152 for more info
+				// eslint-disable-next-line no-lonely-if
+				if (options.parseNoneClosedTags !== true) {
+					oneBefore.removeChild(last);
+					last.childNodes.forEach((child) => {
+						oneBefore.appendChild(child);
+					});
+				}
 			}
 		} else {
 			// If it's final element just skip.

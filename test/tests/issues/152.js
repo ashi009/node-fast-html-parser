@@ -10,10 +10,22 @@ describe.skip('issue 152', function () {
 </div>`;
 		const root = parse(html);
 		root.toString().should.eql(html);
-		// const div = root.firstChild;
-		// div.getAttribute('#input').should.eql('');
-		// div.getAttribute('(keyup)').should.eql('applyFilter($event)');
-		// div.getAttribute('placeholder').should.eql('Ex. IMEI');
-		// root.innerHTML.should.eql(html);
+	});
+	it('shoud parse attributes right with option parseNoneClosedTags', function () {
+		const html = `<div>
+<div id="chr-content">
+<span>
+  lkjasdkjasdkljakldj
+</div>
+</div>`;
+		const expected = `<div>
+<div id="chr-content">
+<span>
+  lkjasdkjasdkljakldj
+
+</span></div></div>`;
+
+		const root = parse(html, { parseNoneClosedTags: true });
+		root.toString().should.eql(expected);
 	});
 });
