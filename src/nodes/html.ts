@@ -1,11 +1,11 @@
-import he from 'he';
 import { selectAll, selectOne } from 'css-select';
-import Node from './node';
-import NodeType from './type';
-import TextNode from './text';
-import Matcher from '../matcher';
+import he from 'he';
 import arr_back from '../back';
+import Matcher from '../matcher';
 import CommentNode from './comment';
+import Node from './node';
+import TextNode from './text';
+import NodeType from './type';
 
 const voidTags = new Set(['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr']);
 
@@ -810,6 +810,37 @@ export default class HTMLElement extends Node {
 			let find = false;
 			while (i < children.length) {
 				const child = children[i++];
+				if (find) {
+					if (child instanceof HTMLElement) {
+						return child || null;
+					}
+				} else if (this === child) {
+					find = true;
+				}
+			}
+			return null;
+		}
+	}
+
+	public get previousSibling() {
+		if (this.parentNode) {
+			const children = this.parentNode.childNodes;
+			let i = children.length;
+			while (i > 0) {
+				const child = children[--i];
+				if (this === child) return children[i - 1] || null;
+			}
+			return null;
+		}
+	}
+
+	public get previousElementSibling(): HTMLElement {
+		if (this.parentNode) {
+			const children = this.parentNode.childNodes;
+			let i = children.length;
+			let find = false;
+			while (i > 0) {
+				const child = children[--i];
 				if (find) {
 					if (child instanceof HTMLElement) {
 						return child || null;

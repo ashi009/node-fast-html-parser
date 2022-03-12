@@ -247,6 +247,14 @@ Returns a reference to the next child node of the current element's parent.
 
 Returns a reference to the next child element of the current element's parent.
 
+### HTMLElement#previousSibling
+
+Returns a reference to the previous child node of the current element's parent.
+
+### HTMLElement#previousElementSibling
+
+Returns a reference to the previous child element of the current element's parent.
+
 ### HTMLElement#textContent
 
 Get or Set textContent of current element, more efficient than [set_content](#htmlelementset_contentcontent-string--node--node).
