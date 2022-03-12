@@ -2,10 +2,10 @@ name: Build (CI)
 
 on:
   pull_request:
-    branches: [ main ]
-    types: [ opened, synchronize, closed ]
+    branches: [main]
+    types: [opened, synchronize, closed]
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
@@ -13,7 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [ 12.x, 14.x, 16.x ]
+        node-version: [12.x, 14.x, 16.x, 17.x]
 
     steps:
       - name: Checkout
