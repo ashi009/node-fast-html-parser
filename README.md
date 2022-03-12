@@ -20,17 +20,17 @@ npm install --save node-html-parser
 ## Performance
 
 ```shell
-cheerio         :12.0726 ms/file ± 7.31605
-parse5          :8.18615 ms/file ± 6.15337
-node-html-parser (last release):2.16533 ms/file ± 1.56924
-htmlparser      :17.0658 ms/file ± 120.901
-htmlparser2     :2.62695 ms/file ± 4.17579
-node-html-parser:2.14907 ms/file ± 1.66632
-html-parser     :24.6505 ms/file ± 18.9996
-htmljs-parser   :5.81797 ms/file ± 6.55537
-html-dom-parser :2.52265 ms/file ± 3.54858
-html5parser     :2.01144 ms/file ± 2.53570
-high5           :3.91342 ms/file ± 2.65563
+html-parser     :24.2329 ms/file ± 18.8092
+htmljs-parser   :4.78952 ms/file ± 5.50403
+html-dom-parser :2.19594 ms/file ± 3.07470
+html5parser     :1.72007 ms/file ± 2.22713
+cheerio         :12.2220 ms/file ± 8.14063
+parse5          :6.77691 ms/file ± 4.12002
+htmlparser2     :2.33526 ms/file ± 3.43847
+htmlparser      :17.6260 ms/file ± 122.314
+high5           :3.85676 ms/file ± 2.48878
+node-html-parser:2.04585 ms/file ± 1.23787
+node-html-parser (last release):2.00236 ms/file ± 1.22263
 ```
 
 Tested with [htmlparser-benchmark](https://github.com/AndreasMadsen/htmlparser-benchmark).

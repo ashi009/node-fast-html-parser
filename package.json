@@ -31,8 +31,8 @@
 		"prepare": "cd test && yarn install"
 	},
 	"keywords": [
-		"parser",
 		"html",
+		"parser",
 		"nodejs",
 		"typescript"
 	],
