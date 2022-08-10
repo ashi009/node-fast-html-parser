@@ -19,18 +19,20 @@ npm install --save node-html-parser
 
 ## Performance
 
+-- 2022-08-10
+
 ```shell
-html-parser     :24.2329 ms/file ± 18.8092
-htmljs-parser   :4.78952 ms/file ± 5.50403
-html-dom-parser :2.19594 ms/file ± 3.07470
-html5parser     :1.72007 ms/file ± 2.22713
-cheerio         :12.2220 ms/file ± 8.14063
-parse5          :6.77691 ms/file ± 4.12002
-htmlparser2     :2.33526 ms/file ± 3.43847
-htmlparser      :17.6260 ms/file ± 122.314
-high5           :3.85676 ms/file ± 2.48878
-node-html-parser:2.04585 ms/file ± 1.23787
-node-html-parser (last release):2.00236 ms/file ± 1.22263
+html-parser     :24.1595 ms/file ± 18.7667
+htmljs-parser   :4.72064 ms/file ± 5.67689
+html-dom-parser :2.18055 ms/file ± 2.96136
+html5parser     :1.69639 ms/file ± 2.17111
+cheerio         :12.2122 ms/file ± 8.10916
+parse5          :6.50626 ms/file ± 4.02352
+htmlparser2     :2.38179 ms/file ± 3.42389
+htmlparser      :17.4820 ms/file ± 128.041
+high5           :3.95188 ms/file ± 2.52313
+node-html-parser:2.04288 ms/file ± 1.25203
+node-html-parser (last release):2.00527 ms/file ± 1.21317
 ```
 
 Tested with [htmlparser-benchmark](https://github.com/AndreasMadsen/htmlparser-benchmark).
@@ -82,6 +84,10 @@ Parse the data provided, and return the root of the generated DOM.
   {
     lowerCaseTagName: false,  // convert tag name to lower case (hurts performance heavily)
     comment: false,            // retrieve comments (hurts performance slightly)
+    voidTag:{
+      tags: ['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'],	// optional and case insensitive, default value is ['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr']
+      addClosingSlash: true     // optional, default false. void tag serialisation, add a final slash <br/>
+    },
     blockTextElements: {
       script: true,	// keep text content when parsing
       noscript: true,	// keep text content when parsing

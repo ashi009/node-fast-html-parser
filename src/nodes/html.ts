@@ -2,12 +2,11 @@ import { selectAll, selectOne } from 'css-select';
 import he from 'he';
 import arr_back from '../back';
 import Matcher from '../matcher';
+import VoidTag from '../void-tag';
 import CommentNode from './comment';
 import Node from './node';
 import TextNode from './text';
 import NodeType from './type';
-
-const voidTags = new Set(['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr']);
 
 type IRawTagName =
 	| 'LI'
@@ -173,7 +172,8 @@ export default class HTMLElement extends Node {
 		keyAttrs: KeyAttributes,
 		public rawAttrs = '',
 		parentNode: HTMLElement | null,
-		range?: [number, number]
+		range: [number, number],
+		private voidTag = new VoidTag()
 	) {
 		super(parentNode, range);
 		this.rawTagName = tagName;
@@ -237,7 +237,7 @@ export default class HTMLElement extends Node {
 	}
 
 	public get isVoidElement() {
-		return voidTags.has(this.localName);
+		return this.voidTag.isVoidElement(this.localName);
 	}
 
 	/**
@@ -313,7 +313,7 @@ export default class HTMLElement extends Node {
 		const tag = this.rawTagName;
 		if (tag) {
 			const attrs = this.rawAttrs ? ` ${this.rawAttrs}` : '';
-			return this.isVoidElement ? `<${tag}${attrs}>` : `<${tag}${attrs}>${this.innerHTML}</${tag}>`;
+			return this.voidTag.formatNode(tag, attrs, this.innerHTML);
 		}
 		return this.innerHTML;
 	}
@@ -986,6 +986,16 @@ export interface Options {
 	blockTextElements: {
 		[tag: string]: boolean;
 	};
+	voidTag?: {
+		/**
+		 * options, default value is ['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr']
+		 */
+		tags?: string[];
+		/**
+		 * void tag serialisation, add a final slash <br/>
+		 */
+		closingSlash?: boolean;
+	}
 }
 
 const frameflag = 'documentfragmentcontainer';
@@ -997,6 +1007,7 @@ const frameflag = 'documentfragmentcontainer';
  * @return {HTMLElement}      root element
  */
 export function base_parse(data: string, options = { lowerCaseTagName: false, comment: false } as Partial<Options>) {
+	const voidTag = new VoidTag(options?.voidTag?.closingSlash, options?.voidTag?.tags);
 	const elements = options.blockTextElements || {
 		script: true,
 		noscript: true,
@@ -1016,7 +1027,7 @@ export function base_parse(data: string, options = { lowerCaseTagName: false, co
 	}
 
 	const createRange = (startPos: number, endPos: number): [number, number] => [startPos - frameFlagOffset, endPos - frameFlagOffset];
-	const root = new HTMLElement(null, {}, '', null, [0, data.length]);
+	const root = new HTMLElement(null, {}, '', null, [0, data.length], voidTag);
 
 	let currentParent = root;
 	const stack = [root];
@@ -1099,7 +1110,7 @@ export function base_parse(data: string, options = { lowerCaseTagName: false, co
 
 			currentParent = currentParent.appendChild(
 				// Initialize range (end position updated later for closed tags)
-				new HTMLElement(tagName, attrs, attributes.slice(1), null, createRange(tagStartPos, tagEndPos))
+				new HTMLElement(tagName, attrs, attributes.slice(1), null, createRange(tagStartPos, tagEndPos), voidTag)
 			);
 			stack.push(currentParent);
 
