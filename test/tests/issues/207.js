@@ -1,6 +1,6 @@
 const { parse } = require('@test/test-target');
 
-// https://github.com/taoqf/node-html-parser/issues/206
+// https://github.com/taoqf/node-html-parser/pull/207
 describe('void tags', function () {
 	it('default', function () {
 		const root = parse('<div><br></div>');
