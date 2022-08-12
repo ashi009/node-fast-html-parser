@@ -1,9 +1,12 @@
 {
-  "name": "esm-test",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "peerDependencies": {
-    "node-html-parser": "*"
-  }
+	"name": "esm-test",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"test": "npx esbuild index.ts --bundle --outfile=index.js && node ./index.js"
+	},
+	"peerDependencies": {
+		"node-html-parser": "*"
+	}
 }
