@@ -1,0 +1,756 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+<title>GeoNames</title>
+<link href="/geonames.ico" rel="shortcut icon">
+<link rel="StyleSheet" href="/geonames.css" type="text/css">
+</head>
+<body>
+<table id=topmenutable><tr>
+<td class="topmenu">&nbsp;<a href="/">GeoNames Home</a>&nbsp;|&nbsp;<a href="/postal-codes/">Postal Codes</a>&nbsp;|&nbsp;<a href="/export/">Download / Webservice</a>&nbsp;|&nbsp;<a href="/about.html">About</a>&nbsp;|</td>
+
+<td class="topsearch">
+   <form class="topsearch" name="searchForm" method="GET" action="/servlet/geonames" >
+
+      search <input class="topmenu" name="q" size="20" value="" type="text">
+     <input type="hidden" name="srv" value="1">
+   </form>
+
+   <span id=topmenulogin>
+<a href="/servlet/geonames?srv=10" title="login or create new user account">login</a>
+
+   </span>
+
+</td></tr>
+</table>
+
+<h3>GeoNames Feature Codes</h3>
+
+
+<center>
+<table width="80%" class="restable">
+<tr><th colspan="3"><a name="A"></a>A country, state, region,...</th></tr>
+<tr><td><a name="A.ADM1"></a>ADM1</td><td> first-order administrative division</td><td> a primary administrative division of a country, such as a state in the United States</td></tr>
+<tr class="odd"><td><a name="A.ADM1H"></a>ADM1H</td><td> historical first-order administrative division</td><td> a former first-order administrative division</td></tr>
+<tr><td><a name="A.ADM2"></a>ADM2</td><td> second-order administrative division</td><td> a subdivision of a first-order administrative division</td></tr>
+<tr class="odd"><td><a name="A.ADM2H"></a>ADM2H</td><td> historical second-order administrative division</td><td> a former second-order administrative division</td></tr>
+<tr><td><a name="A.ADM3"></a>ADM3</td><td> third-order administrative division</td><td> a subdivision of a second-order administrative division</td></tr>
+<tr class="odd"><td><a name="A.ADM3H"></a>ADM3H</td><td> historical third-order administrative division</td><td> a former third-order administrative division</td></tr>
+<tr><td><a name="A.ADM4"></a>ADM4</td><td> fourth-order administrative division</td><td> a subdivision of a third-order administrative division</td></tr>
+<tr class="odd"><td><a name="A.ADM4H"></a>ADM4H</td><td> historical fourth-order administrative division</td><td> a former fourth-order administrative division</td></tr>
+<tr><td><a name="A.ADM5"></a>ADM5</td><td> fifth-order administrative division</td><td> a subdivision of a fourth-order administrative division</td></tr>
+<tr class="odd"><td><a name="A.ADM5H"></a>ADM5H</td><td> historical fifth-order administrative division</td><td> a former fifth-order administrative division</td></tr>
+<tr><td><a name="A.ADMD"></a>ADMD</td><td> administrative division</td><td> an administrative division of a country, undifferentiated as to administrative level</td></tr>
+<tr class="odd"><td><a name="A.ADMDH"></a>ADMDH</td><td> historical administrative division </td><td> a former administrative division of a political entity, undifferentiated as to administrative level</td></tr>
+<tr><td><a name="A.LTER"></a>LTER</td><td> leased area</td><td> a tract of land leased to another country, usually for military installations</td></tr>
+<tr class="odd"><td><a name="A.PCL"></a>PCL</td><td> political entity</td><td></td></tr>
+<tr><td><a name="A.PCLD"></a>PCLD</td><td> dependent political entity</td><td></td></tr>
+<tr class="odd"><td><a name="A.PCLF"></a>PCLF</td><td> freely associated state</td><td></td></tr>
+<tr><td><a name="A.PCLH"></a>PCLH</td><td> historical political entity</td><td> a former political entity</td></tr>
+<tr class="odd"><td><a name="A.PCLI"></a>PCLI</td><td> independent political entity</td><td></td></tr>
+<tr><td><a name="A.PCLIX"></a>PCLIX</td><td> section of independent political entity</td><td></td></tr>
+<tr class="odd"><td><a name="A.PCLS"></a>PCLS</td><td> semi-independent political entity</td><td></td></tr>
+<tr><td><a name="A.PRSH"></a>PRSH</td><td> parish</td><td> an ecclesiastical district</td></tr>
+<tr class="odd"><td><a name="A.TERR"></a>TERR</td><td> territory</td><td></td></tr>
+<tr><td><a name="A.ZN"></a>ZN</td><td> zone</td><td></td></tr>
+<tr class="odd"><td><a name="A.ZNB"></a>ZNB</td><td> buffer zone</td><td> a zone recognized as a buffer between two nations in which military presence is minimal or absent</td></tr>
+<tr><th colspan="3"><a name="H"></a>H stream, lake, ...</th></tr>
+<tr><td><a name="H.AIRS"></a>AIRS</td><td> seaplane landing area</td><td> a place on a waterbody where floatplanes land and take off</td></tr>
+<tr class="odd"><td><a name="H.ANCH"></a>ANCH</td><td> anchorage</td><td> an area where vessels may anchor</td></tr>
+<tr><td><a name="H.BAY"></a>BAY</td><td> bay</td><td> a coastal indentation between two capes or headlands, larger than a cove but smaller than a gulf</td></tr>
+<tr class="odd"><td><a name="H.BAYS"></a>BAYS</td><td> bays</td><td> coastal indentations between two capes or headlands, larger than a cove but smaller than a gulf</td></tr>
+<tr><td><a name="H.BGHT"></a>BGHT</td><td> bight(s)</td><td> an open body of water forming a slight recession in a coastline</td></tr>
+<tr class="odd"><td><a name="H.BNK"></a>BNK</td><td> bank(s)</td><td> an elevation, typically located on a shelf, over which the depth of water is relatively shallow but sufficient for most surface navigation</td></tr>
+<tr><td><a name="H.BNKR"></a>BNKR</td><td> stream bank</td><td> a sloping margin of a stream channel which normally confines the stream to its channel on land</td></tr>
+<tr class="odd"><td><a name="H.BNKX"></a>BNKX</td><td> section of bank</td><td></td></tr>
+<tr><td><a name="H.BOG"></a>BOG</td><td> bog(s)</td><td> a wetland characterized by peat forming sphagnum moss, sedge, and other acid-water plants</td></tr>
+<tr class="odd"><td><a name="H.CAPG"></a>CAPG</td><td> icecap</td><td> a dome-shaped mass of glacial ice covering an area of mountain summits or other high lands; smaller than an ice sheet</td></tr>
+<tr><td><a name="H.CHN"></a>CHN</td><td> channel</td><td> the deepest part of a stream, bay, lagoon, or strait, through which the main current flows</td></tr>
+<tr class="odd"><td><a name="H.CHNL"></a>CHNL</td><td> lake channel(s)</td><td> that part of a lake having water deep enough for navigation between islands, shoals, etc.</td></tr>
+<tr><td><a name="H.CHNM"></a>CHNM</td><td> marine channel</td><td> that part of a body of water deep enough for navigation through an area otherwise not suitable</td></tr>
+<tr class="odd"><td><a name="H.CHNN"></a>CHNN</td><td> navigation channel</td><td> a buoyed channel of sufficient depth for the safe navigation of vessels</td></tr>
+<tr><td><a name="H.CNFL"></a>CNFL</td><td> confluence</td><td> a place where two or more streams or intermittent streams flow together</td></tr>
+<tr class="odd"><td><a name="H.CNL"></a>CNL</td><td> canal</td><td> an artificial watercourse</td></tr>
+<tr><td><a name="H.CNLA"></a>CNLA</td><td> aqueduct</td><td> a conduit used to carry water</td></tr>
+<tr class="odd"><td><a name="H.CNLB"></a>CNLB</td><td> canal bend</td><td> a conspicuously curved or bent section of a canal</td></tr>
+<tr><td><a name="H.CNLD"></a>CNLD</td><td> drainage canal</td><td> an artificial waterway carrying water away from a wetland or from drainage ditches</td></tr>
+<tr class="odd"><td><a name="H.CNLI"></a>CNLI</td><td> irrigation canal</td><td> a canal which serves as a main conduit for irrigation water</td></tr>
+<tr><td><a name="H.CNLN"></a>CNLN</td><td> navigation canal(s)</td><td> a watercourse constructed for navigation of vessels</td></tr>
+<tr class="odd"><td><a name="H.CNLQ"></a>CNLQ</td><td> abandoned canal</td><td></td></tr>
+<tr><td><a name="H.CNLSB"></a>CNLSB</td><td> underground irrigation canal(s)</td><td> a gently inclined underground tunnel bringing water for irrigation from aquifers</td></tr>
+<tr class="odd"><td><a name="H.CNLX"></a>CNLX</td><td> section of canal</td><td></td></tr>
+<tr><td><a name="H.COVE"></a>COVE</td><td> cove(s)</td><td> a small coastal indentation, smaller than a bay</td></tr>
+<tr class="odd"><td><a name="H.CRKT"></a>CRKT</td><td> tidal creek(s)</td><td> a meandering channel in a coastal wetland subject to bi-directional tidal currents</td></tr>
+<tr><td><a name="H.CRNT"></a>CRNT</td><td> current</td><td> a horizontal flow of water in a given direction with uniform velocity</td></tr>
+<tr class="odd"><td><a name="H.CUTF"></a>CUTF</td><td> cutoff</td><td> a channel formed as a result of a stream cutting through a meander neck</td></tr>
+<tr><td><a name="H.DCK"></a>DCK</td><td> dock(s)</td><td> a waterway between two piers, or cut into the land for the berthing of ships</td></tr>
+<tr class="odd"><td><a name="H.DCKB"></a>DCKB</td><td> docking basin</td><td> a part of a harbor where ships dock</td></tr>
+<tr><td><a name="H.DOMG"></a>DOMG</td><td> icecap dome</td><td> a comparatively elevated area on an icecap</td></tr>
+<tr class="odd"><td><a name="H.DPRG"></a>DPRG</td><td> icecap depression</td><td> a comparatively depressed area on an icecap</td></tr>
+<tr><td><a name="H.DTCH"></a>DTCH</td><td> ditch</td><td> a small artificial watercourse dug for draining or irrigating the land</td></tr>
+<tr class="odd"><td><a name="H.DTCHD"></a>DTCHD</td><td> drainage ditch</td><td> a ditch which serves to drain the land</td></tr>
+<tr><td><a name="H.DTCHI"></a>DTCHI</td><td> irrigation ditch</td><td> a ditch which serves to distribute irrigation water</td></tr>
+<tr class="odd"><td><a name="H.DTCHM"></a>DTCHM</td><td> ditch mouth(s)</td><td> an area where a drainage ditch enters a lagoon, lake or bay</td></tr>
+<tr><td><a name="H.ESTY"></a>ESTY</td><td> estuary</td><td> a funnel-shaped stream mouth or embayment where fresh water mixes with sea water under tidal influences</td></tr>
+<tr class="odd"><td><a name="H.FISH"></a>FISH</td><td> fishing area</td><td> a fishing ground, bank or area where fishermen go to catch fish</td></tr>
+<tr><td><a name="H.FJD"></a>FJD</td><td> fjord</td><td> a long, narrow, steep-walled, deep-water arm of the sea at high latitudes, usually along mountainous coasts</td></tr>
+<tr class="odd"><td><a name="H.FJDS"></a>FJDS</td><td> fjords</td><td> long, narrow, steep-walled, deep-water arms of the sea at high latitudes, usually along mountainous coasts</td></tr>
+<tr><td><a name="H.FLLS"></a>FLLS</td><td> waterfall(s)</td><td> a perpendicular or very steep descent of the water of a stream</td></tr>
+<tr class="odd"><td><a name="H.FLLSX"></a>FLLSX</td><td> section of waterfall(s)</td><td></td></tr>
+<tr><td><a name="H.FLTM"></a>FLTM</td><td> mud flat(s)</td><td> a relatively level area of mud either between high and low tide lines, or subject to flooding</td></tr>
+<tr class="odd"><td><a name="H.FLTT"></a>FLTT</td><td> tidal flat(s)</td><td> a large flat area of mud or sand attached to the shore and alternately covered and uncovered by the tide</td></tr>
+<tr><td><a name="H.GLCR"></a>GLCR</td><td> glacier(s)</td><td> a mass of ice, usually at high latitudes or high elevations, with sufficient thickness to flow away from the source area in lobes, tongues, or masses</td></tr>
+<tr class="odd"><td><a name="H.GULF"></a>GULF</td><td> gulf</td><td> a large recess in the coastline, larger than a bay</td></tr>
+<tr><td><a name="H.GYSR"></a>GYSR</td><td> geyser</td><td> a type of hot spring with intermittent eruptions of jets of hot water and steam</td></tr>
+<tr class="odd"><td><a name="H.HBR"></a>HBR</td><td> harbor(s)</td><td> a haven or space of deep water so sheltered by the adjacent land as to afford a safe anchorage for ships</td></tr>
+<tr><td><a name="H.HBRX"></a>HBRX</td><td> section of harbor</td><td></td></tr>
+<tr class="odd"><td><a name="H.INLT"></a>INLT</td><td> inlet</td><td> a narrow waterway extending into the land, or connecting a bay or lagoon with a larger body of water</td></tr>
+<tr><td><a name="H.INLTQ"></a>INLTQ</td><td> former inlet</td><td> an inlet which has been filled in, or blocked by deposits</td></tr>
+<tr class="odd"><td><a name="H.LBED"></a>LBED</td><td> lake bed(s)</td><td> a dried up or drained area of a former lake</td></tr>
+<tr><td><a name="H.LGN"></a>LGN</td><td> lagoon</td><td> a shallow coastal waterbody, completely or partly separated from a larger body of water by a barrier island, coral reef or other depositional feature</td></tr>
+<tr class="odd"><td><a name="H.LGNS"></a>LGNS</td><td> lagoons</td><td> shallow coastal waterbodies, completely or partly separated from a larger body of water by a barrier island, coral reef or other depositional feature</td></tr>
+<tr><td><a name="H.LGNX"></a>LGNX</td><td> section of lagoon</td><td></td></tr>
+<tr class="odd"><td><a name="H.LK"></a>LK</td><td> lake</td><td> a large inland body of standing water</td></tr>
+<tr><td><a name="H.LKC"></a>LKC</td><td> crater lake</td><td> a lake in a crater or caldera</td></tr>
+<tr class="odd"><td><a name="H.LKI"></a>LKI</td><td> intermittent lake</td><td></td></tr>
+<tr><td><a name="H.LKN"></a>LKN</td><td> salt lake</td><td> an inland body of salt water with no outlet</td></tr>
+<tr class="odd"><td><a name="H.LKNI"></a>LKNI</td><td> intermittent salt lake</td><td></td></tr>
+<tr><td><a name="H.LKO"></a>LKO</td><td> oxbow lake</td><td> a crescent-shaped lake commonly found adjacent to meandering streams</td></tr>
+<tr class="odd"><td><a name="H.LKOI"></a>LKOI</td><td> intermittent oxbow lake</td><td></td></tr>
+<tr><td><a name="H.LKS"></a>LKS</td><td> lakes</td><td> large inland bodies of standing water</td></tr>
+<tr class="odd"><td><a name="H.LKSB"></a>LKSB</td><td> underground lake</td><td> a standing body of water in a cave</td></tr>
+<tr><td><a name="H.LKSC"></a>LKSC</td><td> crater lakes</td><td> lakes in a crater or caldera</td></tr>
+<tr class="odd"><td><a name="H.LKSI"></a>LKSI</td><td> intermittent lakes</td><td></td></tr>
+<tr><td><a name="H.LKSN"></a>LKSN</td><td> salt lakes</td><td> inland bodies of salt water with no outlet</td></tr>
+<tr class="odd"><td><a name="H.LKSNI"></a>LKSNI</td><td> intermittent salt lakes</td><td></td></tr>
+<tr><td><a name="H.LKX"></a>LKX</td><td> section of lake</td><td></td></tr>
+<tr class="odd"><td><a name="H.MFGN"></a>MFGN</td><td> salt evaporation ponds</td><td> diked salt ponds used in the production of solar evaporated salt</td></tr>
+<tr><td><a name="H.MGV"></a>MGV</td><td> mangrove swamp</td><td> a tropical tidal mud flat characterized by mangrove vegetation</td></tr>
+<tr class="odd"><td><a name="H.MOOR"></a>MOOR</td><td> moor(s)</td><td> an area of open ground overlaid with wet peaty soils</td></tr>
+<tr><td><a name="H.MRSH"></a>MRSH</td><td> marsh(es)</td><td> a wetland dominated by grass-like vegetation</td></tr>
+<tr class="odd"><td><a name="H.MRSHN"></a>MRSHN</td><td> salt marsh</td><td> a flat area, subject to periodic salt water inundation, dominated by grassy salt-tolerant plants</td></tr>
+<tr><td><a name="H.NRWS"></a>NRWS</td><td> narrows</td><td> a navigable narrow part of a bay, strait, river, etc.</td></tr>
+<tr class="odd"><td><a name="H.OCN"></a>OCN</td><td> ocean</td><td> one of the major divisions of the vast expanse of salt water covering part of the earth</td></tr>
+<tr><td><a name="H.OVF"></a>OVF</td><td> overfalls</td><td> an area of breaking waves caused by the meeting of currents or by waves moving against the current</td></tr>
+<tr class="odd"><td><a name="H.PND"></a>PND</td><td> pond</td><td> a small standing waterbody</td></tr>
+<tr><td><a name="H.PNDI"></a>PNDI</td><td> intermittent pond</td><td></td></tr>
+<tr class="odd"><td><a name="H.PNDN"></a>PNDN</td><td> salt pond</td><td> a small standing body of salt water often in a marsh or swamp, usually along a seacoast</td></tr>
+<tr><td><a name="H.PNDNI"></a>PNDNI</td><td> intermittent salt pond(s)</td><td></td></tr>
+<tr class="odd"><td><a name="H.PNDS"></a>PNDS</td><td> ponds</td><td> small standing waterbodies</td></tr>
+<tr><td><a name="H.PNDSF"></a>PNDSF</td><td> fishponds</td><td> ponds or enclosures in which fish are kept or raised</td></tr>
+<tr class="odd"><td><a name="H.PNDSI"></a>PNDSI</td><td> intermittent ponds</td><td></td></tr>
+<tr><td><a name="H.PNDSN"></a>PNDSN</td><td> salt ponds</td><td> small standing bodies of salt water often in a marsh or swamp, usually along a seacoast</td></tr>
+<tr class="odd"><td><a name="H.POOL"></a>POOL</td><td> pool(s)</td><td> a small and comparatively still, deep part of a larger body of water such as a stream or harbor; or a small body of standing water</td></tr>
+<tr><td><a name="H.POOLI"></a>POOLI</td><td> intermittent pool</td><td></td></tr>
+<tr class="odd"><td><a name="H.RCH"></a>RCH</td><td> reach</td><td> a straight section of a navigable stream or channel between two bends</td></tr>
+<tr><td><a name="H.RDGG"></a>RDGG</td><td> icecap ridge</td><td> a linear elevation on an icecap</td></tr>
+<tr class="odd"><td><a name="H.RDST"></a>RDST</td><td> roadstead</td><td> an open anchorage affording less protection than a harbor</td></tr>
+<tr><td><a name="H.RF"></a>RF</td><td> reef(s)</td><td> a surface-navigation hazard composed of consolidated material</td></tr>
+<tr class="odd"><td><a name="H.RFC"></a>RFC</td><td> coral reef(s)</td><td> a surface-navigation hazard composed of coral</td></tr>
+<tr><td><a name="H.RFX"></a>RFX</td><td> section of reef</td><td></td></tr>
+<tr class="odd"><td><a name="H.RPDS"></a>RPDS</td><td> rapids</td><td> a turbulent section of a stream associated with a steep, irregular stream bed</td></tr>
+<tr><td><a name="H.RSV"></a>RSV</td><td> reservoir(s)</td><td> an artificial pond or lake</td></tr>
+<tr class="odd"><td><a name="H.RSVI"></a>RSVI</td><td> intermittent reservoir</td><td></td></tr>
+<tr><td><a name="H.RSVT"></a>RSVT</td><td> water tank</td><td> a contained pool or tank of water at, below, or above ground level</td></tr>
+<tr class="odd"><td><a name="H.RVN"></a>RVN</td><td> ravine(s)</td><td> a small, narrow, deep, steep-sided stream channel, smaller than a gorge</td></tr>
+<tr><td><a name="H.SBKH"></a>SBKH</td><td> sabkha(s)</td><td> a salt flat or salt encrusted plain subject to periodic inundation from flooding or high tides</td></tr>
+<tr class="odd"><td><a name="H.SD"></a>SD</td><td> sound</td><td> a long arm of the sea forming a channel between the mainland and an island or islands; or connecting two larger bodies of water</td></tr>
+<tr><td><a name="H.SEA"></a>SEA</td><td> sea</td><td> a large body of salt water more or less confined by continuous land or chains of islands forming a subdivision of an ocean</td></tr>
+<tr class="odd"><td><a name="H.SHOL"></a>SHOL</td><td> shoal(s)</td><td> a surface-navigation hazard composed of unconsolidated material</td></tr>
+<tr><td><a name="H.SILL"></a>SILL</td><td> sill</td><td> the low part of an underwater gap or saddle separating basins, including a similar feature at the mouth of a fjord</td></tr>
+<tr class="odd"><td><a name="H.SPNG"></a>SPNG</td><td> spring(s)</td><td> a place where ground water flows naturally out of the ground</td></tr>
+<tr><td><a name="H.SPNS"></a>SPNS</td><td> sulphur spring(s)</td><td> a place where sulphur ground water flows naturally out of the ground</td></tr>
+<tr class="odd"><td><a name="H.SPNT"></a>SPNT</td><td> hot spring(s)</td><td> a place where hot ground water flows naturally out of the ground</td></tr>
+<tr><td><a name="H.STM"></a>STM</td><td> stream</td><td> a body of running water moving to a lower level in a channel on land</td></tr>
+<tr class="odd"><td><a name="H.STMA"></a>STMA</td><td> anabranch</td><td> a diverging branch flowing out of a main stream and rejoining it downstream</td></tr>
+<tr><td><a name="H.STMB"></a>STMB</td><td> stream bend</td><td> a conspicuously curved or bent segment of a stream</td></tr>
+<tr class="odd"><td><a name="H.STMC"></a>STMC</td><td> canalized stream</td><td> a stream that has been substantially ditched, diked, or straightened</td></tr>
+<tr><td><a name="H.STMD"></a>STMD</td><td> distributary(-ies)</td><td> a branch which flows away from the main stream, as in a delta or irrigation canal</td></tr>
+<tr class="odd"><td><a name="H.STMH"></a>STMH</td><td> headwaters</td><td> the source and upper part of a stream, including the upper drainage basin</td></tr>
+<tr><td><a name="H.STMI"></a>STMI</td><td> intermittent stream</td><td></td></tr>
+<tr class="odd"><td><a name="H.STMIX"></a>STMIX</td><td> section of intermittent stream</td><td></td></tr>
+<tr><td><a name="H.STMM"></a>STMM</td><td> stream mouth(s)</td><td> a place where a stream discharges into a lagoon, lake, or the sea</td></tr>
+<tr class="odd"><td><a name="H.STMQ"></a>STMQ</td><td> abandoned watercourse</td><td> a former stream or distributary no longer carrying flowing water, but still evident due to lakes, wetland, topographic or vegetation patterns</td></tr>
+<tr><td><a name="H.STMS"></a>STMS</td><td> streams</td><td> bodies of running water moving to a lower level in a channel on land</td></tr>
+<tr class="odd"><td><a name="H.STMSB"></a>STMSB</td><td> lost river</td><td> a surface stream that disappears into an underground channel, or dries up in an arid area</td></tr>
+<tr><td><a name="H.STMX"></a>STMX</td><td> section of stream</td><td></td></tr>
+<tr class="odd"><td><a name="H.STRT"></a>STRT</td><td> strait</td><td> a relatively narrow waterway, usually narrower and less extensive than a sound, connecting two larger bodies of water</td></tr>
+<tr><td><a name="H.SWMP"></a>SWMP</td><td> swamp</td><td> a wetland dominated by tree vegetation</td></tr>
+<tr class="odd"><td><a name="H.SYSI"></a>SYSI</td><td> irrigation system</td><td> a network of ditches and one or more of the following elements: water supply, reservoir, canal, pump, well, drain, etc.</td></tr>
+<tr><td><a name="H.TNLC"></a>TNLC</td><td> canal tunnel</td><td> a tunnel through which a canal passes</td></tr>
+<tr class="odd"><td><a name="H.WAD"></a>WAD</td><td> wadi</td><td> a valley or ravine, bounded by relatively steep banks, which in the rainy season becomes a watercourse; found primarily in North Africa and the Middle East</td></tr>
+<tr><td><a name="H.WADB"></a>WADB</td><td> wadi bend</td><td> a conspicuously curved or bent segment of a wadi</td></tr>
+<tr class="odd"><td><a name="H.WADJ"></a>WADJ</td><td> wadi junction</td><td> a place where two or more wadies join</td></tr>
+<tr><td><a name="H.WADM"></a>WADM</td><td> wadi mouth</td><td> the lower terminus of a wadi where it widens into an adjoining floodplain, depression, or waterbody</td></tr>
+<tr class="odd"><td><a name="H.WADS"></a>WADS</td><td> wadies</td><td> valleys or ravines, bounded by relatively steep banks, which in the rainy season become watercourses; found primarily in North Africa and the Middle East</td></tr>
+<tr><td><a name="H.WADX"></a>WADX</td><td> section of wadi</td><td></td></tr>
+<tr class="odd"><td><a name="H.WHRL"></a>WHRL</td><td> whirlpool</td><td> a turbulent, rotating movement of water in a stream</td></tr>
+<tr><td><a name="H.WLL"></a>WLL</td><td> well</td><td> a cylindrical hole, pit, or tunnel drilled or dug down to a depth from which water, oil, or gas can be pumped or brought to the surface</td></tr>
+<tr class="odd"><td><a name="H.WLLQ"></a>WLLQ</td><td> abandoned well</td><td></td></tr>
+<tr><td><a name="H.WLLS"></a>WLLS</td><td> wells</td><td> cylindrical holes, pits, or tunnels drilled or dug down to a depth from which water, oil, or gas can be pumped or brought to the surface</td></tr>
+<tr class="odd"><td><a name="H.WTLD"></a>WTLD</td><td> wetland</td><td> an area subject to inundation, usually characterized by bog, marsh, or swamp vegetation</td></tr>
+<tr><td><a name="H.WTLDI"></a>WTLDI</td><td> intermittent wetland</td><td></td></tr>
+<tr class="odd"><td><a name="H.WTRC"></a>WTRC</td><td> watercourse</td><td> a natural, well-defined channel produced by flowing water, or an artificial channel designed to carry flowing water</td></tr>
+<tr><td><a name="H.WTRH"></a>WTRH</td><td> waterhole(s)</td><td> a natural hole, hollow, or small depression that contains water, used by man and animals, especially in arid areas</td></tr>
+<tr><th colspan="3"><a name="L"></a>L parks,area, ...</th></tr>
+<tr><td><a name="L.AGRC"></a>AGRC</td><td> agricultural colony</td><td> a tract of land set aside for agricultural settlement</td></tr>
+<tr class="odd"><td><a name="L.AMUS"></a>AMUS</td><td> amusement park</td><td> Amusement Park are theme parks, adventure parks offering entertainment, similar to funfairs but with a fix location</td></tr>
+<tr><td><a name="L.AREA"></a>AREA</td><td> area</td><td> a tract of land without homogeneous character or boundaries</td></tr>
+<tr class="odd"><td><a name="L.BSND"></a>BSND</td><td> drainage basin</td><td> an area drained by a stream</td></tr>
+<tr><td><a name="L.BSNP"></a>BSNP</td><td> petroleum basin</td><td> an area underlain by an oil-rich structural basin</td></tr>
+<tr class="odd"><td><a name="L.BTL"></a>BTL</td><td> battlefield</td><td> a site of a land battle of historical importance</td></tr>
+<tr><td><a name="L.CLG"></a>CLG</td><td> clearing</td><td> an area in a forest with trees removed</td></tr>
+<tr class="odd"><td><a name="L.CMN"></a>CMN</td><td> common</td><td> a park or pasture for community use</td></tr>
+<tr><td><a name="L.CNS"></a>CNS</td><td> concession area</td><td> a lease of land by a government for economic development, e.g., mining, forestry</td></tr>
+<tr class="odd"><td><a name="L.COLF"></a>COLF</td><td> coalfield</td><td> a region in which coal deposits of possible economic value occur</td></tr>
+<tr><td><a name="L.CONT"></a>CONT</td><td> continent</td><td> continent: Europe, Africa, Asia, North America, South America, Oceania, Antarctica</td></tr>
+<tr class="odd"><td><a name="L.CST"></a>CST</td><td> coast</td><td> a zone of variable width straddling the shoreline</td></tr>
+<tr><td><a name="L.CTRB"></a>CTRB</td><td> business center</td><td> a place where a number of businesses are located</td></tr>
+<tr class="odd"><td><a name="L.DEVH"></a>DEVH</td><td> housing development</td><td> a tract of land on which many houses of similar design are built according to a development plan</td></tr>
+<tr><td><a name="L.FLD"></a>FLD</td><td> field(s)</td><td> an open as opposed to wooded area</td></tr>
+<tr class="odd"><td><a name="L.FLDI"></a>FLDI</td><td> irrigated field(s)</td><td> a tract of level or terraced land which is irrigated</td></tr>
+<tr><td><a name="L.GASF"></a>GASF</td><td> gasfield</td><td> an area containing a subterranean store of natural gas of economic value</td></tr>
+<tr class="odd"><td><a name="L.GRAZ"></a>GRAZ</td><td> grazing area</td><td> an area of grasses and shrubs used for grazing</td></tr>
+<tr><td><a name="L.GVL"></a>GVL</td><td> gravel area</td><td> an area covered with gravel</td></tr>
+<tr class="odd"><td><a name="L.INDS"></a>INDS</td><td> industrial area</td><td> an area characterized by industrial activity</td></tr>
+<tr><td><a name="L.LAND"></a>LAND</td><td> arctic land</td><td> a tract of land in the Arctic</td></tr>
+<tr class="odd"><td><a name="L.LCTY"></a>LCTY</td><td> locality</td><td> a minor area or place of unspecified or mixed character and indefinite boundaries</td></tr>
+<tr><td><a name="L.MILB"></a>MILB</td><td> military base</td><td> a place used by an army or other armed service for storing arms and supplies, and for accommodating and training troops, a base from which operations can be initiated</td></tr>
+<tr class="odd"><td><a name="L.MNA"></a>MNA</td><td> mining area</td><td> an area of mine sites where minerals and ores are extracted</td></tr>
+<tr><td><a name="L.MVA"></a>MVA</td><td> maneuver area</td><td> a tract of land where military field exercises are carried out</td></tr>
+<tr class="odd"><td><a name="L.NVB"></a>NVB</td><td> naval base</td><td> an area used to store supplies, provide barracks for troops and naval personnel, a port for naval vessels, and from which operations are initiated</td></tr>
+<tr><td><a name="L.OAS"></a>OAS</td><td> oasis(-es)</td><td> an area in a desert made productive by the availability of water</td></tr>
+<tr class="odd"><td><a name="L.OILF"></a>OILF</td><td> oilfield</td><td> an area containing a subterranean store of petroleum of economic value</td></tr>
+<tr><td><a name="L.PEAT"></a>PEAT</td><td> peat cutting area</td><td> an area where peat is harvested</td></tr>
+<tr class="odd"><td><a name="L.PRK"></a>PRK</td><td> park</td><td> an area, often of forested land, maintained as a place of beauty, or for recreation</td></tr>
+<tr><td><a name="L.PRT"></a>PRT</td><td> port</td><td> a place provided with terminal and transfer facilities for loading and discharging waterborne cargo or passengers, usually located in a harbor</td></tr>
+<tr class="odd"><td><a name="L.QCKS"></a>QCKS</td><td> quicksand</td><td> an area where loose sand with water moving through it may become unstable when heavy objects are placed at the surface, causing them to sink</td></tr>
+<tr><td><a name="L.RES"></a>RES</td><td> reserve</td><td> a tract of public land reserved for future use or restricted as to use</td></tr>
+<tr class="odd"><td><a name="L.RESA"></a>RESA</td><td> agricultural reserve</td><td> a tract of land reserved for agricultural reclamation and/or development</td></tr>
+<tr><td><a name="L.RESF"></a>RESF</td><td> forest reserve</td><td> a forested area set aside for preservation or controlled use</td></tr>
+<tr class="odd"><td><a name="L.RESH"></a>RESH</td><td> hunting reserve</td><td> a tract of land used primarily for hunting</td></tr>
+<tr><td><a name="L.RESN"></a>RESN</td><td> nature reserve</td><td> an area reserved for the maintenance of a natural habitat</td></tr>
+<tr class="odd"><td><a name="L.RESP"></a>RESP</td><td> palm tree reserve</td><td> an area of palm trees where use is controlled</td></tr>
+<tr><td><a name="L.RESV"></a>RESV</td><td> reservation</td><td> a tract of land set aside for aboriginal, tribal, or native populations</td></tr>
+<tr class="odd"><td><a name="L.RESW"></a>RESW</td><td> wildlife reserve</td><td> a tract of public land reserved for the preservation of wildlife</td></tr>
+<tr><td><a name="L.RGN"></a>RGN</td><td> region</td><td> an area distinguished by one or more observable physical or cultural characteristics</td></tr>
+<tr class="odd"><td><a name="L.RGNE"></a>RGNE</td><td> economic region</td><td> a region of a country established for economic development or for statistical purposes</td></tr>
+<tr><td><a name="L.RGNH"></a>RGNH</td><td> historical region</td><td> a former historic area distinguished by one or more observable physical or cultural characteristics</td></tr>
+<tr class="odd"><td><a name="L.RGNL"></a>RGNL</td><td> lake region</td><td> a tract of land distinguished by numerous lakes</td></tr>
+<tr><td><a name="L.RNGA"></a>RNGA</td><td> artillery range</td><td> a tract of land used for artillery firing practice</td></tr>
+<tr class="odd"><td><a name="L.SALT"></a>SALT</td><td> salt area</td><td> a shallow basin or flat where salt accumulates after periodic inundation</td></tr>
+<tr><td><a name="L.SNOW"></a>SNOW</td><td> snowfield</td><td> an area of permanent snow and ice forming the accumulation area of a glacier</td></tr>
+<tr class="odd"><td><a name="L.TRB"></a>TRB</td><td> tribal area</td><td> a tract of land used by nomadic or other tribes</td></tr>
+<tr><th colspan="3"><a name="P"></a>P city, village,...</th></tr>
+<tr><td><a name="P.PPL"></a>PPL</td><td> populated place</td><td> a city, town, village, or other agglomeration of buildings where people live and work</td></tr>
+<tr class="odd"><td><a name="P.PPLA"></a>PPLA</td><td> seat of a first-order administrative division</td><td> seat of a first-order administrative division (PPLC takes precedence over PPLA)</td></tr>
+<tr><td><a name="P.PPLA2"></a>PPLA2</td><td> seat of a second-order administrative division</td><td></td></tr>
+<tr class="odd"><td><a name="P.PPLA3"></a>PPLA3</td><td> seat of a third-order administrative division</td><td></td></tr>
+<tr><td><a name="P.PPLA4"></a>PPLA4</td><td> seat of a fourth-order administrative division</td><td></td></tr>
+<tr class="odd"><td><a name="P.PPLA5"></a>PPLA5</td><td> seat of a fifth-order administrative division</td><td></td></tr>
+<tr><td><a name="P.PPLC"></a>PPLC</td><td> capital of a political entity</td><td></td></tr>
+<tr class="odd"><td><a name="P.PPLCH"></a>PPLCH</td><td> historical capital of a political entity</td><td> a former capital of a political entity</td></tr>
+<tr><td><a name="P.PPLF"></a>PPLF</td><td> farm village</td><td> a populated place where the population is largely engaged in agricultural activities</td></tr>
+<tr class="odd"><td><a name="P.PPLG"></a>PPLG</td><td> seat of government of a political entity</td><td></td></tr>
+<tr><td><a name="P.PPLH"></a>PPLH</td><td> historical populated place</td><td> a populated place that no longer exists</td></tr>
+<tr class="odd"><td><a name="P.PPLL"></a>PPLL</td><td> populated locality</td><td> an area similar to a locality but with a small group of dwellings or other buildings</td></tr>
+<tr><td><a name="P.PPLQ"></a>PPLQ</td><td> abandoned populated place</td><td></td></tr>
+<tr class="odd"><td><a name="P.PPLR"></a>PPLR</td><td> religious populated place</td><td> a populated place whose population is largely engaged in religious occupations</td></tr>
+<tr><td><a name="P.PPLS"></a>PPLS</td><td> populated places</td><td> cities, towns, villages, or other agglomerations of buildings where people live and work</td></tr>
+<tr class="odd"><td><a name="P.PPLW"></a>PPLW</td><td> destroyed populated place</td><td> a village, town or city destroyed by a natural disaster, or by war</td></tr>
+<tr><td><a name="P.PPLX"></a>PPLX</td><td> section of populated place</td><td></td></tr>
+<tr class="odd"><td><a name="P.STLMT"></a>STLMT</td><td> israeli settlement</td><td></td></tr>
+<tr><th colspan="3"><a name="R"></a>R road, railroad </th></tr>
+<tr><td><a name="R.CSWY"></a>CSWY</td><td> causeway</td><td> a raised roadway across wet ground or shallow water</td></tr>
+<tr class="odd"><td><a name="R.OILP"></a>OILP</td><td> oil pipeline</td><td> a pipeline used for transporting oil</td></tr>
+<tr><td><a name="R.PRMN"></a>PRMN</td><td> promenade</td><td> a place for public walking, usually along a beach front</td></tr>
+<tr class="odd"><td><a name="R.PTGE"></a>PTGE</td><td> portage</td><td> a place where boats, goods, etc., are carried overland between navigable waters</td></tr>
+<tr><td><a name="R.RD"></a>RD</td><td> road</td><td> an open way with improved surface for transportation of animals, people and vehicles</td></tr>
+<tr class="odd"><td><a name="R.RDA"></a>RDA</td><td> ancient road</td><td> the remains of a road used by ancient cultures</td></tr>
+<tr><td><a name="R.RDB"></a>RDB</td><td> road bend</td><td> a conspicuously curved or bent section of a road</td></tr>
+<tr class="odd"><td><a name="R.RDCUT"></a>RDCUT</td><td> road cut</td><td> an excavation cut through a hill or ridge for a road</td></tr>
+<tr><td><a name="R.RDJCT"></a>RDJCT</td><td> road junction</td><td> a place where two or more roads join</td></tr>
+<tr class="odd"><td><a name="R.RJCT"></a>RJCT</td><td> railroad junction</td><td> a place where two or more railroad tracks join</td></tr>
+<tr><td><a name="R.RR"></a>RR</td><td> railroad</td><td> a permanent twin steel-rail track on which freight and passenger cars move long distances</td></tr>
+<tr class="odd"><td><a name="R.RRQ"></a>RRQ</td><td> abandoned railroad</td><td></td></tr>
+<tr><td><a name="R.RTE"></a>RTE</td><td> caravan route</td><td> the route taken by caravans</td></tr>
+<tr class="odd"><td><a name="R.RYD"></a>RYD</td><td> railroad yard</td><td> a system of tracks used for the making up of trains, and switching and storing freight cars</td></tr>
+<tr><td><a name="R.ST"></a>ST</td><td> street</td><td> a paved urban thoroughfare</td></tr>
+<tr class="odd"><td><a name="R.STKR"></a>STKR</td><td> stock route</td><td> a route taken by livestock herds</td></tr>
+<tr><td><a name="R.TNL"></a>TNL</td><td> tunnel</td><td> a subterranean passageway for transportation</td></tr>
+<tr class="odd"><td><a name="R.TNLN"></a>TNLN</td><td> natural tunnel</td><td> a cave that is open at both ends</td></tr>
+<tr><td><a name="R.TNLRD"></a>TNLRD</td><td> road tunnel</td><td> a tunnel through which a road passes</td></tr>
+<tr class="odd"><td><a name="R.TNLRR"></a>TNLRR</td><td> railroad tunnel</td><td> a tunnel through which a railroad passes</td></tr>
+<tr><td><a name="R.TNLS"></a>TNLS</td><td> tunnels</td><td> subterranean passageways for transportation</td></tr>
+<tr class="odd"><td><a name="R.TRL"></a>TRL</td><td> trail</td><td> a path, track, or route used by pedestrians, animals, or off-road vehicles</td></tr>
+<tr><th colspan="3"><a name="S"></a>S spot, building, farm</th></tr>
+<tr><td><a name="S.ADMF"></a>ADMF</td><td> administrative facility</td><td> a government building</td></tr>
+<tr class="odd"><td><a name="S.AGRF"></a>AGRF</td><td> agricultural facility</td><td> a building and/or tract of land used for improving agriculture</td></tr>
+<tr><td><a name="S.AIRB"></a>AIRB</td><td> airbase</td><td> an area used to store supplies, provide barracks for air force personnel, hangars and runways for aircraft, and from which operations are initiated</td></tr>
+<tr class="odd"><td><a name="S.AIRF"></a>AIRF</td><td> airfield</td><td> a place on land where aircraft land and take off; no facilities provided for the commercial handling of passengers and cargo</td></tr>
+<tr><td><a name="S.AIRH"></a>AIRH</td><td> heliport</td><td> a place where helicopters land and take off</td></tr>
+<tr class="odd"><td><a name="S.AIRP"></a>AIRP</td><td> airport</td><td> a place where aircraft regularly land and take off, with runways, navigational aids, and major facilities for the commercial handling of passengers and cargo</td></tr>
+<tr><td><a name="S.AIRQ"></a>AIRQ</td><td> abandoned airfield</td><td></td></tr>
+<tr class="odd"><td><a name="S.AIRT"></a>AIRT</td><td> terminal</td><td> airport facilities for the handling of freight and passengers</td></tr>
+<tr><td><a name="S.AMTH"></a>AMTH</td><td> amphitheater</td><td> an oval or circular structure with rising tiers of seats about a stage or open space</td></tr>
+<tr class="odd"><td><a name="S.ANS"></a>ANS</td><td> archaeological/prehistoric site</td><td> a place where archeological remains, old structures, or cultural artifacts are located</td></tr>
+<tr><td><a name="S.AQC"></a>AQC</td><td> aquaculture facility</td><td> facility or area for the cultivation of aquatic animals and plants, especially fish, shellfish, and seaweed, in natural or controlled marine or freshwater environments; underwater agriculture</td></tr>
+<tr class="odd"><td><a name="S.ARCH"></a>ARCH</td><td> arch</td><td> a natural or man-made structure in the form of an arch</td></tr>
+<tr><td><a name="S.ARCHV"></a>ARCHV</td><td> archive</td><td> a place or institution where documents are preserved</td></tr>
+<tr class="odd"><td><a name="S.ART"></a>ART</td><td> piece of art</td><td> a piece of art, like a sculpture, painting. In contrast to monument (MNMT) it is not commemorative.</td></tr>
+<tr><td><a name="S.ASTR"></a>ASTR</td><td> astronomical station</td><td> a point on the earth whose position has been determined by observations of celestial bodies</td></tr>
+<tr class="odd"><td><a name="S.ASYL"></a>ASYL</td><td> asylum</td><td> a facility where the insane are cared for and protected</td></tr>
+<tr><td><a name="S.ATHF"></a>ATHF</td><td> athletic field</td><td> a tract of land used for playing team sports, and athletic track and field events</td></tr>
+<tr class="odd"><td><a name="S.ATM"></a>ATM</td><td> automatic teller machine</td><td> An unattended electronic machine in a public place, connected to a data system and related equipment and activated by a bank customer to obtain cash withdrawals and other banking services. </td></tr>
+<tr><td><a name="S.BANK"></a>BANK</td><td> bank</td><td> A business establishment in which money is kept for saving or commercial purposes or is invested, supplied for loans, or exchanged. </td></tr>
+<tr class="odd"><td><a name="S.BCN"></a>BCN</td><td> beacon</td><td> a fixed artificial navigation mark</td></tr>
+<tr><td><a name="S.BDG"></a>BDG</td><td> bridge</td><td> a structure erected across an obstacle such as a stream, road, etc., in order to carry roads, railroads, and pedestrians across</td></tr>
+<tr class="odd"><td><a name="S.BDGQ"></a>BDGQ</td><td> ruined bridge</td><td> a destroyed or decayed bridge which is no longer functional</td></tr>
+<tr><td><a name="S.BLDA"></a>BLDA</td><td> apartment building</td><td> a building containing several individual apartments</td></tr>
+<tr class="odd"><td><a name="S.BLDG"></a>BLDG</td><td> building(s)</td><td> a structure built for permanent use, as a house, factory, etc.</td></tr>
+<tr><td><a name="S.BLDO"></a>BLDO</td><td> office building</td><td> commercial building where business and/or services are conducted</td></tr>
+<tr class="odd"><td><a name="S.BP"></a>BP</td><td> boundary marker</td><td> a fixture marking a point along a boundary</td></tr>
+<tr><td><a name="S.BRKS"></a>BRKS</td><td> barracks</td><td> a building for lodging military personnel</td></tr>
+<tr class="odd"><td><a name="S.BRKW"></a>BRKW</td><td> breakwater</td><td> a structure erected to break the force of waves at the entrance to a harbor or port</td></tr>
+<tr><td><a name="S.BSTN"></a>BSTN</td><td> baling station</td><td> a facility for baling agricultural products</td></tr>
+<tr class="odd"><td><a name="S.BTYD"></a>BTYD</td><td> boatyard</td><td> a waterside facility for servicing, repairing, and building small vessels</td></tr>
+<tr><td><a name="S.BUR"></a>BUR</td><td> burial cave(s)</td><td> a cave used for human burials</td></tr>
+<tr class="odd"><td><a name="S.BUSTN"></a>BUSTN</td><td> bus station</td><td> a facility comprising ticket office, platforms, etc. for loading and unloading passengers </td></tr>
+<tr><td><a name="S.BUSTP"></a>BUSTP</td><td> bus stop</td><td> a place lacking station facilities</td></tr>
+<tr class="odd"><td><a name="S.CARN"></a>CARN</td><td> cairn</td><td> a heap of stones erected as a landmark or for other purposes</td></tr>
+<tr><td><a name="S.CAVE"></a>CAVE</td><td> cave(s)</td><td> an underground passageway or chamber, or cavity on the side of a cliff</td></tr>
+<tr class="odd"><td><a name="S.CH"></a>CH</td><td> church</td><td> a building for public Christian worship</td></tr>
+<tr><td><a name="S.CMP"></a>CMP</td><td> camp(s)</td><td> a site occupied by tents, huts, or other shelters for temporary use</td></tr>
+<tr class="odd"><td><a name="S.CMPL"></a>CMPL</td><td> logging camp</td><td> a camp used by loggers</td></tr>
+<tr><td><a name="S.CMPLA"></a>CMPLA</td><td> labor camp</td><td> a camp used by migrant or temporary laborers</td></tr>
+<tr class="odd"><td><a name="S.CMPMN"></a>CMPMN</td><td> mining camp</td><td> a camp used by miners</td></tr>
+<tr><td><a name="S.CMPO"></a>CMPO</td><td> oil camp</td><td> a camp used by oilfield workers</td></tr>
+<tr class="odd"><td><a name="S.CMPQ"></a>CMPQ</td><td> abandoned camp</td><td></td></tr>
+<tr><td><a name="S.CMPRF"></a>CMPRF</td><td> refugee camp</td><td> a camp used by refugees</td></tr>
+<tr class="odd"><td><a name="S.CMTY"></a>CMTY</td><td> cemetery</td><td> a burial place or ground</td></tr>
+<tr><td><a name="S.COMC"></a>COMC</td><td> communication center</td><td> a facility, including buildings, antennae, towers and electronic equipment for receiving and transmitting information</td></tr>
+<tr class="odd"><td><a name="S.CRRL"></a>CRRL</td><td> corral(s)</td><td> a pen or enclosure for confining or capturing animals</td></tr>
+<tr><td><a name="S.CSNO"></a>CSNO</td><td> casino</td><td> a building used for entertainment, especially gambling</td></tr>
+<tr class="odd"><td><a name="S.CSTL"></a>CSTL</td><td> castle</td><td> a large fortified building or set of buildings</td></tr>
+<tr><td><a name="S.CSTM"></a>CSTM</td><td> customs house</td><td> a building in a port where customs and duties are paid, and where vessels are entered and cleared</td></tr>
+<tr class="odd"><td><a name="S.CTHSE"></a>CTHSE</td><td> courthouse</td><td> a building in which courts of law are held</td></tr>
+<tr><td><a name="S.CTRA"></a>CTRA</td><td> atomic center</td><td> a facility where atomic research is carried out</td></tr>
+<tr class="odd"><td><a name="S.CTRCM"></a>CTRCM</td><td> community center</td><td> a facility for community recreation and other activities</td></tr>
+<tr><td><a name="S.CTRF"></a>CTRF</td><td> facility center</td><td> a place where more than one facility is situated</td></tr>
+<tr class="odd"><td><a name="S.CTRM"></a>CTRM</td><td> medical center</td><td> a complex of health care buildings including two or more of the following: hospital, medical school, clinic, pharmacy, doctor's offices, etc.</td></tr>
+<tr><td><a name="S.CTRR"></a>CTRR</td><td> religious center</td><td> a facility where more than one religious activity is carried out, e.g., retreat, school, monastery, worship</td></tr>
+<tr class="odd"><td><a name="S.CTRS"></a>CTRS</td><td> space center</td><td> a facility for launching, tracking, or controlling satellites and space vehicles</td></tr>
+<tr><td><a name="S.CVNT"></a>CVNT</td><td> convent</td><td> a building where a community of nuns lives in seclusion</td></tr>
+<tr class="odd"><td><a name="S.DAM"></a>DAM</td><td> dam</td><td> a barrier constructed across a stream to impound water</td></tr>
+<tr><td><a name="S.DAMQ"></a>DAMQ</td><td> ruined dam</td><td> a destroyed or decayed dam which is no longer functional</td></tr>
+<tr class="odd"><td><a name="S.DAMSB"></a>DAMSB</td><td> sub-surface dam</td><td> a dam put down to bedrock in a sand river</td></tr>
+<tr><td><a name="S.DARY"></a>DARY</td><td> dairy</td><td> a facility for the processing, sale and distribution of milk or milk products</td></tr>
+<tr class="odd"><td><a name="S.DCKD"></a>DCKD</td><td> dry dock</td><td> a dock providing support for a vessel, and means for removing the water so that the bottom of the vessel can be exposed</td></tr>
+<tr><td><a name="S.DCKY"></a>DCKY</td><td> dockyard</td><td> a facility for servicing, building, or repairing ships</td></tr>
+<tr class="odd"><td><a name="S.DIKE"></a>DIKE</td><td> dike</td><td> an earth or stone embankment usually constructed for flood or stream control</td></tr>
+<tr><td><a name="S.DIP"></a>DIP</td><td> diplomatic facility</td><td> office, residence, or facility of a foreign government, which may include an embassy, consulate, chancery, office of charge d'affaires, or other diplomatic, economic, military, or cultural mission</td></tr>
+<tr class="odd"><td><a name="S.DPOF"></a>DPOF</td><td> fuel depot</td><td> an area where fuel is stored</td></tr>
+<tr><td><a name="S.EST"></a>EST</td><td> estate(s)</td><td> a large commercialized agricultural landholding with associated buildings and other facilities</td></tr>
+<tr class="odd"><td><a name="S.ESTO"></a>ESTO</td><td> oil palm plantation</td><td> an estate specializing in the cultivation of oil palm trees</td></tr>
+<tr><td><a name="S.ESTR"></a>ESTR</td><td> rubber plantation</td><td> an estate which specializes in growing and tapping rubber trees</td></tr>
+<tr class="odd"><td><a name="S.ESTSG"></a>ESTSG</td><td> sugar plantation</td><td> an estate that specializes in growing sugar cane</td></tr>
+<tr><td><a name="S.ESTT"></a>ESTT</td><td> tea plantation</td><td> an estate which specializes in growing tea bushes</td></tr>
+<tr class="odd"><td><a name="S.ESTX"></a>ESTX</td><td> section of estate</td><td></td></tr>
+<tr><td><a name="S.FCL"></a>FCL</td><td> facility</td><td> a building or buildings housing a center, institute, foundation, hospital, prison, mission, courthouse, etc.</td></tr>
+<tr class="odd"><td><a name="S.FNDY"></a>FNDY</td><td> foundry</td><td> a building or works where metal casting is carried out</td></tr>
+<tr><td><a name="S.FRM"></a>FRM</td><td> farm</td><td> a tract of land with associated buildings devoted to agriculture</td></tr>
+<tr class="odd"><td><a name="S.FRMQ"></a>FRMQ</td><td> abandoned farm</td><td></td></tr>
+<tr><td><a name="S.FRMS"></a>FRMS</td><td> farms</td><td> tracts of land with associated buildings devoted to agriculture</td></tr>
+<tr class="odd"><td><a name="S.FRMT"></a>FRMT</td><td> farmstead</td><td> the buildings and adjacent service areas of a farm</td></tr>
+<tr><td><a name="S.FT"></a>FT</td><td> fort</td><td> a defensive structure or earthworks</td></tr>
+<tr class="odd"><td><a name="S.FY"></a>FY</td><td> ferry</td><td> a boat or other floating conveyance and terminal facilities regularly used to transport people and vehicles across a waterbody</td></tr>
+<tr><td><a name="S.FYT"></a>FYT</td><td> ferry terminal</td><td> a place where ferries pick-up and discharge passengers, vehicles and or cargo</td></tr>
+<tr class="odd"><td><a name="S.GATE"></a>GATE</td><td> gate</td><td> a controlled access entrance or exit</td></tr>
+<tr><td><a name="S.GDN"></a>GDN</td><td> garden(s)</td><td> an enclosure for displaying selected plant or animal life</td></tr>
+<tr class="odd"><td><a name="S.GHAT"></a>GHAT</td><td> ghat</td><td> a set of steps leading to a river, which are of religious significance, and at their base is usually a platform for bathing</td></tr>
+<tr><td><a name="S.GHSE"></a>GHSE</td><td> guest house</td><td> a house used to provide lodging for paying guests</td></tr>
+<tr class="odd"><td><a name="S.GOSP"></a>GOSP</td><td> gas-oil separator plant</td><td> a facility for separating gas from oil</td></tr>
+<tr><td><a name="S.GOVL"></a>GOVL</td><td> local government office</td><td> a facility housing local governmental offices, usually a city, town, or village hall</td></tr>
+<tr class="odd"><td><a name="S.GRVE"></a>GRVE</td><td> grave</td><td> a burial site</td></tr>
+<tr><td><a name="S.HERM"></a>HERM</td><td> hermitage</td><td> a secluded residence, usually for religious sects</td></tr>
+<tr class="odd"><td><a name="S.HLT"></a>HLT</td><td> halting place</td><td> a place where caravans stop for rest</td></tr>
+<tr><td><a name="S.HMSD"></a>HMSD</td><td> homestead</td><td> a residence, owner's or manager's, on a sheep or cattle station, woolshed, outcamp, or Aboriginal outstation, specific to Australia and New Zealand </td></tr>
+<tr class="odd"><td><a name="S.HSE"></a>HSE</td><td> house(s)</td><td> a building used as a human habitation</td></tr>
+<tr><td><a name="S.HSEC"></a>HSEC</td><td> country house</td><td> a large house, mansion, or chateau, on a large estate</td></tr>
+<tr class="odd"><td><a name="S.HSP"></a>HSP</td><td> hospital</td><td> a building in which sick or injured, especially those confined to bed, are medically treated</td></tr>
+<tr><td><a name="S.HSPC"></a>HSPC</td><td> clinic</td><td> a medical facility associated with a hospital for outpatients</td></tr>
+<tr class="odd"><td><a name="S.HSPD"></a>HSPD</td><td> dispensary</td><td> a building where medical or dental aid is dispensed</td></tr>
+<tr><td><a name="S.HSPL"></a>HSPL</td><td> leprosarium</td><td> an asylum or hospital for lepers</td></tr>
+<tr class="odd"><td><a name="S.HSTS"></a>HSTS</td><td> historical site</td><td> a place of historical importance</td></tr>
+<tr><td><a name="S.HTL"></a>HTL</td><td> hotel</td><td> a building providing lodging and/or meals for the public</td></tr>
+<tr class="odd"><td><a name="S.HUT"></a>HUT</td><td> hut</td><td> a small primitive house</td></tr>
+<tr><td><a name="S.HUTS"></a>HUTS</td><td> huts</td><td> small primitive houses</td></tr>
+<tr class="odd"><td><a name="S.INSM"></a>INSM</td><td> military installation</td><td> a facility for use of and control by armed forces</td></tr>
+<tr><td><a name="S.ITTR"></a>ITTR</td><td> research institute</td><td> a facility where research is carried out</td></tr>
+<tr class="odd"><td><a name="S.JTY"></a>JTY</td><td> jetty</td><td> a structure built out into the water at a river mouth or harbor entrance to regulate currents and silting</td></tr>
+<tr><td><a name="S.LDNG"></a>LDNG</td><td> landing</td><td> a place where boats receive or discharge passengers and freight, but lacking most port facilities</td></tr>
+<tr class="odd"><td><a name="S.LEPC"></a>LEPC</td><td> leper colony</td><td> a settled area inhabited by lepers in relative isolation</td></tr>
+<tr><td><a name="S.LIBR"></a>LIBR</td><td> library</td><td> A place in which information resources such as books are kept for reading, reference, or lending.</td></tr>
+<tr class="odd"><td><a name="S.LNDF"></a>LNDF</td><td> landfill</td><td> a place for trash and garbage disposal in which the waste is buried between layers of earth to build up low-lying land</td></tr>
+<tr><td><a name="S.LOCK"></a>LOCK</td><td> lock(s)</td><td> a basin in a waterway with gates at each end by means of which vessels are passed from one water level to another</td></tr>
+<tr class="odd"><td><a name="S.LTHSE"></a>LTHSE</td><td> lighthouse</td><td> a distinctive structure exhibiting a major navigation light</td></tr>
+<tr><td><a name="S.MALL"></a>MALL</td><td> mall</td><td> A large, often enclosed shopping complex containing various stores, businesses, and restaurants usually accessible by common passageways.</td></tr>
+<tr class="odd"><td><a name="S.MAR"></a>MAR</td><td> marina</td><td> a harbor facility for small boats, yachts, etc.</td></tr>
+<tr><td><a name="S.MFG"></a>MFG</td><td> factory</td><td> one or more buildings where goods are manufactured, processed or fabricated</td></tr>
+<tr class="odd"><td><a name="S.MFGB"></a>MFGB</td><td> brewery</td><td> one or more buildings where beer is brewed</td></tr>
+<tr><td><a name="S.MFGC"></a>MFGC</td><td> cannery</td><td> a building where food items are canned</td></tr>
+<tr class="odd"><td><a name="S.MFGCU"></a>MFGCU</td><td> copper works</td><td> a facility for processing copper ore</td></tr>
+<tr><td><a name="S.MFGLM"></a>MFGLM</td><td> limekiln</td><td> a furnace in which limestone is reduced to lime</td></tr>
+<tr class="odd"><td><a name="S.MFGM"></a>MFGM</td><td> munitions plant</td><td> a factory where ammunition is made</td></tr>
+<tr><td><a name="S.MFGPH"></a>MFGPH</td><td> phosphate works</td><td> a facility for producing fertilizer</td></tr>
+<tr class="odd"><td><a name="S.MFGQ"></a>MFGQ</td><td> abandoned factory</td><td></td></tr>
+<tr><td><a name="S.MFGSG"></a>MFGSG</td><td> sugar refinery</td><td> a facility for converting raw sugar into refined sugar</td></tr>
+<tr class="odd"><td><a name="S.MKT"></a>MKT</td><td> market</td><td> a place where goods are bought and sold at regular intervals</td></tr>
+<tr><td><a name="S.ML"></a>ML</td><td> mill(s)</td><td> a building housing machines for transforming, shaping, finishing, grinding, or extracting products</td></tr>
+<tr class="odd"><td><a name="S.MLM"></a>MLM</td><td> ore treatment plant</td><td> a facility for improving the metal content of ore by concentration</td></tr>
+<tr><td><a name="S.MLO"></a>MLO</td><td> olive oil mill</td><td> a mill where oil is extracted from olives</td></tr>
+<tr class="odd"><td><a name="S.MLSG"></a>MLSG</td><td> sugar mill</td><td> a facility where sugar cane is processed into raw sugar</td></tr>
+<tr><td><a name="S.MLSGQ"></a>MLSGQ</td><td> former sugar mill</td><td> a sugar mill no longer used as a sugar mill</td></tr>
+<tr class="odd"><td><a name="S.MLSW"></a>MLSW</td><td> sawmill</td><td> a mill where logs or lumber are sawn to specified shapes and sizes</td></tr>
+<tr><td><a name="S.MLWND"></a>MLWND</td><td> windmill</td><td> a mill or water pump powered by wind</td></tr>
+<tr class="odd"><td><a name="S.MLWTR"></a>MLWTR</td><td> water mill</td><td> a mill powered by running water</td></tr>
+<tr><td><a name="S.MN"></a>MN</td><td> mine(s)</td><td> a site where mineral ores are extracted from the ground by excavating surface pits and subterranean passages</td></tr>
+<tr class="odd"><td><a name="S.MNAU"></a>MNAU</td><td> gold mine(s)</td><td> a mine where gold ore, or alluvial gold is extracted</td></tr>
+<tr><td><a name="S.MNC"></a>MNC</td><td> coal mine(s)</td><td> a mine where coal is extracted</td></tr>
+<tr class="odd"><td><a name="S.MNCR"></a>MNCR</td><td> chrome mine(s)</td><td> a mine where chrome ore is extracted</td></tr>
+<tr><td><a name="S.MNCU"></a>MNCU</td><td> copper mine(s)</td><td> a mine where copper ore is extracted</td></tr>
+<tr class="odd"><td><a name="S.MNFE"></a>MNFE</td><td> iron mine(s)</td><td> a mine where iron ore is extracted</td></tr>
+<tr><td><a name="S.MNMT"></a>MNMT</td><td> monument</td><td> a commemorative structure or statue</td></tr>
+<tr class="odd"><td><a name="S.MNN"></a>MNN</td><td> salt mine(s)</td><td> a mine from which salt is extracted</td></tr>
+<tr><td><a name="S.MNQ"></a>MNQ</td><td> abandoned mine</td><td></td></tr>
+<tr class="odd"><td><a name="S.MNQR"></a>MNQR</td><td> quarry(-ies)</td><td> a surface mine where building stone or gravel and sand, etc. are extracted</td></tr>
+<tr><td><a name="S.MOLE"></a>MOLE</td><td> mole</td><td> a massive structure of masonry or large stones serving as a pier or breakwater</td></tr>
+<tr class="odd"><td><a name="S.MSQE"></a>MSQE</td><td> mosque</td><td> a building for public Islamic worship</td></tr>
+<tr><td><a name="S.MSSN"></a>MSSN</td><td> mission</td><td> a place characterized by dwellings, school, church, hospital and other facilities operated by a religious group for the purpose of providing charitable services and to propagate religion</td></tr>
+<tr class="odd"><td><a name="S.MSSNQ"></a>MSSNQ</td><td> abandoned mission</td><td></td></tr>
+<tr><td><a name="S.MSTY"></a>MSTY</td><td> monastery</td><td> a building and grounds where a community of monks lives in seclusion</td></tr>
+<tr class="odd"><td><a name="S.MTRO"></a>MTRO</td><td> metro station</td><td> metro station (Underground, Tube, or Metro) </td></tr>
+<tr><td><a name="S.MUS"></a>MUS</td><td> museum</td><td> a building where objects of permanent interest in one or more of the arts and sciences are preserved and exhibited</td></tr>
+<tr class="odd"><td><a name="S.NOV"></a>NOV</td><td> novitiate</td><td> a religious house or school where novices are trained</td></tr>
+<tr><td><a name="S.NSY"></a>NSY</td><td> nursery(-ies)</td><td> a place where plants are propagated for transplanting or grafting</td></tr>
+<tr class="odd"><td><a name="S.OBPT"></a>OBPT</td><td> observation point</td><td> a wildlife or scenic observation point</td></tr>
+<tr><td><a name="S.OBS"></a>OBS</td><td> observatory</td><td> a facility equipped for observation of atmospheric or space phenomena</td></tr>
+<tr class="odd"><td><a name="S.OBSR"></a>OBSR</td><td> radio observatory</td><td> a facility equipped with an array of antennae for receiving radio waves from space</td></tr>
+<tr><td><a name="S.OILJ"></a>OILJ</td><td> oil pipeline junction</td><td> a section of an oil pipeline where two or more pipes join together</td></tr>
+<tr class="odd"><td><a name="S.OILQ"></a>OILQ</td><td> abandoned oil well</td><td></td></tr>
+<tr><td><a name="S.OILR"></a>OILR</td><td> oil refinery</td><td> a facility for converting crude oil into refined petroleum products</td></tr>
+<tr class="odd"><td><a name="S.OILT"></a>OILT</td><td> tank farm</td><td> a tract of land occupied by large, cylindrical, metal tanks in which oil or liquid petrochemicals are stored</td></tr>
+<tr><td><a name="S.OILW"></a>OILW</td><td> oil well</td><td> a well from which oil may be pumped</td></tr>
+<tr class="odd"><td><a name="S.OPRA"></a>OPRA</td><td> opera house</td><td> A theater designed chiefly for the performance of operas.</td></tr>
+<tr><td><a name="S.PAL"></a>PAL</td><td> palace</td><td> a large stately house, often a royal or presidential residence</td></tr>
+<tr class="odd"><td><a name="S.PGDA"></a>PGDA</td><td> pagoda</td><td> a tower-like storied structure, usually a Buddhist shrine</td></tr>
+<tr><td><a name="S.PIER"></a>PIER</td><td> pier</td><td> a structure built out into navigable water on piles providing berthing for ships and recreation</td></tr>
+<tr class="odd"><td><a name="S.PKLT"></a>PKLT</td><td> parking lot</td><td> an area used for parking vehicles</td></tr>
+<tr><td><a name="S.PMPO"></a>PMPO</td><td> oil pumping station</td><td> a facility for pumping oil through a pipeline</td></tr>
+<tr class="odd"><td><a name="S.PMPW"></a>PMPW</td><td> water pumping station</td><td> a facility for pumping water from a major well or through a pipeline</td></tr>
+<tr><td><a name="S.PO"></a>PO</td><td> post office</td><td> a public building in which mail is received, sorted and distributed</td></tr>
+<tr class="odd"><td><a name="S.PP"></a>PP</td><td> police post</td><td> a building in which police are stationed</td></tr>
+<tr><td><a name="S.PPQ"></a>PPQ</td><td> abandoned police post</td><td></td></tr>
+<tr class="odd"><td><a name="S.PRKGT"></a>PRKGT</td><td> park gate</td><td> a controlled access to a park</td></tr>
+<tr><td><a name="S.PRKHQ"></a>PRKHQ</td><td> park headquarters</td><td> a park administrative facility</td></tr>
+<tr class="odd"><td><a name="S.PRN"></a>PRN</td><td> prison</td><td> a facility for confining prisoners</td></tr>
+<tr><td><a name="S.PRNJ"></a>PRNJ</td><td> reformatory</td><td> a facility for confining, training, and reforming young law offenders</td></tr>
+<tr class="odd"><td><a name="S.PRNQ"></a>PRNQ</td><td> abandoned prison</td><td></td></tr>
+<tr><td><a name="S.PS"></a>PS</td><td> power station</td><td> a facility for generating electric power</td></tr>
+<tr class="odd"><td><a name="S.PSH"></a>PSH</td><td> hydroelectric power station</td><td> a building where electricity is generated from water power</td></tr>
+<tr><td><a name="S.PSN"></a>PSN</td><td> nuclear power station</td><td> nuclear power station</td></tr>
+<tr class="odd"><td><a name="S.PSTB"></a>PSTB</td><td> border post</td><td> a post or station at an international boundary for the regulation of movement of people and goods</td></tr>
+<tr><td><a name="S.PSTC"></a>PSTC</td><td> customs post</td><td> a building at an international boundary where customs and duties are paid on goods</td></tr>
+<tr class="odd"><td><a name="S.PSTP"></a>PSTP</td><td> patrol post</td><td> a post from which patrols are sent out</td></tr>
+<tr><td><a name="S.PYR"></a>PYR</td><td> pyramid</td><td> an ancient massive structure of square ground plan with four triangular faces meeting at a point and used for enclosing tombs</td></tr>
+<tr class="odd"><td><a name="S.PYRS"></a>PYRS</td><td> pyramids</td><td> ancient massive structures of square ground plan with four triangular faces meeting at a point and used for enclosing tombs</td></tr>
+<tr><td><a name="S.QUAY"></a>QUAY</td><td> quay</td><td> a structure of solid construction along a shore or bank which provides berthing for ships and which generally provides cargo handling facilities</td></tr>
+<tr class="odd"><td><a name="S.RDCR"></a>RDCR</td><td> traffic circle</td><td> a road junction formed around a central circle about which traffic moves in one direction only</td></tr>
+<tr><td><a name="S.RDIN"></a>RDIN</td><td> intersection</td><td> a junction of two or more highways by a system of separate levels that permit traffic to pass from one to another without the crossing of traffic streams</td></tr>
+<tr class="odd"><td><a name="S.RECG"></a>RECG</td><td> golf course</td><td> a recreation field where golf is played</td></tr>
+<tr><td><a name="S.RECR"></a>RECR</td><td> racetrack</td><td> a track where races are held</td></tr>
+<tr class="odd"><td><a name="S.REST"></a>REST</td><td> restaurant</td><td> A place where meals are served to the public</td></tr>
+<tr><td><a name="S.RET"></a>RET</td><td> store</td><td> a building where goods and/or services are offered for sale</td></tr>
+<tr class="odd"><td><a name="S.RHSE"></a>RHSE</td><td> resthouse</td><td> a structure maintained for the rest and shelter of travelers</td></tr>
+<tr><td><a name="S.RKRY"></a>RKRY</td><td> rookery</td><td> a breeding place of a colony of birds or seals</td></tr>
+<tr class="odd"><td><a name="S.RLG"></a>RLG</td><td> religious site</td><td> an ancient site of significant religious importance</td></tr>
+<tr><td><a name="S.RLGR"></a>RLGR</td><td> retreat</td><td> a place of temporary seclusion, especially for religious groups</td></tr>
+<tr class="odd"><td><a name="S.RNCH"></a>RNCH</td><td> ranch(es)</td><td> a large farm specializing in extensive grazing of livestock</td></tr>
+<tr><td><a name="S.RSD"></a>RSD</td><td> railroad siding</td><td> a short track parallel to and joining the main track</td></tr>
+<tr class="odd"><td><a name="S.RSGNL"></a>RSGNL</td><td> railroad signal</td><td> a signal at the entrance of a particular section of track governing the movement of trains</td></tr>
+<tr><td><a name="S.RSRT"></a>RSRT</td><td> resort</td><td> a specialized facility for vacation, health, or participation sports activities</td></tr>
+<tr class="odd"><td><a name="S.RSTN"></a>RSTN</td><td> railroad station</td><td> a facility comprising ticket office, platforms, etc. for loading and unloading train passengers and freight</td></tr>
+<tr><td><a name="S.RSTNQ"></a>RSTNQ</td><td> abandoned railroad station</td><td></td></tr>
+<tr class="odd"><td><a name="S.RSTP"></a>RSTP</td><td> railroad stop</td><td> a place lacking station facilities where trains stop to pick up and unload passengers and freight</td></tr>
+<tr><td><a name="S.RSTPQ"></a>RSTPQ</td><td> abandoned railroad stop</td><td></td></tr>
+<tr class="odd"><td><a name="S.RUIN"></a>RUIN</td><td> ruin(s)</td><td> a destroyed or decayed structure which is no longer functional</td></tr>
+<tr><td><a name="S.SCH"></a>SCH</td><td> school</td><td> building(s) where instruction in one or more branches of knowledge takes place</td></tr>
+<tr class="odd"><td><a name="S.SCHA"></a>SCHA</td><td> agricultural school</td><td> a school with a curriculum focused on agriculture</td></tr>
+<tr><td><a name="S.SCHC"></a>SCHC</td><td> college</td><td> the grounds and buildings of an institution of higher learning</td></tr>
+<tr class="odd"><td><a name="S.SCHL"></a>SCHL</td><td> language school</td><td> Language Schools & Institutions</td></tr>
+<tr><td><a name="S.SCHM"></a>SCHM</td><td> military school</td><td> a school at which military science forms the core of the curriculum</td></tr>
+<tr class="odd"><td><a name="S.SCHN"></a>SCHN</td><td> maritime school</td><td> a school at which maritime sciences form the core of the curriculum</td></tr>
+<tr><td><a name="S.SCHT"></a>SCHT</td><td> technical school</td><td> post-secondary school with a specifically technical or vocational curriculum</td></tr>
+<tr class="odd"><td><a name="S.SECP"></a>SECP</td><td> State Exam Prep Centre</td><td> state exam preparation centres</td></tr>
+<tr><td><a name="S.SHPF"></a>SHPF</td><td> sheepfold</td><td> a fence or wall enclosure for sheep and other small herd animals</td></tr>
+<tr class="odd"><td><a name="S.SHRN"></a>SHRN</td><td> shrine</td><td> a structure or place memorializing a person or religious concept</td></tr>
+<tr><td><a name="S.SHSE"></a>SHSE</td><td> storehouse</td><td> a building for storing goods, especially provisions</td></tr>
+<tr class="odd"><td><a name="S.SLCE"></a>SLCE</td><td> sluice</td><td> a conduit or passage for carrying off surplus water from a waterbody, usually regulated by means of a sluice gate</td></tr>
+<tr><td><a name="S.SNTR"></a>SNTR</td><td> sanatorium</td><td> a facility where victims of physical or mental disorders are treated</td></tr>
+<tr class="odd"><td><a name="S.SPA"></a>SPA</td><td> spa</td><td> a resort area usually developed around a medicinal spring</td></tr>
+<tr><td><a name="S.SPLY"></a>SPLY</td><td> spillway</td><td> a passage or outlet through which surplus water flows over, around or through a dam</td></tr>
+<tr class="odd"><td><a name="S.SQR"></a>SQR</td><td> square</td><td> a broad, open, public area near the center of a town or city</td></tr>
+<tr><td><a name="S.STBL"></a>STBL</td><td> stable</td><td> a building for the shelter and feeding of farm animals, especially horses</td></tr>
+<tr class="odd"><td><a name="S.STDM"></a>STDM</td><td> stadium</td><td> a structure with an enclosure for athletic games with tiers of seats for spectators</td></tr>
+<tr><td><a name="S.STNB"></a>STNB</td><td> scientific research base</td><td> a scientific facility used as a base from which research is carried out or monitored</td></tr>
+<tr class="odd"><td><a name="S.STNC"></a>STNC</td><td> coast guard station</td><td> a facility from which the coast is guarded by armed vessels</td></tr>
+<tr><td><a name="S.STNE"></a>STNE</td><td> experiment station</td><td> a facility for carrying out experiments</td></tr>
+<tr class="odd"><td><a name="S.STNF"></a>STNF</td><td> forest station</td><td> a collection of buildings and facilities for carrying out forest management</td></tr>
+<tr><td><a name="S.STNI"></a>STNI</td><td> inspection station</td><td> a station at which vehicles, goods, and people are inspected</td></tr>
+<tr class="odd"><td><a name="S.STNM"></a>STNM</td><td> meteorological station</td><td> a station at which weather elements are recorded</td></tr>
+<tr><td><a name="S.STNR"></a>STNR</td><td> radio station</td><td> a facility for producing and transmitting information by radio waves</td></tr>
+<tr class="odd"><td><a name="S.STNS"></a>STNS</td><td> satellite station</td><td> a facility for tracking and communicating with orbiting satellites</td></tr>
+<tr><td><a name="S.STNW"></a>STNW</td><td> whaling station</td><td> a facility for butchering whales and processing train oil</td></tr>
+<tr class="odd"><td><a name="S.STPS"></a>STPS</td><td> steps</td><td> stones or slabs placed for ease in ascending or descending a steep slope</td></tr>
+<tr><td><a name="S.SWT"></a>SWT</td><td> sewage treatment plant</td><td> facility for the processing of sewage and/or wastewater</td></tr>
+<tr class="odd"><td><a name="S.SYG"></a>SYG</td><td> synagogue</td><td> a place for Jewish worship and religious instruction</td></tr>
+<tr><td><a name="S.THTR"></a>THTR</td><td> theater</td><td> A building, room, or outdoor structure for the presentation of plays, films, or other dramatic performances</td></tr>
+<tr class="odd"><td><a name="S.TMB"></a>TMB</td><td> tomb(s)</td><td> a structure for interring bodies</td></tr>
+<tr><td><a name="S.TMPL"></a>TMPL</td><td> temple(s)</td><td> an edifice dedicated to religious worship</td></tr>
+<tr class="odd"><td><a name="S.TNKD"></a>TNKD</td><td> cattle dipping tank</td><td> a small artificial pond used for immersing cattle in chemically treated water for disease control</td></tr>
+<tr><td><a name="S.TOLL"></a>TOLL</td><td> toll gate/barrier</td><td> highway toll collection station</td></tr>
+<tr class="odd"><td><a name="S.TOWR"></a>TOWR</td><td> tower</td><td> a high conspicuous structure, typically much higher than its diameter</td></tr>
+<tr><td><a name="S.TRAM"></a>TRAM</td><td> tram</td><td> rail vehicle along urban streets (also known as streetcar or trolley)</td></tr>
+<tr class="odd"><td><a name="S.TRANT"></a>TRANT</td><td> transit terminal</td><td> facilities for the handling of vehicular freight and passengers</td></tr>
+<tr><td><a name="S.TRIG"></a>TRIG</td><td> triangulation station</td><td> a point on the earth whose position has been determined by triangulation</td></tr>
+<tr class="odd"><td><a name="S.TRMO"></a>TRMO</td><td> oil pipeline terminal</td><td> a tank farm or loading facility at the end of an oil pipeline</td></tr>
+<tr><td><a name="S.TWO"></a>TWO</td><td> temp work office</td><td> Temporary Work Offices</td></tr>
+<tr class="odd"><td><a name="S.UNIP"></a>UNIP</td><td> university prep school</td><td> University Preparation Schools & Institutions</td></tr>
+<tr><td><a name="S.UNIV"></a>UNIV</td><td> university</td><td> An institution for higher learning with teaching and research facilities constituting a graduate school and professional schools that award master's degrees and doctorates and an undergraduate division that awards bachelor's degrees.</td></tr>
+<tr class="odd"><td><a name="S.USGE"></a>USGE</td><td> united states government establishment</td><td> a facility operated by the United States Government in Panama</td></tr>
+<tr><td><a name="S.VETF"></a>VETF</td><td> veterinary facility</td><td> a building or camp at which veterinary services are available</td></tr>
+<tr class="odd"><td><a name="S.WALL"></a>WALL</td><td> wall</td><td> a thick masonry structure, usually enclosing a field or building, or forming the side of a structure</td></tr>
+<tr><td><a name="S.WALLA"></a>WALLA</td><td> ancient wall</td><td> the remains of a linear defensive stone structure</td></tr>
+<tr class="odd"><td><a name="S.WEIR"></a>WEIR</td><td> weir(s)</td><td> a small dam in a stream, designed to raise the water level or to divert stream flow through a desired channel</td></tr>
+<tr><td><a name="S.WHRF"></a>WHRF</td><td> wharf(-ves)</td><td> a structure of open rather than solid construction along a shore or a bank which provides berthing for ships and cargo-handling facilities</td></tr>
+<tr class="odd"><td><a name="S.WRCK"></a>WRCK</td><td> wreck</td><td> the site of the remains of a wrecked vessel</td></tr>
+<tr><td><a name="S.WTRW"></a>WTRW</td><td> waterworks</td><td> a facility for supplying potable water through a water source and a system of pumps and filtration beds</td></tr>
+<tr class="odd"><td><a name="S.ZNF"></a>ZNF</td><td> free trade zone</td><td> an area, usually a section of a port, where goods may be received and shipped free of customs duty and of most customs regulations</td></tr>
+<tr><td><a name="S.ZOO"></a>ZOO</td><td> zoo</td><td> a zoological garden or park where wild animals are kept for exhibition</td></tr>
+<tr><th colspan="3"><a name="T"></a>T mountain,hill,rock,... </th></tr>
+<tr><td><a name="T.ASPH"></a>ASPH</td><td> asphalt lake</td><td> a small basin containing naturally occurring asphalt</td></tr>
+<tr class="odd"><td><a name="T.ATOL"></a>ATOL</td><td> atoll(s)</td><td> a ring-shaped coral reef which has closely spaced islands on it encircling a lagoon</td></tr>
+<tr><td><a name="T.BAR"></a>BAR</td><td> bar</td><td> a shallow ridge or mound of coarse unconsolidated material in a stream channel, at the mouth of a stream, estuary, or lagoon and in the wave-break zone along coasts</td></tr>
+<tr class="odd"><td><a name="T.BCH"></a>BCH</td><td> beach</td><td> a shore zone of coarse unconsolidated sediment that extends from the low-water line to the highest reach of storm waves</td></tr>
+<tr><td><a name="T.BCHS"></a>BCHS</td><td> beaches</td><td> a shore zone of coarse unconsolidated sediment that extends from the low-water line to the highest reach of storm waves</td></tr>
+<tr class="odd"><td><a name="T.BDLD"></a>BDLD</td><td> badlands</td><td> an area characterized by a maze of very closely spaced, deep, narrow, steep-sided ravines, and sharp crests and pinnacles</td></tr>
+<tr><td><a name="T.BLDR"></a>BLDR</td><td> boulder field</td><td> a high altitude or high latitude bare, flat area covered with large angular rocks</td></tr>
+<tr class="odd"><td><a name="T.BLHL"></a>BLHL</td><td> blowhole(s)</td><td> a hole in coastal rock through which sea water is forced by a rising tide or waves and spurted through an outlet into the air</td></tr>
+<tr><td><a name="T.BLOW"></a>BLOW</td><td> blowout(s)</td><td> a small depression in sandy terrain, caused by wind erosion</td></tr>
+<tr class="odd"><td><a name="T.BNCH"></a>BNCH</td><td> bench</td><td> a long, narrow bedrock platform bounded by steeper slopes above and below, usually overlooking a waterbody</td></tr>
+<tr><td><a name="T.BUTE"></a>BUTE</td><td> butte(s)</td><td> a small, isolated, usually flat-topped hill with steep sides</td></tr>
+<tr class="odd"><td><a name="T.CAPE"></a>CAPE</td><td> cape</td><td> a land area, more prominent than a point, projecting into the sea and marking a notable change in coastal direction</td></tr>
+<tr><td><a name="T.CFT"></a>CFT</td><td> cleft(s)</td><td> a deep narrow slot, notch, or groove in a coastal cliff</td></tr>
+<tr class="odd"><td><a name="T.CLDA"></a>CLDA</td><td> caldera</td><td> a depression measuring kilometers across formed by the collapse of a volcanic mountain</td></tr>
+<tr><td><a name="T.CLF"></a>CLF</td><td> cliff(s)</td><td> a high, steep to perpendicular slope overlooking a waterbody or lower area</td></tr>
+<tr class="odd"><td><a name="T.CNYN"></a>CNYN</td><td> canyon</td><td> a deep, narrow valley with steep sides cutting into a plateau or mountainous area</td></tr>
+<tr><td><a name="T.CONE"></a>CONE</td><td> cone(s)</td><td> a conical landform composed of mud or volcanic material</td></tr>
+<tr class="odd"><td><a name="T.CRDR"></a>CRDR</td><td> corridor</td><td> a strip or area of land having significance as an access way</td></tr>
+<tr><td><a name="T.CRQ"></a>CRQ</td><td> cirque</td><td> a bowl-like hollow partially surrounded by cliffs or steep slopes at the head of a glaciated valley</td></tr>
+<tr class="odd"><td><a name="T.CRQS"></a>CRQS</td><td> cirques</td><td> bowl-like hollows partially surrounded by cliffs or steep slopes at the head of a glaciated valley</td></tr>
+<tr><td><a name="T.CRTR"></a>CRTR</td><td> crater(s)</td><td> a generally circular saucer or bowl-shaped depression caused by volcanic or meteorite explosive action</td></tr>
+<tr class="odd"><td><a name="T.CUET"></a>CUET</td><td> cuesta(s)</td><td> an asymmetric ridge formed on tilted strata</td></tr>
+<tr><td><a name="T.DLTA"></a>DLTA</td><td> delta</td><td> a flat plain formed by alluvial deposits at the mouth of a stream</td></tr>
+<tr class="odd"><td><a name="T.DPR"></a>DPR</td><td> depression(s)</td><td> a low area surrounded by higher land and usually characterized by interior drainage</td></tr>
+<tr><td><a name="T.DSRT"></a>DSRT</td><td> desert</td><td> a large area with little or no vegetation due to extreme environmental conditions</td></tr>
+<tr class="odd"><td><a name="T.DUNE"></a>DUNE</td><td> dune(s)</td><td> a wave form, ridge or star shape feature composed of sand</td></tr>
+<tr><td><a name="T.DVD"></a>DVD</td><td> divide</td><td> a line separating adjacent drainage basins</td></tr>
+<tr class="odd"><td><a name="T.ERG"></a>ERG</td><td> sandy desert</td><td> an extensive tract of shifting sand and sand dunes</td></tr>
+<tr><td><a name="T.FAN"></a>FAN</td><td> fan(s)</td><td> a fan-shaped wedge of coarse alluvium with apex merging with a mountain stream bed and the fan spreading out at a low angle slope onto an adjacent plain</td></tr>
+<tr class="odd"><td><a name="T.FORD"></a>FORD</td><td> ford</td><td> a shallow part of a stream which can be crossed on foot or by land vehicle</td></tr>
+<tr><td><a name="T.FSR"></a>FSR</td><td> fissure</td><td> a crack associated with volcanism</td></tr>
+<tr class="odd"><td><a name="T.GAP"></a>GAP</td><td> gap</td><td> a low place in a ridge, not used for transportation</td></tr>
+<tr><td><a name="T.GRGE"></a>GRGE</td><td> gorge(s)</td><td> a short, narrow, steep-sided section of a stream valley</td></tr>
+<tr class="odd"><td><a name="T.HDLD"></a>HDLD</td><td> headland</td><td> a high projection of land extending into a large body of water beyond the line of the coast</td></tr>
+<tr><td><a name="T.HLL"></a>HLL</td><td> hill</td><td> a rounded elevation of limited extent rising above the surrounding land with local relief of less than 300m</td></tr>
+<tr class="odd"><td><a name="T.HLLS"></a>HLLS</td><td> hills</td><td> rounded elevations of limited extent rising above the surrounding land with local relief of less than 300m</td></tr>
+<tr><td><a name="T.HMCK"></a>HMCK</td><td> hammock(s)</td><td> a patch of ground, distinct from and slightly above the surrounding plain or wetland. Often occurs in groups</td></tr>
+<tr class="odd"><td><a name="T.HMDA"></a>HMDA</td><td> rock desert</td><td> a relatively sand-free, high bedrock plateau in a hot desert, with or without a gravel veneer</td></tr>
+<tr><td><a name="T.INTF"></a>INTF</td><td> interfluve</td><td> a relatively undissected upland between adjacent stream valleys</td></tr>
+<tr class="odd"><td><a name="T.ISL"></a>ISL</td><td> island</td><td> a tract of land, smaller than a continent, surrounded by water at high water</td></tr>
+<tr><td><a name="T.ISLET"></a>ISLET</td><td> islet</td><td> small island, bigger than rock, smaller than island.</td></tr>
+<tr class="odd"><td><a name="T.ISLF"></a>ISLF</td><td> artificial island</td><td> an island created by landfill or diking and filling in a wetland, bay, or lagoon</td></tr>
+<tr><td><a name="T.ISLM"></a>ISLM</td><td> mangrove island</td><td> a mangrove swamp surrounded by a waterbody</td></tr>
+<tr class="odd"><td><a name="T.ISLS"></a>ISLS</td><td> islands</td><td> tracts of land, smaller than a continent, surrounded by water at high water</td></tr>
+<tr><td><a name="T.ISLT"></a>ISLT</td><td> land-tied island</td><td> a coastal island connected to the mainland by barrier beaches, levees or dikes</td></tr>
+<tr class="odd"><td><a name="T.ISLX"></a>ISLX</td><td> section of island</td><td></td></tr>
+<tr><td><a name="T.ISTH"></a>ISTH</td><td> isthmus</td><td> a narrow strip of land connecting two larger land masses and bordered by water</td></tr>
+<tr class="odd"><td><a name="T.KRST"></a>KRST</td><td> karst area</td><td> a distinctive landscape developed on soluble rock such as limestone characterized by sinkholes, caves, disappearing streams, and underground drainage</td></tr>
+<tr><td><a name="T.LAVA"></a>LAVA</td><td> lava area</td><td> an area of solidified lava</td></tr>
+<tr class="odd"><td><a name="T.LEV"></a>LEV</td><td> levee</td><td> a natural low embankment bordering a distributary or meandering stream; often built up artificially to control floods</td></tr>
+<tr><td><a name="T.MESA"></a>MESA</td><td> mesa(s)</td><td> a flat-topped, isolated elevation with steep slopes on all sides, less extensive than a plateau</td></tr>
+<tr class="odd"><td><a name="T.MND"></a>MND</td><td> mound(s)</td><td> a low, isolated, rounded hill</td></tr>
+<tr><td><a name="T.MRN"></a>MRN</td><td> moraine</td><td> a mound, ridge, or other accumulation of glacial till</td></tr>
+<tr class="odd"><td><a name="T.MT"></a>MT</td><td> mountain</td><td> an elevation standing high above the surrounding area with small summit area, steep slopes and local relief of 300m or more</td></tr>
+<tr><td><a name="T.MTS"></a>MTS</td><td> mountains</td><td> a mountain range or a group of mountains or high ridges</td></tr>
+<tr class="odd"><td><a name="T.NKM"></a>NKM</td><td> meander neck</td><td> a narrow strip of land between the two limbs of a meander loop at its narrowest point</td></tr>
+<tr><td><a name="T.NTK"></a>NTK</td><td> nunatak</td><td> a rock or mountain peak protruding through glacial ice</td></tr>
+<tr class="odd"><td><a name="T.NTKS"></a>NTKS</td><td> nunataks</td><td> rocks or mountain peaks protruding through glacial ice</td></tr>
+<tr><td><a name="T.PAN"></a>PAN</td><td> pan</td><td> a near-level shallow, natural depression or basin, usually containing an intermittent lake, pond, or pool</td></tr>
+<tr class="odd"><td><a name="T.PANS"></a>PANS</td><td> pans</td><td> a near-level shallow, natural depression or basin, usually containing an intermittent lake, pond, or pool</td></tr>
+<tr><td><a name="T.PASS"></a>PASS</td><td> pass</td><td> a break in a mountain range or other high obstruction, used for transportation from one side to the other [See also gap]</td></tr>
+<tr class="odd"><td><a name="T.PEN"></a>PEN</td><td> peninsula</td><td> an elongate area of land projecting into a body of water and nearly surrounded by water</td></tr>
+<tr><td><a name="T.PENX"></a>PENX</td><td> section of peninsula</td><td></td></tr>
+<tr class="odd"><td><a name="T.PK"></a>PK</td><td> peak</td><td> a pointed elevation atop a mountain, ridge, or other hypsographic feature</td></tr>
+<tr><td><a name="T.PKS"></a>PKS</td><td> peaks</td><td> pointed elevations atop a mountain, ridge, or other hypsographic features</td></tr>
+<tr class="odd"><td><a name="T.PLAT"></a>PLAT</td><td> plateau</td><td> an elevated plain with steep slopes on one or more sides, and often with incised streams</td></tr>
+<tr><td><a name="T.PLATX"></a>PLATX</td><td> section of plateau</td><td></td></tr>
+<tr class="odd"><td><a name="T.PLDR"></a>PLDR</td><td> polder</td><td> an area reclaimed from the sea by diking and draining</td></tr>
+<tr><td><a name="T.PLN"></a>PLN</td><td> plain(s)</td><td> an extensive area of comparatively level to gently undulating land, lacking surface irregularities, and usually adjacent to a higher area</td></tr>
+<tr class="odd"><td><a name="T.PLNX"></a>PLNX</td><td> section of plain</td><td></td></tr>
+<tr><td><a name="T.PROM"></a>PROM</td><td> promontory(-ies)</td><td> a bluff or prominent hill overlooking or projecting into a lowland</td></tr>
+<tr class="odd"><td><a name="T.PT"></a>PT</td><td> point</td><td> a tapering piece of land projecting into a body of water, less prominent than a cape</td></tr>
+<tr><td><a name="T.PTS"></a>PTS</td><td> points</td><td> tapering pieces of land projecting into a body of water, less prominent than a cape</td></tr>
+<tr class="odd"><td><a name="T.RDGB"></a>RDGB</td><td> beach ridge</td><td> a ridge of sand just inland and parallel to the beach, usually in series</td></tr>
+<tr><td><a name="T.RDGE"></a>RDGE</td><td> ridge(s)</td><td> a long narrow elevation with steep sides, and a more or less continuous crest</td></tr>
+<tr class="odd"><td><a name="T.REG"></a>REG</td><td> stony desert</td><td> a desert plain characterized by a surface veneer of gravel and stones</td></tr>
+<tr><td><a name="T.RK"></a>RK</td><td> rock</td><td> a conspicuous, isolated rocky mass</td></tr>
+<tr class="odd"><td><a name="T.RKFL"></a>RKFL</td><td> rockfall</td><td> an irregular mass of fallen rock at the base of a cliff or steep slope</td></tr>
+<tr><td><a name="T.RKS"></a>RKS</td><td> rocks</td><td> conspicuous, isolated rocky masses</td></tr>
+<tr class="odd"><td><a name="T.SAND"></a>SAND</td><td> sand area</td><td> a tract of land covered with sand</td></tr>
+<tr><td><a name="T.SBED"></a>SBED</td><td> dry stream bed</td><td> a channel formerly containing the water of a stream</td></tr>
+<tr class="odd"><td><a name="T.SCRP"></a>SCRP</td><td> escarpment</td><td> a long line of cliffs or steep slopes separating level surfaces above and below</td></tr>
+<tr><td><a name="T.SDL"></a>SDL</td><td> saddle</td><td> a broad, open pass crossing a ridge or between hills or mountains</td></tr>
+<tr class="odd"><td><a name="T.SHOR"></a>SHOR</td><td> shore</td><td> a narrow zone bordering a waterbody which covers and uncovers at high and low water, respectively</td></tr>
+<tr><td><a name="T.SINK"></a>SINK</td><td> sinkhole</td><td> a small crater-shape depression in a karst area</td></tr>
+<tr class="odd"><td><a name="T.SLID"></a>SLID</td><td> slide</td><td> a mound of earth material, at the base of a slope and the associated scoured area</td></tr>
+<tr><td><a name="T.SLP"></a>SLP</td><td> slope(s)</td><td> a surface with a relatively uniform slope angle</td></tr>
+<tr class="odd"><td><a name="T.SPIT"></a>SPIT</td><td> spit</td><td> a narrow, straight or curved continuation of a beach into a waterbody</td></tr>
+<tr><td><a name="T.SPUR"></a>SPUR</td><td> spur(s)</td><td> a subordinate ridge projecting outward from a hill, mountain or other elevation</td></tr>
+<tr class="odd"><td><a name="T.TAL"></a>TAL</td><td> talus slope</td><td> a steep concave slope formed by an accumulation of loose rock fragments at the base of a cliff or steep slope</td></tr>
+<tr><td><a name="T.TRGD"></a>TRGD</td><td> interdune trough(s)</td><td> a long wind-swept trough between parallel longitudinal dunes</td></tr>
+<tr class="odd"><td><a name="T.TRR"></a>TRR</td><td> terrace</td><td> a long, narrow alluvial platform bounded by steeper slopes above and below, usually overlooking a waterbody</td></tr>
+<tr><td><a name="T.UPLD"></a>UPLD</td><td> upland</td><td> an extensive interior region of high land with low to moderate surface relief</td></tr>
+<tr class="odd"><td><a name="T.VAL"></a>VAL</td><td> valley</td><td> an elongated depression usually traversed by a stream</td></tr>
+<tr><td><a name="T.VALG"></a>VALG</td><td> hanging valley</td><td> a valley the floor of which is notably higher than the valley or shore to which it leads; most common in areas that have been glaciated</td></tr>
+<tr class="odd"><td><a name="T.VALS"></a>VALS</td><td> valleys</td><td> elongated depressions usually traversed by a stream</td></tr>
+<tr><td><a name="T.VALX"></a>VALX</td><td> section of valley</td><td></td></tr>
+<tr class="odd"><td><a name="T.VLC"></a>VLC</td><td> volcano</td><td> a conical elevation composed of volcanic materials with a crater at the top</td></tr>
+<tr><th colspan="3"><a name="U"></a>U undersea</th></tr>
+<tr><td><a name="U.APNU"></a>APNU</td><td> apron</td><td> a gentle slope, with a generally smooth surface, particularly found around groups of islands and seamounts</td></tr>
+<tr class="odd"><td><a name="U.ARCU"></a>ARCU</td><td> arch</td><td> a low bulge around the southeastern end of the island of Hawaii</td></tr>
+<tr><td><a name="U.ARRU"></a>ARRU</td><td> arrugado</td><td> an area of subdued corrugations off Baja California</td></tr>
+<tr class="odd"><td><a name="U.BDLU"></a>BDLU</td><td> borderland</td><td> a region adjacent to a continent, normally occupied by or bordering a shelf, that is highly irregular with depths well in excess of those typical of a shelf</td></tr>
+<tr><td><a name="U.BKSU"></a>BKSU</td><td> banks</td><td> elevations, typically located on a shelf, over which the depth of water is relatively shallow but sufficient for safe surface navigation</td></tr>
+<tr class="odd"><td><a name="U.BNKU"></a>BNKU</td><td> bank</td><td> an elevation, typically located on a shelf, over which the depth of water is relatively shallow but sufficient for safe surface navigation</td></tr>
+<tr><td><a name="U.BSNU"></a>BSNU</td><td> basin</td><td> a depression more or less equidimensional in plan and of variable extent</td></tr>
+<tr class="odd"><td><a name="U.CDAU"></a>CDAU</td><td> cordillera</td><td> an entire mountain system including the subordinate ranges, interior plateaus, and basins</td></tr>
+<tr><td><a name="U.CNSU"></a>CNSU</td><td> canyons</td><td> relatively narrow, deep depressions with steep sides, the bottom of which generally has a continuous slope</td></tr>
+<tr class="odd"><td><a name="U.CNYU"></a>CNYU</td><td> canyon</td><td> a relatively narrow, deep depression with steep sides, the bottom of which generally has a continuous slope</td></tr>
+<tr><td><a name="U.CRSU"></a>CRSU</td><td> continental rise</td><td> a gentle slope rising from oceanic depths towards the foot of a continental slope</td></tr>
+<tr class="odd"><td><a name="U.DEPU"></a>DEPU</td><td> deep</td><td> a localized deep area within the confines of a larger feature, such as a trough, basin or trench</td></tr>
+<tr><td><a name="U.EDGU"></a>EDGU</td><td> shelf edge</td><td> a line along which there is a marked increase of slope at the outer margin of a continental shelf or island shelf</td></tr>
+<tr class="odd"><td><a name="U.ESCU"></a>ESCU</td><td> escarpment (or scarp)</td><td> an elongated and comparatively steep slope separating flat or gently sloping areas</td></tr>
+<tr><td><a name="U.FANU"></a>FANU</td><td> fan</td><td> a relatively smooth feature normally sloping away from the lower termination of a canyon or canyon system</td></tr>
+<tr class="odd"><td><a name="U.FLTU"></a>FLTU</td><td> flat</td><td> a small level or nearly level area</td></tr>
+<tr><td><a name="U.FRZU"></a>FRZU</td><td> fracture zone</td><td> an extensive linear zone of irregular topography of the sea floor, characterized by steep-sided or asymmetrical ridges, troughs, or escarpments</td></tr>
+<tr class="odd"><td><a name="U.FURU"></a>FURU</td><td> furrow</td><td> a closed, linear, narrow, shallow depression</td></tr>
+<tr><td><a name="U.GAPU"></a>GAPU</td><td> gap</td><td> a narrow break in a ridge or rise</td></tr>
+<tr class="odd"><td><a name="U.GLYU"></a>GLYU</td><td> gully</td><td> a small valley-like feature</td></tr>
+<tr><td><a name="U.HLLU"></a>HLLU</td><td> hill</td><td> an elevation rising generally less than 500 meters</td></tr>
+<tr class="odd"><td><a name="U.HLSU"></a>HLSU</td><td> hills</td><td> elevations rising generally less than 500 meters</td></tr>
+<tr><td><a name="U.HOLU"></a>HOLU</td><td> hole</td><td> a small depression of the sea floor</td></tr>
+<tr class="odd"><td><a name="U.KNLU"></a>KNLU</td><td> knoll</td><td> an elevation rising generally more than 500 meters and less than 1,000 meters and of limited extent across the summit</td></tr>
+<tr><td><a name="U.KNSU"></a>KNSU</td><td> knolls</td><td> elevations rising generally more than 500 meters and less than 1,000 meters and of limited extent across the summits</td></tr>
+<tr class="odd"><td><a name="U.LDGU"></a>LDGU</td><td> ledge</td><td> a rocky projection or outcrop, commonly linear and near shore</td></tr>
+<tr><td><a name="U.LEVU"></a>LEVU</td><td> levee</td><td> an embankment bordering a canyon, valley, or seachannel</td></tr>
+<tr class="odd"><td><a name="U.MESU"></a>MESU</td><td> mesa</td><td> an isolated, extensive, flat-topped elevation on the shelf, with relatively steep sides</td></tr>
+<tr><td><a name="U.MNDU"></a>MNDU</td><td> mound</td><td> a low, isolated, rounded hill</td></tr>
+<tr class="odd"><td><a name="U.MOTU"></a>MOTU</td><td> moat</td><td> an annular depression that may not be continuous, located at the base of many seamounts, islands, and other isolated elevations</td></tr>
+<tr><td><a name="U.MTU"></a>MTU</td><td> mountain</td><td> a well-delineated subdivision of a large and complex positive feature</td></tr>
+<tr class="odd"><td><a name="U.PKSU"></a>PKSU</td><td> peaks</td><td> prominent elevations, part of a larger feature, either pointed or of very limited extent across the summit</td></tr>
+<tr><td><a name="U.PKU"></a>PKU</td><td> peak</td><td> a prominent elevation, part of a larger feature, either pointed or of very limited extent across the summit</td></tr>
+<tr class="odd"><td><a name="U.PLNU"></a>PLNU</td><td> plain</td><td> a flat, gently sloping or nearly level region</td></tr>
+<tr><td><a name="U.PLTU"></a>PLTU</td><td> plateau</td><td> a comparatively flat-topped feature of considerable extent, dropping off abruptly on one or more sides</td></tr>
+<tr class="odd"><td><a name="U.PNLU"></a>PNLU</td><td> pinnacle</td><td> a high tower or spire-shaped pillar of rock or coral, alone or cresting a summit</td></tr>
+<tr><td><a name="U.PRVU"></a>PRVU</td><td> province</td><td> a region identifiable by a group of similar physiographic features whose characteristics are markedly in contrast with surrounding areas</td></tr>
+<tr class="odd"><td><a name="U.RDGU"></a>RDGU</td><td> ridge</td><td> a long narrow elevation with steep sides</td></tr>
+<tr><td><a name="U.RDSU"></a>RDSU</td><td> ridges</td><td> long narrow elevations with steep sides</td></tr>
+<tr class="odd"><td><a name="U.RFSU"></a>RFSU</td><td> reefs</td><td> surface-navigation hazards composed of consolidated material</td></tr>
+<tr><td><a name="U.RFU"></a>RFU</td><td> reef</td><td> a surface-navigation hazard composed of consolidated material</td></tr>
+<tr class="odd"><td><a name="U.RISU"></a>RISU</td><td> rise</td><td> a broad elevation that rises gently, and generally smoothly, from the sea floor</td></tr>
+<tr><td><a name="U.SCNU"></a>SCNU</td><td> seachannel</td><td> a continuously sloping, elongated depression commonly found in fans or plains and customarily bordered by levees on one or two sides</td></tr>
+<tr class="odd"><td><a name="U.SCSU"></a>SCSU</td><td> seachannels</td><td> continuously sloping, elongated depressions commonly found in fans or plains and customarily bordered by levees on one or two sides</td></tr>
+<tr><td><a name="U.SDLU"></a>SDLU</td><td> saddle</td><td> a low part, resembling in shape a saddle, in a ridge or between contiguous seamounts</td></tr>
+<tr class="odd"><td><a name="U.SHFU"></a>SHFU</td><td> shelf</td><td> a zone adjacent to a continent (or around an island) that extends from the low water line to a depth at which there is usually a marked increase of slope towards oceanic depths</td></tr>
+<tr><td><a name="U.SHLU"></a>SHLU</td><td> shoal</td><td> a surface-navigation hazard composed of unconsolidated material</td></tr>
+<tr class="odd"><td><a name="U.SHSU"></a>SHSU</td><td> shoals</td><td> hazards to surface navigation composed of unconsolidated material</td></tr>
+<tr><td><a name="U.SHVU"></a>SHVU</td><td> shelf valley</td><td> a valley on the shelf, generally the shoreward extension of a canyon</td></tr>
+<tr class="odd"><td><a name="U.SILU"></a>SILU</td><td> sill</td><td> the low part of a gap or saddle separating basins</td></tr>
+<tr><td><a name="U.SLPU"></a>SLPU</td><td> slope</td><td> the slope seaward from the shelf edge to the beginning of a continental rise or the point where there is a general reduction in slope</td></tr>
+<tr class="odd"><td><a name="U.SMSU"></a>SMSU</td><td> seamounts</td><td> elevations rising generally more than 1,000 meters and of limited extent across the summit</td></tr>
+<tr><td><a name="U.SMU"></a>SMU</td><td> seamount</td><td> an elevation rising generally more than 1,000 meters and of limited extent across the summit</td></tr>
+<tr class="odd"><td><a name="U.SPRU"></a>SPRU</td><td> spur</td><td> a subordinate elevation, ridge, or rise projecting outward from a larger feature</td></tr>
+<tr><td><a name="U.TERU"></a>TERU</td><td> terrace</td><td> a relatively flat horizontal or gently inclined surface, sometimes long and narrow, which is bounded by a steeper ascending slope on one side and by a steep descending slope on the opposite side</td></tr>
+<tr class="odd"><td><a name="U.TMSU"></a>TMSU</td><td> tablemounts (or guyots)</td><td> seamounts having a comparatively smooth, flat top</td></tr>
+<tr><td><a name="U.TMTU"></a>TMTU</td><td> tablemount (or guyot)</td><td> a seamount having a comparatively smooth, flat top</td></tr>
+<tr class="odd"><td><a name="U.TNGU"></a>TNGU</td><td> tongue</td><td> an elongate (tongue-like) extension of a flat sea floor into an adjacent higher feature</td></tr>
+<tr><td><a name="U.TRGU"></a>TRGU</td><td> trough</td><td> a long depression of the sea floor characteristically flat bottomed and steep sided, and normally shallower than a trench</td></tr>
+<tr class="odd"><td><a name="U.TRNU"></a>TRNU</td><td> trench</td><td> a long, narrow, characteristically very deep and asymmetrical depression of the sea floor, with relatively steep sides</td></tr>
+<tr><td><a name="U.VALU"></a>VALU</td><td> valley</td><td> a relatively shallow, wide depression, the bottom of which usually has a continuous gradient</td></tr>
+<tr class="odd"><td><a name="U.VLSU"></a>VLSU</td><td> valleys</td><td> a relatively shallow, wide depression, the bottom of which usually has a continuous gradient</td></tr>
+<tr><th colspan="3"><a name="V"></a>V forest,heath,...</th></tr>
+<tr><td><a name="V.BUSH"></a>BUSH</td><td> bush(es)</td><td> a small clump of conspicuous bushes in an otherwise bare area</td></tr>
+<tr class="odd"><td><a name="V.CULT"></a>CULT</td><td> cultivated area</td><td> an area under cultivation</td></tr>
+<tr><td><a name="V.FRST"></a>FRST</td><td> forest(s)</td><td> an area dominated by tree vegetation</td></tr>
+<tr class="odd"><td><a name="V.FRSTF"></a>FRSTF</td><td> fossilized forest</td><td> a forest fossilized by geologic processes and now exposed at the earth's surface</td></tr>
+<tr><td><a name="V.GROVE"></a>GROVE</td><td> grove</td><td> a small wooded area or collection of trees growing closely together, occurring naturally or deliberately planted</td></tr>
+<tr class="odd"><td><a name="V.GRSLD"></a>GRSLD</td><td> grassland</td><td> an area dominated by grass vegetation</td></tr>
+<tr><td><a name="V.GRVC"></a>GRVC</td><td> coconut grove</td><td> a planting of coconut trees</td></tr>
+<tr class="odd"><td><a name="V.GRVO"></a>GRVO</td><td> olive grove</td><td> a planting of olive trees</td></tr>
+<tr><td><a name="V.GRVP"></a>GRVP</td><td> palm grove</td><td> a planting of palm trees</td></tr>
+<tr class="odd"><td><a name="V.GRVPN"></a>GRVPN</td><td> pine grove</td><td> a planting of pine trees</td></tr>
+<tr><td><a name="V.HTH"></a>HTH</td><td> heath</td><td> an upland moor or sandy area dominated by low shrubby vegetation including heather</td></tr>
+<tr class="odd"><td><a name="V.MDW"></a>MDW</td><td> meadow</td><td> a small, poorly drained area dominated by grassy vegetation</td></tr>
+<tr><td><a name="V.OCH"></a>OCH</td><td> orchard(s)</td><td> a planting of fruit or nut trees</td></tr>
+<tr class="odd"><td><a name="V.SCRB"></a>SCRB</td><td> scrubland</td><td> an area of low trees, bushes, and shrubs stunted by some environmental limitation</td></tr>
+<tr><td><a name="V.TREE"></a>TREE</td><td> tree(s)</td><td> a conspicuous tree used as a landmark</td></tr>
+<tr class="odd"><td><a name="V.TUND"></a>TUND</td><td> tundra</td><td> a marshy, treeless, high latitude plain, dominated by mosses, lichens, and low shrub vegetation under permafrost conditions</td></tr>
+<tr><td><a name="V.VIN"></a>VIN</td><td> vineyard</td><td> a planting of grapevines</td></tr>
+<tr class="odd"><td><a name="V.VINS"></a>VINS</td><td> vineyards</td><td> plantings of grapevines</td></tr>
+<tr><td><a name="null"></a>ll</td><td> not available</td><td></td></tr>
+<tr class="tfooter"><td colspan="3"></td></tr></table>
+</center>
+
+
+<p>&nbsp;<p>&nbsp;<p>&nbsp;<p>&nbsp;
+<div id="pageFooter">
+
+info@geonames.org <img src="/img/smallant.gif" alt="ant" align="middle" hspace="40" border="0">
+
+<p>
+
+<a href="/">GeoNames Home</a>
+<span class="separator">&#8226;</span>
+<a href="/postal-codes/">Postal Codes</a>
+<span class="separator">&#8226;</span>
+<a href="/export/">Download / Webservice</a>
+<span class="separator">&#8226;</span>
+<a href="http://forum.geonames.org">Forum</a>
+<span class="separator">&#8226;</span>
+<a href="http://geonames.wordpress.com">Blog</a>
+
+<span class="separator">&#8226;</span>
+<a href="/sitemap.html">Sitemap</a>
+
+
+</p>
+
+
+</div>
+
+
+</body></html>
+
+
