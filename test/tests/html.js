@@ -214,11 +214,12 @@ describe('HTML Parser', function () {
 
 		describe('#rawAttributes', function () {
 			it('should return escaped attributes of the element', function () {
-				const root = parseHTML('<p a=12 data-id="!$$&amp;" yAz=\'1\'></p>');
+				const root = parseHTML('<p a=12 data-id="!$$&amp;" yAz=\'1\' @click="doSmt()"></p>');
 				root.firstChild.rawAttributes.should.eql({
 					'a': '12',
 					'data-id': '!$$&amp;',
-					'yAz': '1'
+					'yAz': '1',
+					'@click': 'doSmt()'
 				});
 			});
 		});

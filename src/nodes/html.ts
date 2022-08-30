@@ -687,7 +687,7 @@ export default class HTMLElement extends Node {
 		}
 		const attrs = {} as RawAttributes;
 		if (this.rawAttrs) {
-			const re = /([a-zA-Z()[\]#][a-zA-Z0-9-_:()[\]#]*)(?:\s*=\s*((?:'[^']*')|(?:"[^"]*")|\S+))?/g;
+			const re = /([a-zA-Z()[\]#@][a-zA-Z0-9-_:()[\]#]*)(?:\s*=\s*((?:'[^']*')|(?:"[^"]*")|\S+))?/g;
 			let match: RegExpExecArray;
 			while ((match = re.exec(this.rawAttrs))) {
 				const key = match[1];
